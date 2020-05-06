@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Buscaminas</string>
     <string name="generate">Generate</string>
+    <string name="number_of_rows">Number of rows</string>
+    <string name="number_of_columns">Number of columns</string>
+    <string name="less_rows_button">Less Rows Button</string>
+    <string name="more_rows_button">More Rows Button</string>
+    <string name="less_columns_button">Less Columns Button</string>
+    <string name="more_columns_button">More Columns Button</string>
 </resources>
