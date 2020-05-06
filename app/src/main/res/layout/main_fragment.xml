@@ -5,16 +5,116 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondaryLightColor"
     tools:context=".ui.main.MainFragment">
 
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/rows_label"
+        style="@style/MainTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
+        android:text="Number of rows"
+        app:layout_constraintBottom_toTopOf="@+id/rows_quantity_text"
+        app:layout_constraintEnd_toEndOf="@+id/more_rows_button"
+        app:layout_constraintStart_toStartOf="@+id/less_rows_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageButton
+        android:id="@+id/less_rows_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
+        app:layout_constraintEnd_toStartOf="@+id/rows_quantity_text"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rows_quantity_text" />
+
+    <TextView
+        android:id="@+id/rows_quantity_text"
+        style="@style/MainTextNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        app:layout_constraintBottom_toTopOf="@+id/columns_label"
+        app:layout_constraintEnd_toStartOf="@+id/more_rows_button"
+        app:layout_constraintStart_toEndOf="@+id/less_rows_button"
+        app:layout_constraintTop_toBottomOf="@+id/rows_label" />
+
+    <ImageButton
+        android:id="@+id/more_rows_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rows_quantity_text"
+        app:layout_constraintTop_toTopOf="@+id/rows_quantity_text" />
+
+    <TextView
+        android:id="@+id/columns_label"
+        style="@style/MainTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Number of columns"
+        app:layout_constraintBottom_toTopOf="@+id/columns_quantity_text"
+        app:layout_constraintEnd_toEndOf="@+id/more_columns_button"
+        app:layout_constraintStart_toStartOf="@+id/less_columns_button"
+        app:layout_constraintTop_toBottomOf="@+id/rows_quantity_text" />
+
+    <ImageButton
+        android:id="@+id/less_columns_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
+        app:layout_constraintEnd_toStartOf="@+id/columns_quantity_text"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/columns_quantity_text" />
+
+    <TextView
+        android:id="@+id/columns_quantity_text"
+        style="@style/MainTextNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/more_columns_button"
+        app:layout_constraintStart_toEndOf="@+id/less_columns_button"
+        app:layout_constraintTop_toBottomOf="@+id/columns_label" />
+
+    <ImageButton
+        android:id="@+id/more_columns_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/columns_quantity_text"
+        app:layout_constraintTop_toTopOf="@+id/columns_quantity_text" />
+
+    <Button
+        android:id="@+id/generate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/generate"
+        android:textSize="@dimen/text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
