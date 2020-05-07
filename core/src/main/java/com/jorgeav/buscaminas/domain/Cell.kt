@@ -10,4 +10,10 @@ data class Cell (val x : Int, val y : Int,
                  var numberOfBombsInBounds : Int = 0
 ) {
     val id : String = "$x-$y"
+
+    companion object {
+        fun generateBoard(rows : Int, columns : Int, bombs : Int) : List<Cell> {
+            return emptyList()
+        }
+    }
 }
