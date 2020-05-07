@@ -10,29 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
-import com.jorgeav.buscaminas.data.Repository
 import com.jorgeav.buscaminas.databinding.MainFragmentBinding
-import com.jorgeav.buscaminas.db.PersistenceDataSource
-import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
-import com.jorgeav.buscaminas.usecases.GenerateBoardUseCase
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
     private lateinit var binding : MainFragmentBinding
     private lateinit var viewModel: MainViewModel
-
-    private lateinit var createNewBoardUseCase: CreateNewBoardUseCase
-    init {
-        // This would be done by a dependency injector in a complex App
-        //
-        val persistence = PersistenceDataSource()
-        val repository = Repository(persistence)
-
-        val generateBoardUseCase = GenerateBoardUseCase()
-        createNewBoardUseCase = CreateNewBoardUseCase(generateBoardUseCase, repository)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -67,7 +53,7 @@ class MainFragment : Fragment() {
             val rows = viewModel.rows.value ?: MIN_ROWS
             val columns = viewModel.columns.value ?: MIN_COLUMNS
             val bombs = ((rows * columns) / 4).toInt()
-            createNewBoardUseCase(rows, columns, bombs)
+            (activity as MainActivity).createNewBoardUseCase(rows, columns, bombs)
         }
             findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
     }

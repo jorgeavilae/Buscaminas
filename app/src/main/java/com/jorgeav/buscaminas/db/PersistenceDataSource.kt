@@ -1,14 +1,20 @@
 package com.jorgeav.buscaminas.db
 
+import android.content.Context
 import com.jorgeav.buscaminas.data.IPersistentDataSource
 import com.jorgeav.buscaminas.domain.Cell
 
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
-class PersistenceDataSource : IPersistentDataSource {
+class PersistenceDataSource(context: Context) : IPersistentDataSource {
+
+    private val cellDBDao = CellDBDatabase.getInstance(context).cellDBDao
+
     override suspend fun addAll(cells: List<Cell>) {
-        TODO("Not yet implemented")
+        val cellsDB : List<CellDB> = cells.map {
+            CellDB(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }
+        cellDBDao.addAllToDatabase(cellsDB)
     }
 
     override suspend fun readAll(): List<Cell> {
