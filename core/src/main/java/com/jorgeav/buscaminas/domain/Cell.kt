@@ -31,20 +31,29 @@ data class Cell (val x: Int, val y: Int,
 
                 // Place bomb in board
                 cells[randomPosition]?.isBomb = true
+                cells[randomPosition]?.numberOfBombsInBounds = 0
 
                 // Add one to adjacent cells on top
-                cells[Pair(randomPosition.first-1, randomPosition.second-1)]?.let { it.numberOfBombsInBounds += 1 }
-                cells[Pair(randomPosition.first-1, randomPosition.second)]?.let { it.numberOfBombsInBounds += 1 }
-                cells[Pair(randomPosition.first-1, randomPosition.second+1)]?.let { it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first-1, randomPosition.second-1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first-1, randomPosition.second)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first-1, randomPosition.second+1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
 
                 // Add one to adjacent cells on left and right
-                cells[Pair(randomPosition.first, randomPosition.second-1)]?.let { it.numberOfBombsInBounds += 1 }
-                cells[Pair(randomPosition.first, randomPosition.second+1)]?.let { it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first, randomPosition.second-1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first, randomPosition.second+1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
 
                 // Add one to adjacent cells on bottom
-                cells[Pair(randomPosition.first+1, randomPosition.second-1)]?.let { it.numberOfBombsInBounds += 1 }
-                cells[Pair(randomPosition.first+1, randomPosition.second)]?.let { it.numberOfBombsInBounds += 1 }
-                cells[Pair(randomPosition.first+1, randomPosition.second+1)]?.let { it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first+1, randomPosition.second-1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first+1, randomPosition.second)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
+                cells[Pair(randomPosition.first+1, randomPosition.second+1)]?.let {
+                    if (!it.isBomb) it.numberOfBombsInBounds += 1 }
             }
 
             return cells
