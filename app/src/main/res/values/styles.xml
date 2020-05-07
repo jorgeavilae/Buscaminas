@@ -43,10 +43,10 @@
         <item name="android:background">@drawable/image_button_background</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_borders_wide</item>
         <item name="android:paddingTop">@dimen/button_vertical_padding</item>
         <item name="android:paddingBottom">@dimen/button_vertical_padding</item>
-        <item name="android:paddingStart">@dimen/button_horizontal_padding</item>
-        <item name="android:paddingEnd">@dimen/button_horizontal_padding</item>
     </style>
 
 </resources>

@@ -31,12 +31,12 @@
 
         <ImageButton
             android:id="@+id/less_rows_button"
+            style="@style/ImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_left"
-            style="@style/ImageButtonStyle"
             android:contentDescription="@string/less_rows_button"
             android:onClick="@{() -> viewModel.onLessRowsClicked()}"
+            android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
             app:layout_constraintEnd_toStartOf="@+id/rows_quantity_text"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -55,12 +55,12 @@
 
         <ImageButton
             android:id="@+id/more_rows_button"
+            style="@style/ImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"
-            style="@style/ImageButtonStyle"
             android:contentDescription="@string/more_rows_button"
             android:onClick="@{() -> viewModel.onMoreRowsClicked()}"
+            android:src="@drawable/ic_arrow_right"
             app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rows_quantity_text"
@@ -80,12 +80,12 @@
 
         <ImageButton
             android:id="@+id/less_columns_button"
+            style="@style/ImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_left"
-            style="@style/ImageButtonStyle"
             android:contentDescription="@string/less_columns_button"
             android:onClick="@{() -> viewModel.onLessColumnsClicked()}"
+            android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
             app:layout_constraintEnd_toStartOf="@+id/columns_quantity_text"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -104,12 +104,12 @@
 
         <ImageButton
             android:id="@+id/more_columns_button"
+            style="@style/ImageButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"
-            style="@style/ImageButtonStyle"
             android:contentDescription="@string/more_columns_button"
             android:onClick="@{() -> viewModel.onMoreColumnsClicked()}"
+            android:src="@drawable/ic_arrow_right"
             app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/columns_quantity_text"
@@ -117,9 +117,10 @@
 
         <Button
             android:id="@+id/generate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onGenerateButtonClicked()}"
             android:text="@string/generate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

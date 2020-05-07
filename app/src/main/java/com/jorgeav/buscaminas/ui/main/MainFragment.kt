@@ -1,21 +1,18 @@
 package com.jorgeav.buscaminas.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private lateinit var binding : MainFragmentBinding
     private lateinit var viewModel: MainViewModel
@@ -38,8 +35,18 @@ class MainFragment : Fragment() {
                 enabledColumnsButtons(columns)
             }
         })
+        viewModel.generateButtonClicked.observe(viewLifecycleOwner, Observer { isClicked ->
+            if (isClicked) {
+                generateMinesweeperBoard()
+                viewModel.generateButtonClickedConsumed()
+            }
+        })
 
         return binding.root
+    }
+
+    private fun generateMinesweeperBoard() {
+        findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
     }
 
     private fun enabledRowsButtons(rows: Int) {

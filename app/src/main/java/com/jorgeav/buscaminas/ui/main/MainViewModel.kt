@@ -18,9 +18,14 @@ class MainViewModel : ViewModel() {
     val columns : LiveData<Int>
         get() = _columns
 
+    private val _generateButtonClicked = MutableLiveData<Boolean>()
+    val generateButtonClicked : LiveData<Boolean>
+        get() = _generateButtonClicked
+
     init {
         _rows.value = MIN_ROWS
         _columns.value = MIN_COLUMNS
+        _generateButtonClicked.value = false
     }
 
     fun onLessRowsClicked() {
@@ -41,5 +46,13 @@ class MainViewModel : ViewModel() {
     fun onMoreColumnsClicked() {
         val columns : Int = _columns.value ?: MIN_COLUMNS - 1
         _columns.value = if (columns < MAX_COLUMNS) columns.plus(1) else columns
+    }
+
+    fun onGenerateButtonClicked() {
+        _generateButtonClicked.value = true
+    }
+
+    fun generateButtonClickedConsumed() {
+        _generateButtonClicked.value = false
     }
 }
