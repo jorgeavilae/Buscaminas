@@ -14,12 +14,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/secondaryLightColor">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/rows_label"
-            style="@style/MainTextTitle"
+            style="@style/MainTextLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/number_of_rows"
@@ -35,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_left"
+            style="@style/ImageButtonStyle"
             android:contentDescription="@string/less_rows_button"
             android:onClick="@{() -> viewModel.onLessRowsClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
@@ -46,8 +46,6 @@
         <TextView
             android:id="@+id/rows_quantity_text"
             style="@style/MainTextNumbers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@{viewModel.rows.toString()}"
             app:layout_constraintBottom_toTopOf="@+id/columns_label"
             app:layout_constraintEnd_toStartOf="@+id/more_rows_button"
@@ -60,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right"
+            style="@style/ImageButtonStyle"
             android:contentDescription="@string/more_rows_button"
             android:onClick="@{() -> viewModel.onMoreRowsClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/rows_quantity_text"
@@ -69,10 +68,10 @@
 
         <TextView
             android:id="@+id/columns_label"
-            style="@style/MainTextTitle"
+            style="@style/MainTextLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/vertical_margin_section"
             android:text="@string/number_of_columns"
             app:layout_constraintBottom_toTopOf="@+id/columns_quantity_text"
             app:layout_constraintEnd_toEndOf="@+id/more_columns_button"
@@ -84,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_left"
+            style="@style/ImageButtonStyle"
             android:contentDescription="@string/less_columns_button"
             android:onClick="@{() -> viewModel.onLessColumnsClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
@@ -95,8 +95,6 @@
         <TextView
             android:id="@+id/columns_quantity_text"
             style="@style/MainTextNumbers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@{viewModel.columns.toString()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/more_columns_button"
@@ -109,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right"
+            style="@style/ImageButtonStyle"
             android:contentDescription="@string/more_columns_button"
             android:onClick="@{() -> viewModel.onMoreColumnsClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/columns_quantity_text"
@@ -120,9 +119,8 @@
             android:id="@+id/generate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            style="@style/ButtonStyle"
             android:text="@string/generate"
-            android:textSize="@dimen/text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

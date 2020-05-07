@@ -45,16 +45,16 @@ class MainFragment : Fragment() {
     private fun enabledRowsButtons(rows: Int) {
         when {
             rows <= MIN_ROWS -> {
-                binding.lessRowsButton.isClickable = false
-                binding.moreRowsButton.isClickable = true
+                binding.lessRowsButton.isEnabled = false
+                binding.moreRowsButton.isEnabled = true
             }
             rows >= MAX_ROWS -> {
-                binding.lessRowsButton.isClickable = true
-                binding.moreRowsButton.isClickable = false
+                binding.lessRowsButton.isEnabled = true
+                binding.moreRowsButton.isEnabled = false
             }
             else -> {
-                binding.lessRowsButton.isClickable = true
-                binding.moreRowsButton.isClickable = true
+                binding.lessRowsButton.isEnabled = true
+                binding.moreRowsButton.isEnabled = true
             }
         }
     }

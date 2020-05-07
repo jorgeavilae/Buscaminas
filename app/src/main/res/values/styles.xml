@@ -7,6 +7,9 @@
     </style>
 
     <style name="MainTextNumbers" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:layout_width">@dimen/text_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textAllCaps">true</item>
@@ -18,14 +21,32 @@
         <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
     </style>
 
-    <style name="MainTextTitle" parent="TextAppearance.AppCompat.Caption">
+    <style name="MainTextLabel" parent="TextAppearance.AppCompat.Caption">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/secondaryDarkColor</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
-        <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_related</item>
+    </style>
+
+    <style name="ImageButtonStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@drawable/image_button_background</item>
+        <item name="android:paddingTop">@dimen/image_button_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/image_button_vertical_padding</item>
+        <item name="android:paddingStart">@dimen/image_button_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/image_button_horizontal_padding</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/image_button_background</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:paddingTop">@dimen/button_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/button_vertical_padding</item>
+        <item name="android:paddingStart">@dimen/button_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/button_horizontal_padding</item>
     </style>
 
 </resources>
