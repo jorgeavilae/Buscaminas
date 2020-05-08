@@ -71,7 +71,7 @@ object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
 @BindingAdapter("cellContent")
 fun TextView.setCellContent(item: Cell?) {
     item?.let {
-        // TODO completar apariencia de cada list item
+        // TODO 1 completar apariencia de cada list item
         text = "${it.numberOfBombsInBounds}"
 
     }

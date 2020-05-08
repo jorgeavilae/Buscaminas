@@ -50,10 +50,12 @@ class MinesweeperFragment : Fragment() {
 
         adapter = CellsBoardAdapter( object : CellItemClickListener {
             override fun onClick(cellId: Pair<Int, Int>) {
+                //Todo 2 voltear celda
                 Toast.makeText(context, cellId.toString(), Toast.LENGTH_SHORT).show()
             }
 
             override fun onLongClick(cellId: Pair<Int, Int>) {
+                //TODO 2 marcar celda
                 Toast.makeText(context, cellsMap[cellId].toString(), Toast.LENGTH_SHORT).show()
             }}
         )
