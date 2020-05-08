@@ -1,15 +1,15 @@
 package com.jorgeav.buscaminas.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
+import kotlinx.coroutines.launch
 
 const val MIN_ROWS = 4
 const val MAX_ROWS = 20
 const val MIN_COLUMNS = 4
 const val MAX_COLUMNS = 20
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModel() {
     private val _rows = MutableLiveData<Int>()
     val rows : LiveData<Int>
         get() = _rows
@@ -18,14 +18,14 @@ class MainViewModel : ViewModel() {
     val columns : LiveData<Int>
         get() = _columns
 
-    private val _generateButtonClicked = MutableLiveData<Boolean>()
-    val generateButtonClicked : LiveData<Boolean>
-        get() = _generateButtonClicked
+    private val _navigateToBoardFragmentState = MutableLiveData<Boolean>()
+    val navigateToBoardFragmentState : LiveData<Boolean>
+        get() = _navigateToBoardFragmentState
 
     init {
         _rows.value = MIN_ROWS
         _columns.value = MIN_COLUMNS
-        _generateButtonClicked.value = false
+        _navigateToBoardFragmentState.value = false
     }
 
     fun onLessRowsClicked() {
@@ -48,11 +48,28 @@ class MainViewModel : ViewModel() {
         _columns.value = if (columns < MAX_COLUMNS) columns.plus(1) else columns
     }
 
-    fun onGenerateButtonClicked() {
-        _generateButtonClicked.value = true
+    fun onGenerateBoardClicked() {
+        viewModelScope.launch {
+            val rows = _rows.value ?: MIN_ROWS
+            val columns = _columns.value ?: MIN_COLUMNS
+            val bombs = ((rows * columns) / 4).toInt()
+            createNewBoardUseCase(rows, columns, bombs)
+        }
+
+        _navigateToBoardFragmentState.value = true
     }
 
-    fun generateButtonClickedConsumed() {
-        _generateButtonClicked.value = false
+    fun navigateToBoardFragmentConsumed() {
+        _navigateToBoardFragmentState.value = false
+    }
+
+    class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                return MainViewModel(createNewBoardUseCase) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 }

@@ -8,12 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MainFragmentBinding
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
@@ -24,7 +22,9 @@ class MainFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val viewModelFactory = MainViewModel.Factory((activity as MainActivity).createNewBoardUseCase)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -38,24 +38,18 @@ class MainFragment : Fragment() {
                 enabledColumnsButtons(columns)
             }
         })
-        viewModel.generateButtonClicked.observe(viewLifecycleOwner, Observer { isClicked ->
-            if (isClicked) {
-                generateMinesweeperBoard()
-                viewModel.generateButtonClickedConsumed()
+        viewModel.navigateToBoardFragmentState.observe(viewLifecycleOwner, Observer { state ->
+            if (state) {
+                navigateToBoardFragment()
+                viewModel.navigateToBoardFragmentConsumed()
             }
         })
 
         return binding.root
     }
 
-    private fun generateMinesweeperBoard() {
-        lifecycleScope.launch {
-            val rows = viewModel.rows.value ?: MIN_ROWS
-            val columns = viewModel.columns.value ?: MIN_COLUMNS
-            val bombs = ((rows * columns) / 4).toInt()
-            (activity as MainActivity).createNewBoardUseCase(rows, columns, bombs)
-        }
-            findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
+    private fun navigateToBoardFragment() {
+        findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
     }
 
     private fun enabledRowsButtons(rows: Int) {
