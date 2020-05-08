@@ -20,7 +20,7 @@ interface CellDBDao {
     suspend fun readAllFromDatabase(): List<CellDB>
 
     @Query("UPDATE cell_table SET isShowing = 1 WHERE x = :x AND y = :y")
-    suspend fun updateFlipCellInDatabase(x: Int, y: Int)
+    suspend fun updateShowCellInDatabase(x: Int, y: Int)
 
     @Query("UPDATE cell_table SET isMarked = 1 WHERE x = :x AND y = :y")
     suspend fun updateMarkCellInDatabase(x: Int, y: Int)

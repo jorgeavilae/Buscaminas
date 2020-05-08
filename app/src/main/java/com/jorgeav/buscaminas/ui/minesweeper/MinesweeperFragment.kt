@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +13,7 @@ import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MinesweeperFragmentBinding
 import com.jorgeav.buscaminas.domain.Cell
+import kotlin.math.sqrt
 
 class MinesweeperFragment : Fragment() {
 
@@ -29,7 +29,8 @@ class MinesweeperFragment : Fragment() {
 
         val viewModelFactory = MinesweeperViewModel.Factory(
                 (activity as MainActivity).loadBoardUseCase,
-                (activity as MainActivity).changeMarkInCellUseCase)
+                (activity as MainActivity).changeMarkInCellUseCase,
+                (activity as MainActivity).showCellUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -40,45 +41,22 @@ class MinesweeperFragment : Fragment() {
             }
         })
 
-        viewModel.cellGridLongClickState.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                adapter.notifyDataSetChanged()
-                viewModel.cellGridLongClickConsumed()
-            }
-        })
-
         return binding.root
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
-        val columns = numOfColumnsInBoard(cellsMap.values)
-
-        val manager = GridLayoutManager(this.activity, columns)
+        // RecyclerView Layout Manager
+        val manager = GridLayoutManager(this.activity, sqrt(cellsMap.size.toFloat()).toInt())
         binding.cellsBoardView.layoutManager = manager
 
+
+        // RecyclerView Adapter
         adapter = CellsBoardAdapter( object : CellItemClickListener {
-            override fun onClick(cell: Cell) {
-                //Todo 2 voltear celda
-                Toast.makeText(context, cell.id, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onLongClick(cell: Cell) {
-                //TODO 2 marcar celda
-                Toast.makeText(context, cell.toString(), Toast.LENGTH_SHORT).show()
-                viewModel.cellGridLongClicked(cell)
-            }}
-        )
+            override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
+            override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
+        })
         binding.cellsBoardView.adapter = adapter
-
         adapter.submitList(cellsMap.values.toList())
-    }
-
-    private fun numOfColumnsInBoard(cellsMap: Collection<Cell>): Int {
-        var columns : Int = 0
-        cellsMap.maxBy { it.y }?.let{
-            columns = it.y + 1
-        }
-        return columns
     }
 
 }

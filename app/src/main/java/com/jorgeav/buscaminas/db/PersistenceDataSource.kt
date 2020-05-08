@@ -23,9 +23,7 @@ class PersistenceDataSource(context: Context) : IPersistentDataSource {
         cellDBDao.readAllFromDatabase().map {
             Cell(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }
 
-    override suspend fun showCell(x: Int, y: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun showCell(x: Int, y: Int) = cellDBDao.updateShowCellInDatabase(x,y)
 
     override suspend fun markCell(x: Int, y: Int) = cellDBDao.updateMarkCellInDatabase(x,y)
     override suspend fun unmarkCell(x: Int, y: Int) = cellDBDao.updateUnmarkCellInDatabase(x,y)

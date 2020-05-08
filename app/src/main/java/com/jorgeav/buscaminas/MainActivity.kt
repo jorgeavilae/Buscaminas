@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var createNewBoardUseCase: CreateNewBoardUseCase
     lateinit var loadBoardUseCase: LoadBoardUseCase
     lateinit var changeMarkInCellUseCase: ChangeMarkInCellUseCase
+    lateinit var showCellUseCase: ShowCellUseCase
     fun init() {
         // TODO This would be done by a dependency injector in a complex App
         val persistence = PersistenceDataSource(this)
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             repository)
         loadBoardUseCase = LoadBoardUseCase(repository)
         changeMarkInCellUseCase = ChangeMarkInCellUseCase(repository)
+        showCellUseCase = ShowCellUseCase(repository)
     }
 
 
