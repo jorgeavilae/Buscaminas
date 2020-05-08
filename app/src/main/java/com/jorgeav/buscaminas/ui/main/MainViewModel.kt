@@ -52,7 +52,7 @@ class MainViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : 
         viewModelScope.launch {
             val rows = _rows.value ?: MIN_ROWS
             val columns = _columns.value ?: MIN_COLUMNS
-            val bombs = ((rows * columns) / 4).toInt()
+            val bombs = (rows * columns) / 4
             createNewBoardUseCase(rows, columns, bombs)
         }
 

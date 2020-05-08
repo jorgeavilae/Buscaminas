@@ -22,9 +22,9 @@ class MainFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 
-        val viewModelFactory = MainViewModel.Factory((activity as MainActivity).createNewBoardUseCase)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(MainViewModel::class.java)
+        val viewModelFactory = MainViewModel
+            .Factory((activity as MainActivity).createNewBoardUseCase)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
