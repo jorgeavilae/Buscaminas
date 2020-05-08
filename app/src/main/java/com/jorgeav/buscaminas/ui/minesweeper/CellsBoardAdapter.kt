@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.GridItemCellBinding
 import com.jorgeav.buscaminas.domain.Cell
 
@@ -71,13 +72,17 @@ object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
 @BindingAdapter("cellContent")
 fun TextView.setCellContent(item: Cell?) {
     item?.let {
-        // TODO 1 completar apariencia de cada list item
-        text =
-            if (!it.isShowing)
-                if (it.isMarked) "?" else ""
-            else
-                if (it.isBomb) "X"
-                else
-                    if (it.numberOfBombsInBounds == 0) "0" else it.numberOfBombsInBounds.toString()
+        if (!it.isShowing) {
+            background = resources.getDrawable(R.drawable.cell_grid_background_hide, null)
+            text = if (it.isMarked) "?" else ""
+        } else {
+            if (it.isBomb) {
+                background = resources.getDrawable(R.drawable.cell_grid_background_bomb, null)
+                text = "X"
+            } else {
+                background = resources.getDrawable(R.drawable.cell_grid_background_show, null)
+                text = if (it.numberOfBombsInBounds != 0) it.numberOfBombsInBounds.toString() else ""
+            }
+        }
     }
 }
