@@ -12,12 +12,12 @@ data class Cell (val x: Int, val y: Int,
     val id: String = "$x-$y"
 
     companion object {
-        fun generateBoard(rows: Int, columns: Int, bombs: Int): Map<Pair<Int, Int>, Cell> {
+        fun generateBoard(cellsBySide: Int, bombs: Int): Map<Pair<Int, Int>, Cell> {
             val cells = mutableMapOf<Pair<Int, Int>, Cell>()
 
             // Generate empty cells
-            for (i in 0 until rows)
-                for (j in 0 until columns)
+            for (i in 0 until cellsBySide)
+                for (j in 0 until cellsBySide)
                     cells[Pair(i,j)] = Cell(i, j)
 
             // Fill board with bombs
@@ -25,7 +25,7 @@ data class Cell (val x: Int, val y: Int,
                 // Select random Cell
                 var randomPosition: Pair<Int, Int>
                 do {
-                    randomPosition = Pair((0 until rows).random(), (0 until columns).random())
+                    randomPosition = Pair((0 until cellsBySide).random(), (0 until cellsBySide).random())
                     val cellSelected = cells[randomPosition]
                 } while (cellSelected == null || cellSelected.isBomb)
 

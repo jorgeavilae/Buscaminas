@@ -10,9 +10,9 @@ import kotlinx.coroutines.withContext
 class CreateNewBoardUseCase(private val deleteBoardUseCase: DeleteBoardUseCase,
                             private val generateBoardUseCase: GenerateBoardUseCase,
                             private val cellsRepository: Repository) {
-    suspend operator fun invoke(rows : Int, columns : Int, bombs : Int) {
+    suspend operator fun invoke(cellsBySide : Int, bombs : Int) {
         deleteBoardUseCase()
-        val cells = generateBoardUseCase(rows, columns, bombs)
+        val cells = generateBoardUseCase(cellsBySide, bombs)
 
         withContext(Dispatchers.IO) {
             cellsRepository.addAll(cells)

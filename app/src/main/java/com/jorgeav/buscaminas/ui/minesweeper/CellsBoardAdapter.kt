@@ -72,7 +72,6 @@ object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
 fun TextView.setCellContent(item: Cell?) {
     item?.let {
         // TODO 1 completar apariencia de cada list item
-        text = "${it.numberOfBombsInBounds}"
-
+        text = if (it.isBomb) "X" else ""
     }
 }

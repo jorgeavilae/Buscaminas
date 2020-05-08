@@ -28,14 +28,15 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.rows.observe(viewLifecycleOwner, Observer { rows ->
-            rows?.let {
-                enabledRowsButtons(rows)
+        viewModel.cellsBySide.observe(viewLifecycleOwner, Observer { cellsBySide ->
+            cellsBySide?.let {
+                enabledCellsButtons(cellsBySide)
+                enabledBombsButtons(viewModel.bombs.value?: viewModel.minBombs)
             }
         })
-        viewModel.columns.observe(viewLifecycleOwner, Observer { columns ->
-            columns?.let {
-                enabledColumnsButtons(columns)
+        viewModel.bombs.observe(viewLifecycleOwner, Observer { bombs ->
+            bombs?.let {
+                enabledBombsButtons(bombs)
             }
         })
         viewModel.navigateToBoardFragmentState.observe(viewLifecycleOwner, Observer { state ->
@@ -52,13 +53,13 @@ class MainFragment : Fragment() {
         findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
     }
 
-    private fun enabledRowsButtons(rows: Int) {
+    private fun enabledCellsButtons(cells: Int) {
         when {
-            rows <= MIN_ROWS -> {
+            cells <= MIN_CELLS -> {
                 binding.lessRowsButton.isEnabled = false
                 binding.moreRowsButton.isEnabled = true
             }
-            rows >= MAX_ROWS -> {
+            cells >= MAX_CELLS -> {
                 binding.lessRowsButton.isEnabled = true
                 binding.moreRowsButton.isEnabled = false
             }
@@ -69,13 +70,13 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun enabledColumnsButtons(columns: Int) {
+    private fun enabledBombsButtons(bombs: Int) {
         when {
-            columns <= MIN_COLUMNS -> {
+            bombs <= viewModel.minBombs ?: MIN_CELLS -> {
                 binding.lessColumnsButton.isEnabled = false
                 binding.moreColumnsButton.isEnabled = true
             }
-            columns >= MAX_COLUMNS -> {
+            bombs >= viewModel.maxBombs ?: MIN_CELLS -> {
                 binding.lessColumnsButton.isEnabled = true
                 binding.moreColumnsButton.isEnabled = false
             }
