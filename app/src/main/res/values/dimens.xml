@@ -17,4 +17,9 @@
     <dimen name="image_button_vertical_padding">2dp</dimen>
     <dimen name="image_button_horizontal_padding">8dp</dimen>
     <dimen name="image_button_corner_radius">4dp</dimen>
+
+    <dimen name="grid_item_background_corner_radius">1dp</dimen>
+    <dimen name="grid_item_background_stroke_width">1dp</dimen>
+    <dimen name="grid_item_padding">4dp</dimen>
+    <dimen name="grid_item_margin">1dp</dimen>
 </resources>
