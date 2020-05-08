@@ -17,9 +17,9 @@ class PersistenceDataSource(context: Context) : IPersistentDataSource {
         cellDBDao.addAllToDatabase(cellsDB)
     }
 
-    override suspend fun readAll(): List<Cell> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun readAll(): List<Cell> =
+        cellDBDao.readAllFromDatabase().map {
+            Cell(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }
 
     override suspend fun showCell(x: Int, y: Int) {
         TODO("Not yet implemented")

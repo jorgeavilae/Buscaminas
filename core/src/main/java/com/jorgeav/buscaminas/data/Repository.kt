@@ -9,7 +9,8 @@ class Repository(private val dataSource: IPersistentDataSource) {
 
     suspend fun addAll(cells : Map<Pair<Int, Int>, Cell>) = dataSource.addAll(cells.values.toList())
 
-    suspend fun readAll() : List<Cell> = dataSource.readAll() //TODO transform to Map???
+    suspend fun readAll() : Map<Pair<Int, Int>, Cell> =
+        dataSource.readAll().map { Pair(it.x, it.y) to it }.toMap()
 
     suspend fun showCell(cell : Cell) = dataSource.showCell(cell.x, cell.y)
 

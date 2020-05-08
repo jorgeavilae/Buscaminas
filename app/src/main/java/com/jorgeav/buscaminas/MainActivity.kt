@@ -10,11 +10,13 @@ import com.jorgeav.buscaminas.db.DATABASE_NAME
 import com.jorgeav.buscaminas.db.PersistenceDataSource
 import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
 import com.jorgeav.buscaminas.usecases.GenerateBoardUseCase
+import com.jorgeav.buscaminas.usecases.LoadBoardUseCase
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var createNewBoardUseCase: CreateNewBoardUseCase
+    lateinit var loadBoardUseCase: LoadBoardUseCase
     fun init() {
         // TODO This would be done by a dependency injector in a complex App
         val persistence = PersistenceDataSource(this)
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val generateBoardUseCase = GenerateBoardUseCase()
         createNewBoardUseCase = CreateNewBoardUseCase(generateBoardUseCase, repository)
+        loadBoardUseCase = LoadBoardUseCase(repository)
     }
 
 

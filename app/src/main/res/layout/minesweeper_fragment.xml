@@ -6,6 +6,7 @@
     tools:context=".ui.minesweeper.MinesweeperFragment">
 
     <TextView
+        android:id="@+id/minesweeperFragment_textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/app_name" />
