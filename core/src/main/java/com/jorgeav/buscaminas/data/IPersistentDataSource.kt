@@ -15,4 +15,5 @@ interface IPersistentDataSource {
     suspend fun showCell(x : Int, y : Int)
 
     suspend fun markCell(x : Int, y : Int)
+    suspend fun unmarkCell(x : Int, y : Int)
 }

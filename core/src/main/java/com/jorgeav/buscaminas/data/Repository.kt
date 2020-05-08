@@ -16,5 +16,7 @@ class Repository(private val dataSource: IPersistentDataSource) {
 
     suspend fun showCell(cell : Cell) = dataSource.showCell(cell.x, cell.y)
 
-    suspend fun markCell(cell : Cell) = dataSource.markCell(cell.x, cell.y)
+    suspend fun changeMarkCell(cell : Cell) =
+        if (!cell.isMarked) dataSource.markCell(cell.x, cell.y)
+        else dataSource.unmarkCell(cell.x, cell.y)
 }

@@ -27,8 +27,9 @@ class MinesweeperFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.minesweeper_fragment, container, false)
 
-        val viewModelFactory = MinesweeperViewModel
-            .Factory((activity as MainActivity).loadBoardUseCase)
+        val viewModelFactory = MinesweeperViewModel.Factory(
+                (activity as MainActivity).loadBoardUseCase,
+                (activity as MainActivity).changeMarkInCellUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -36,6 +37,13 @@ class MinesweeperFragment : Fragment() {
         viewModel.cells.observe(viewLifecycleOwner, Observer { cellsMap ->
             cellsMap?.let {
                 showCellsInGrid(it)
+            }
+        })
+
+        viewModel.cellGridLongClickState.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                adapter.notifyDataSetChanged()
+                viewModel.cellGridLongClickConsumed()
             }
         })
 
@@ -49,14 +57,15 @@ class MinesweeperFragment : Fragment() {
         binding.cellsBoardView.layoutManager = manager
 
         adapter = CellsBoardAdapter( object : CellItemClickListener {
-            override fun onClick(cellId: Pair<Int, Int>) {
+            override fun onClick(cell: Cell) {
                 //Todo 2 voltear celda
-                Toast.makeText(context, cellId.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, cell.id, Toast.LENGTH_SHORT).show()
             }
 
-            override fun onLongClick(cellId: Pair<Int, Int>) {
+            override fun onLongClick(cell: Cell) {
                 //TODO 2 marcar celda
-                Toast.makeText(context, cellsMap[cellId].toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, cell.toString(), Toast.LENGTH_SHORT).show()
+                viewModel.cellGridLongClicked(cell)
             }}
         )
         binding.cellsBoardView.adapter = adapter

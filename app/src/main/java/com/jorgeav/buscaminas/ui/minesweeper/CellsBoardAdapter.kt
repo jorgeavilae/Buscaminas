@@ -40,11 +40,11 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
             binding.cell = item
 
             binding.cellGridTextView.setOnClickListener {
-                clickListener.onClick(Pair(item.x, item.y))
+                clickListener.onClick(item)
             }
 
             binding.cellGridTextView.setOnLongClickListener {
-                clickListener.onLongClick(Pair(item.x, item.y))
+                clickListener.onLongClick(item)
                 return@setOnLongClickListener true
             }
 
@@ -54,8 +54,8 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
 }
 
 interface CellItemClickListener {
-    fun onClick(cellId: Pair<Int, Int>)
-    fun onLongClick(cellId: Pair<Int, Int>)
+    fun onClick(cell: Cell)
+    fun onLongClick(cell: Cell)
 }
 
 object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
@@ -72,6 +72,12 @@ object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
 fun TextView.setCellContent(item: Cell?) {
     item?.let {
         // TODO 1 completar apariencia de cada list item
-        text = if (it.isBomb) "X" else ""
+        text =
+            if (!it.isShowing)
+                if (it.isMarked) "?" else ""
+            else
+                if (it.isBomb) "X"
+                else
+                    if (it.numberOfBombsInBounds == 0) "0" else it.numberOfBombsInBounds.toString()
     }
 }
