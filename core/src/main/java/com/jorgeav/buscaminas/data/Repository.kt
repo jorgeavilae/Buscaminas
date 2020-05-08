@@ -9,6 +9,8 @@ class Repository(private val dataSource: IPersistentDataSource) {
 
     suspend fun addAll(cells : Map<Pair<Int, Int>, Cell>) = dataSource.addAll(cells.values.toList())
 
+    suspend fun deleteAllCells() = dataSource.deleteAllCells()
+
     suspend fun readAll() : Map<Pair<Int, Int>, Cell> =
         dataSource.readAll().map { Pair(it.x, it.y) to it }.toMap()
 

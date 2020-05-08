@@ -13,6 +13,9 @@ interface CellDBDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAllToDatabase(cells: List<CellDB>)
 
+    @Query("DELETE FROM cell_table")
+    suspend fun deleteAllCellsFromDatabase()
+
     @Query("SELECT * FROM cell_table")
     suspend fun readAllFromDatabase(): List<CellDB>
 

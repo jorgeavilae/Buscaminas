@@ -8,6 +8,8 @@ import com.jorgeav.buscaminas.domain.Cell
 interface IPersistentDataSource {
     suspend fun addAll(cells : List<Cell>)
 
+    suspend fun deleteAllCells()
+
     suspend fun readAll() : List<Cell>
 
     suspend fun showCell(x : Int, y : Int)

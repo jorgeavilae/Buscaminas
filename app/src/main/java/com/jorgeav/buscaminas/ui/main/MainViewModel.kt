@@ -54,9 +54,9 @@ class MainViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : 
             val columns = _columns.value ?: MIN_COLUMNS
             val bombs = (rows * columns) / 4
             createNewBoardUseCase(rows, columns, bombs)
-        }
 
-        _navigateToBoardFragmentState.value = true
+            _navigateToBoardFragmentState.value = true
+        }
     }
 
     fun navigateToBoardFragmentConsumed() {

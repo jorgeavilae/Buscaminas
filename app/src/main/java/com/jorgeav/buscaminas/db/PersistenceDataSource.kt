@@ -17,6 +17,8 @@ class PersistenceDataSource(context: Context) : IPersistentDataSource {
         cellDBDao.addAllToDatabase(cellsDB)
     }
 
+    override suspend fun deleteAllCells() = cellDBDao.deleteAllCellsFromDatabase()
+
     override suspend fun readAll(): List<Cell> =
         cellDBDao.readAllFromDatabase().map {
             Cell(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }

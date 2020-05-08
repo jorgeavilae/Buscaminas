@@ -9,6 +9,7 @@ import com.jorgeav.buscaminas.db.CellDBDatabase
 import com.jorgeav.buscaminas.db.DATABASE_NAME
 import com.jorgeav.buscaminas.db.PersistenceDataSource
 import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
+import com.jorgeav.buscaminas.usecases.DeleteBoardUseCase
 import com.jorgeav.buscaminas.usecases.GenerateBoardUseCase
 import com.jorgeav.buscaminas.usecases.LoadBoardUseCase
 import com.wajahatkarim3.roomexplorer.RoomExplorer
@@ -22,8 +23,12 @@ class MainActivity : AppCompatActivity() {
         val persistence = PersistenceDataSource(this)
         val repository = Repository(persistence)
 
+        val deleteBoardUseCase = DeleteBoardUseCase(repository)
         val generateBoardUseCase = GenerateBoardUseCase()
-        createNewBoardUseCase = CreateNewBoardUseCase(generateBoardUseCase, repository)
+        createNewBoardUseCase = CreateNewBoardUseCase(
+            deleteBoardUseCase,
+            generateBoardUseCase,
+            repository)
         loadBoardUseCase = LoadBoardUseCase(repository)
     }
 
