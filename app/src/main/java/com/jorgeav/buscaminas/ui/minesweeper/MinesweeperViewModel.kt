@@ -14,11 +14,16 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
 
+    private val _newBoardButtonState = MutableLiveData<Boolean>()
+    val newBoardButtonState : LiveData<Boolean>
+        get() = _newBoardButtonState
+
     init {
-        loadCellsData()
+        refreshCellsData()
+        _newBoardButtonState.value = false
     }
 
-    private fun loadCellsData() {
+    fun refreshCellsData() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
         }
@@ -35,6 +40,14 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             changeMarkInCellUseCase(cell)
             _cells.value = loadBoardUseCase()
         }
+    }
+
+    fun onNewBoardClicked() {
+        _cells.value = null
+        _newBoardButtonState.value = true
+    }
+    fun onNewBoardButtonStateConsumed() {
+        _newBoardButtonState.value = false
     }
 
     class Factory (private val loadBoardUseCase: LoadBoardUseCase,

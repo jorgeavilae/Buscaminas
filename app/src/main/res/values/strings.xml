@@ -2,6 +2,7 @@
     <string name="app_name">Buscaminas</string>
 
     <string name="generate">Generate</string>
+    <string name="new_board">New Board</string>
 
     <string name="number_of_cells">Number of cells by side (N x N)</string>
     <string name="number_of_bombs">Number of bombs</string>

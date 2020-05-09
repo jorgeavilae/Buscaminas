@@ -19,14 +19,14 @@ class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase
     var minBombs : Int = MIN_CELLS
     var maxBombs : Int = MAX_CELLS
 
-    private val _navigateToBoardFragmentState = MutableLiveData<Boolean>()
-    val navigateToBoardFragmentState : LiveData<Boolean>
-        get() = _navigateToBoardFragmentState
+    private val _finishGenerateBoardState = MutableLiveData<Boolean>()
+    val finishGenerateBoardState : LiveData<Boolean>
+        get() = _finishGenerateBoardState
 
     init {
         updateCellsSelected(MIN_CELLS)
         _bombs.value = minBombs
-        _navigateToBoardFragmentState.value = false
+        _finishGenerateBoardState.value = false
     }
 
     private fun updateCellsSelected(value : Int) {
@@ -74,12 +74,12 @@ class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase
             val bombs = _bombs.value ?: cellsBySide //Use cells by side as default bombs value
             createNewBoardUseCase(cellsBySide, bombs)
 
-            _navigateToBoardFragmentState.value = true
+            _finishGenerateBoardState.value = true
         }
     }
 
-    fun navigateToBoardFragmentConsumed() {
-        _navigateToBoardFragmentState.value = false
+    fun finishGenerateBoardStateConsumed() {
+        _finishGenerateBoardState.value = false
     }
 
     class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModelProvider.Factory {

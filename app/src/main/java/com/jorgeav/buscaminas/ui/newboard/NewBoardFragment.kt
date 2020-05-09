@@ -39,18 +39,14 @@ class NewBoardFragment : Fragment() {
                 enabledBombsButtons(bombs)
             }
         })
-        viewModel.navigateToBoardFragmentState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.finishGenerateBoardState.observe(viewLifecycleOwner, Observer { state ->
             if (state) {
-                navigateToBoardFragment()
-                viewModel.navigateToBoardFragmentConsumed()
+                viewModel.finishGenerateBoardStateConsumed()
+                findNavController().popBackStack()
             }
         })
 
         return binding.root
-    }
-
-    private fun navigateToBoardFragment() {
-        findNavController().navigate(R.id.action_newBoardFragment_to_minesweeperFragment)
     }
 
     private fun enabledCellsButtons(cells: Int) {

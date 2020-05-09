@@ -3,20 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/minesweeperFragment">
 
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.jorgeav.buscaminas.ui.newboard.NewBoardFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/new_board_fragment">
-        <action
-            android:id="@+id/action_newBoardFragment_to_minesweeperFragment"
-            app:destination="@id/minesweeperFragment" />
-    </fragment>
     <fragment
         android:id="@+id/minesweeperFragment"
         android:name="com.jorgeav.buscaminas.ui.minesweeper.MinesweeperFragment"
         android:label="minesweeper_fragment"
-        tools:layout="@layout/minesweeper_fragment" />
+        tools:layout="@layout/minesweeper_fragment">
+        <action
+            android:id="@+id/action_minesweeperFragment_to_newBoardFragment"
+            app:destination="@id/newBoardFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newBoardFragment"
+        android:name="com.jorgeav.buscaminas.ui.newboard.NewBoardFragment"
+        android:label="new_board_fragment"
+        tools:layout="@layout/new_board_fragment"/>
+
 </navigation>

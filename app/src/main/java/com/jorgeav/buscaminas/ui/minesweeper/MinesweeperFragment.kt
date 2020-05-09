@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
@@ -41,7 +42,19 @@ class MinesweeperFragment : Fragment() {
             }
         })
 
+        viewModel.newBoardButtonState.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                navigateToNewBoardFragment()
+                viewModel.onNewBoardButtonStateConsumed()
+            }
+        })
+
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.refreshCellsData()
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
@@ -57,6 +70,25 @@ class MinesweeperFragment : Fragment() {
         })
         binding.cellsBoardView.adapter = adapter
         adapter.submitList(cellsMap.values.toList())
+
+
+        // Show grid / hide progressBar
+        shouldShowProgressView(false)
+    }
+
+    private fun navigateToNewBoardFragment() {
+        shouldShowProgressView(true)
+        findNavController().navigate(R.id.action_minesweeperFragment_to_newBoardFragment)
+    }
+
+    private fun shouldShowProgressView(showProgress : Boolean) {
+        if (showProgress) {
+            binding.progressCircularView.visibility = View.VISIBLE
+            binding.cellsBoardView.visibility = View.INVISIBLE
+        } else {
+            binding.progressCircularView.visibility = View.INVISIBLE
+            binding.cellsBoardView.visibility = View.VISIBLE
+        }
     }
 
 }

@@ -23,6 +23,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        
+        <ProgressBar
+            android:id="@+id/progress_circular_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/minesweeperFragment_textView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cells_board_view"
@@ -30,11 +40,38 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/horizontal_margin_borders_wide"
             android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/minesweeperFragment_textView"
-            tools:listitem="@layout/grid_item_cell" />
+            app:layout_constraintBottom_toTopOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/minesweeperFragment_textView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85"/>
+
+        <Button
+            android:id="@+id/new_board_button"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onNewBoardClicked()}"
+            android:text="@string/new_board"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
