@@ -9,10 +9,10 @@ import kotlinx.coroutines.withContext
  * Created by Jorge Avila on 08/05/2020.
  */
 class ShowCellUseCase(private val cellsRepository: Repository) {
-    suspend operator fun invoke(cell: Cell) {
-        if (!cell.isShowing)
-            withContext(Dispatchers.IO) {
+    suspend operator fun invoke(listOfCells: List<Cell>) {
+        withContext(Dispatchers.IO) {
+            for (cell in listOfCells)
                 cellsRepository.showCell(cell)
-            }
+        }
     }
 }

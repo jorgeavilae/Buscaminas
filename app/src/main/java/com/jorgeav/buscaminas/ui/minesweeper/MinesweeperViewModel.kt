@@ -30,11 +30,14 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     }
 
     fun cellGridClicked(cell: Cell) {
-        viewModelScope.launch {
-            showCellUseCase(cell)
-            _cells.value = loadBoardUseCase()
+        if (!cell.isShowing) {
+            viewModelScope.launch {
+                showCellUseCase(Cell.cellsToFlipInBoard(cell, _cells.value))
+                _cells.value = loadBoardUseCase()
+            }
         }
     }
+
     fun cellGridLongClicked(cell: Cell) {
         viewModelScope.launch {
             changeMarkInCellUseCase(cell)
