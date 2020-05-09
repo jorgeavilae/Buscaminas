@@ -1,4 +1,4 @@
-package com.jorgeav.buscaminas.ui.main
+package com.jorgeav.buscaminas.ui.newboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
-import com.jorgeav.buscaminas.databinding.MainFragmentBinding
+import com.jorgeav.buscaminas.databinding.NewBoardFragmentBinding
 
-class MainFragment : Fragment() {
+class NewBoardFragment : Fragment() {
 
-    private lateinit var binding : MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var binding : NewBoardFragmentBinding
+    private lateinit var viewModel: NewBoardViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.new_board_fragment, container, false)
 
-        val viewModelFactory = MainViewModel
+        val viewModelFactory = NewBoardViewModel
             .Factory((activity as MainActivity).createNewBoardUseCase)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewBoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
     }
 
     private fun navigateToBoardFragment() {
-        findNavController().navigate(R.id.action_mainFragment_to_minesweeperFragment)
+        findNavController().navigate(R.id.action_newBoardFragment_to_minesweeperFragment)
     }
 
     private fun enabledCellsButtons(cells: Int) {

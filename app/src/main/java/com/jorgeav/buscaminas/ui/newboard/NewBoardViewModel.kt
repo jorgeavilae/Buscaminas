@@ -1,4 +1,4 @@
-package com.jorgeav.buscaminas.ui.main
+package com.jorgeav.buscaminas.ui.newboard
 
 import androidx.lifecycle.*
 import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 const val MIN_CELLS = 8
 const val MAX_CELLS = 12
 
-class MainViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModel() {
+class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModel() {
     private val _cellsBySide = MutableLiveData<Int>()
     val cellsBySide : LiveData<Int>
         get() = _cellsBySide
@@ -85,8 +85,8 @@ class MainViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : 
     class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                return MainViewModel(createNewBoardUseCase) as T
+            if (modelClass.isAssignableFrom(NewBoardViewModel::class.java)) {
+                return NewBoardViewModel(createNewBoardUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

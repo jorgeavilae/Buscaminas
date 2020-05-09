@@ -6,7 +6,7 @@
         <item name="colorAccent">@color/secondaryColor</item>
     </style>
 
-    <style name="MainTextNumbers" parent="TextAppearance.AppCompat.Caption">
+    <style name="NewBoardTextNumbers" parent="TextAppearance.AppCompat.Caption">
         <item name="android:layout_width">@dimen/text_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
@@ -21,7 +21,7 @@
         <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
     </style>
 
-    <style name="MainTextLabel" parent="TextAppearance.AppCompat.Caption">
+    <style name="NewBoardTextLabel" parent="TextAppearance.AppCompat.Caption">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/secondaryDarkColor</item>

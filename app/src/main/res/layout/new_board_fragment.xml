@@ -2,23 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.newboard.NewBoardFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.jorgeav.buscaminas.ui.main.MainViewModel" />
+            type="com.jorgeav.buscaminas.ui.newboard.NewBoardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/rows_label"
-            style="@style/MainTextLabel"
+            style="@style/NewBoardTextLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/number_of_cells"
@@ -45,7 +44,7 @@
 
         <TextView
             android:id="@+id/rows_quantity_text"
-            style="@style/MainTextNumbers"
+            style="@style/NewBoardTextNumbers"
             android:text="@{viewModel.cellsBySide.toString()}"
             app:layout_constraintBottom_toTopOf="@+id/columns_label"
             app:layout_constraintEnd_toStartOf="@+id/more_rows_button"
@@ -68,7 +67,7 @@
 
         <TextView
             android:id="@+id/columns_label"
-            style="@style/MainTextLabel"
+            style="@style/NewBoardTextLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_section"
@@ -94,7 +93,7 @@
 
         <TextView
             android:id="@+id/columns_quantity_text"
-            style="@style/MainTextNumbers"
+            style="@style/NewBoardTextNumbers"
             android:text="@{viewModel.bombs.toString()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/more_columns_button"
