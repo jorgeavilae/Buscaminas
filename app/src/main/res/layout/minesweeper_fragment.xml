@@ -15,14 +15,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/minesweeperFragment_textView"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/time_image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:src="@drawable/ic_chrono"
+            app:layout_constraintTop_toTopOf="@id/time_left_text"
+            app:layout_constraintBottom_toBottomOf="@id/time_left_text"
+            app:layout_constraintEnd_toStartOf="@id/time_left_text"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/time_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NewBoardTextNumbers"
+            android:text="00:37"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/time_image"
+            app:layout_constraintEnd_toStartOf="@id/bombs_image"
+            tools:text="00:37"/>
+
+        <ImageView
+            android:id="@+id/bombs_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bomb"
+            app:layout_constraintTop_toTopOf="@id/bombs_text"
+            app:layout_constraintBottom_toBottomOf="@id/bombs_text"
+            app:layout_constraintStart_toEndOf="@id/time_left_text"
+            app:layout_constraintEnd_toStartOf="@id/bombs_text"/>
+
+        <TextView
+            android:id="@+id/bombs_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NewBoardTextNumbers"
+            android:text="@{viewModel.bombs.toString()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bombs_image"
+            app:layout_constraintEnd_toStartOf="@id/marks_image"
+            tools:text="12"/>
+
+        <ImageView
+            android:id="@+id/marks_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mark"
+            app:layout_constraintTop_toTopOf="@id/marks_text"
+            app:layout_constraintBottom_toBottomOf="@id/marks_text"
+            app:layout_constraintStart_toEndOf="@id/bombs_text"
+            app:layout_constraintEnd_toStartOf="@id/marks_text"/>
+
+        <TextView
+            android:id="@+id/marks_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NewBoardTextNumbers"
+            android:text="@{viewModel.marks.toString()}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/marks_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5"/>
         
         <ProgressBar
             android:id="@+id/progress_circular_view"
@@ -32,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/minesweeperFragment_textView"/>
+            app:layout_constraintTop_toBottomOf="@+id/bombs_image"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cells_board_view"
@@ -44,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/minesweeperFragment_textView" />
+            app:layout_constraintTop_toBottomOf="@+id/bombs_image" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
