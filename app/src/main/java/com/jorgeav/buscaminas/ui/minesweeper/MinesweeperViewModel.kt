@@ -1,6 +1,7 @@
 package com.jorgeav.buscaminas.ui.minesweeper
 
 import androidx.lifecycle.*
+import com.jorgeav.buscaminas.domain.BoardUtils
 import com.jorgeav.buscaminas.domain.Cell
 import com.jorgeav.buscaminas.usecases.ChangeMarkInCellUseCase
 import com.jorgeav.buscaminas.usecases.LoadBoardUseCase
@@ -32,7 +33,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun cellGridClicked(cell: Cell) {
         if (!cell.isShowing) {
             viewModelScope.launch {
-                showCellUseCase(Cell.cellsToFlipInBoard(cell, _cells.value))
+                showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
                 _cells.value = loadBoardUseCase()
             }
         }

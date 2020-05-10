@@ -1,5 +1,6 @@
 package com.jorgeav.buscaminas.usecases
 
+import com.jorgeav.buscaminas.domain.BoardUtils
 import com.jorgeav.buscaminas.domain.Cell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,6 +11,6 @@ import kotlinx.coroutines.withContext
 class GenerateBoardUseCase() {
     suspend operator fun invoke(cellsBySide : Int, bombs : Int) : Map<Pair<Int, Int>, Cell> =
         withContext(Dispatchers.Default) {
-            Cell.generateBoard(cellsBySide, bombs)
+            BoardUtils.generateBoard(cellsBySide, bombs)
         }
 }
