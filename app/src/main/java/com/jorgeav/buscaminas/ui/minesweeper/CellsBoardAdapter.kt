@@ -2,12 +2,9 @@ package com.jorgeav.buscaminas.ui.minesweeper
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.GridItemCellBinding
 import com.jorgeav.buscaminas.domain.Cell
 
@@ -40,11 +37,11 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
         fun bind(clickListener: CellItemClickListener, item: Cell) {
             binding.cell = item
 
-            binding.cellGridTextView.setOnClickListener {
+            binding.cellGridView.setOnClickListener {
                 clickListener.onClick(item)
             }
 
-            binding.cellGridTextView.setOnLongClickListener {
+            binding.cellGridView.setOnLongClickListener {
                 clickListener.onLongClick(item)
                 return@setOnLongClickListener true
             }
@@ -66,23 +63,5 @@ object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {
 
     override fun areContentsTheSame(oldItem: Cell, newItem: Cell): Boolean {
         return oldItem == newItem
-    }
-}
-
-@BindingAdapter("cellContent")
-fun TextView.setCellContent(item: Cell?) {
-    item?.let {
-        if (!it.isShowing) {
-            background = resources.getDrawable(R.drawable.cell_grid_background_hide, null)
-            text = if (it.isMarked) "?" else ""
-        } else {
-            if (it.isBomb) {
-                background = resources.getDrawable(R.drawable.cell_grid_background_bomb, null)
-                text = "X"
-            } else {
-                background = resources.getDrawable(R.drawable.cell_grid_background_show, null)
-                text = if (it.numberOfBombsInBounds != 0) it.numberOfBombsInBounds.toString() else ""
-            }
-        }
     }
 }

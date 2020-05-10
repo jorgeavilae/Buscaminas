@@ -15,20 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/cell_grid_text_view"
-            style="@style/GridText"
+        <com.jorgeav.buscaminas.ui.minesweeper.CellGridCompoundView
+            android:id="@+id/cell_grid_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:autoSizeMaxTextSize="@dimen/text_size"
-            app:autoSizeTextType="uniform"
-            app:cellContent="@{cell}"
+            android:layout_margin="@dimen/grid_item_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="0" />
+            app:cellState="@{cell}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

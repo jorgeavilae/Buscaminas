@@ -32,7 +32,6 @@
     </style>
 
     <style name="GridText" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:layout_margin">@dimen/grid_item_margin</item>
         <item name="android:padding">@dimen/grid_item_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/roboto</item>
