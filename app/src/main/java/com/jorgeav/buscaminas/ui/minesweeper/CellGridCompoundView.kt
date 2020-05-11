@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.CellGridCompoundViewBinding
 import com.jorgeav.buscaminas.domain.Cell
+import com.jorgeav.buscaminas.domain.CellShowingState
 
 /**
  * Created by Jorge Avila on 10/05/2020.
@@ -20,7 +21,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         LayoutInflater.from(context), R.layout.cell_grid_compound_view, this, true)
 
 
-    fun stateMark() {
+    fun showAsMarked() {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_hide, null)
 
         binding.cellGridImageView.visibility = View.VISIBLE
@@ -29,7 +30,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridImageView.setImageResource(R.drawable.ic_mark)
     }
 
-    fun stateUnMark() {
+    fun showAsUnMarked() {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_hide, null)
 
         binding.cellGridImageView.visibility = View.INVISIBLE
@@ -38,7 +39,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridTextView.text = ""
     }
 
-    fun stateBomb() {
+    fun showAsBomb() {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_bomb, null)
 
         binding.cellGridImageView.visibility = View.VISIBLE
@@ -47,7 +48,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridImageView.setImageResource(R.drawable.ic_bomb)
     }
 
-    fun stateNumber(number : Int) {
+    fun showAsNumber(number : Int) {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_show, null)
 
         binding.cellGridImageView.visibility = View.INVISIBLE
@@ -60,9 +61,11 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
 @BindingAdapter("cellState")
 fun CellGridCompoundView.setCellState(item: Cell?) {
     item?.let {
-        if (!it.isShowing)
-            if (it.isMarked) stateMark() else stateUnMark()
-        else
-            if (it.isBomb) stateBomb() else stateNumber(it.numberOfBombsInBounds)
+        when(val state = Cell.getStateOfCell(it)) {
+            is CellShowingState.StateMark -> showAsMarked()
+            is CellShowingState.StateUnMark -> showAsUnMarked()
+            is CellShowingState.StateBomb -> showAsBomb()
+            is CellShowingState.StateNumber -> showAsNumber(state.numberOfBombsInBounds)
+        }
     }
 }
