@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -57,6 +58,17 @@ class MinesweeperFragment : Fragment() {
 
         viewModel.chronoShouldStopState.observe(viewLifecycleOwner, Observer { shouldStop ->
             if (shouldStop) stopChronometer()
+        })
+
+        viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
+            isGameWin?.let {
+                if (it)
+                    Toast.makeText(this.context, "YOU WIN", Toast.LENGTH_SHORT).show()
+                else
+                    Toast.makeText(this.context, "YOU LOSE", Toast.LENGTH_SHORT).show()
+
+                viewModel.isGameWinOrLoseConsumed()
+            }
         })
 
         return binding.root

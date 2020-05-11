@@ -86,6 +86,16 @@ object BoardUtils {
         return null
     }
 
+    fun isBoardFinished(board: Map<Pair<Int, Int>, Cell>?) : Boolean {
+        var result = false
+        board?.let {
+            result = true
+            for (cell in it.values)
+                if (!cell.isBomb && !cell.isShowing) return false
+        }
+        return result
+    }
+
 
     /**
      * Function to determine which cells should flip.

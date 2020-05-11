@@ -32,8 +32,13 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val bombsLeft : LiveData<Int>
         get() = _bombsLeft
 
+    private val _isGameWinOrLose = MutableLiveData<Boolean?>()
+    val isGameWinOrLose : LiveData<Boolean?>
+        get() = _isGameWinOrLose
+
     init {
         loadCellsData()
+        _isGameWinOrLose.value = null
         _newBoardButtonState.value = false
         _chronoShouldStartState.value = false
         _chronoShouldStopState.value = false
@@ -55,6 +60,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
+
+            if (BoardUtils.isBoardFinished(_cells.value)) _isGameWinOrLose.value = true
         }
     }
 
@@ -63,6 +70,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             viewModelScope.launch {
                 showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
                 updateCellsData()
+
+                if (cell.isBomb) _isGameWinOrLose.value = false
             }
         }
     }
@@ -73,6 +82,12 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             updateCellsData()
         }
     }
+
+    fun getBaseForChronometer() : Long =
+        SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
+
+    fun setElapsedMillisInBoardSinceStarted(startedTime: Long) =
+        setElapsedMillisInBoardUseCase(SystemClock.elapsedRealtime() - startedTime)
 
     fun onNewBoardClicked() {
         _cells.value = null
@@ -88,12 +103,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun chronoShouldStopStateConsumed() {
         _chronoShouldStopState.value = false
     }
-
-    fun getBaseForChronometer() : Long =
-        SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
-
-    fun setElapsedMillisInBoardSinceStarted(startedTime: Long) =
-        setElapsedMillisInBoardUseCase(SystemClock.elapsedRealtime() - startedTime)
+    fun isGameWinOrLoseConsumed() {
+        _isGameWinOrLose.value = null
+    }
 
     class Factory (private val loadBoardUseCase: LoadBoardUseCase,
                    private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
