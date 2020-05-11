@@ -49,12 +49,23 @@ class MinesweeperFragment : Fragment() {
             }
         })
 
+        viewModel.chronoRunning.observe(viewLifecycleOwner, Observer { isRunning ->
+            if (isRunning) {
+                // todo load time store in preference or SYstemelapsedtime if new board
+                binding.timeText.start()
+            } else {
+                // todo calculate time elpased from start (elapsed now - start time) and store in preference
+                binding.timeText.stop()
+            }
+
+        })
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.refreshCellsData()
+        viewModel.loadCellsData()
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {

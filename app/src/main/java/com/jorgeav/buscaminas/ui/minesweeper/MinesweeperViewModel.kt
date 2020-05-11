@@ -19,6 +19,10 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val newBoardButtonState : LiveData<Boolean>
         get() = _newBoardButtonState
 
+    private val _chronoRunning = MutableLiveData<Boolean>()
+    val chronoRunning : LiveData<Boolean>
+        get() = _chronoRunning
+
     private val _bombs = MutableLiveData<Int>()
     val bombs : LiveData<Int>
         get() = _bombs
@@ -28,14 +32,22 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         get() = _marks
 
     init {
-        refreshCellsData()
+        loadCellsData()
         _newBoardButtonState.value = false
     }
 
-    fun refreshCellsData() {
+    fun loadCellsData() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
             _bombs.value = BoardUtils.getBombs(_cells.value)
+            _marks.value = BoardUtils.getMarks(_cells.value)
+            _chronoRunning.value = true
+        }
+    }
+
+    fun updateCellsData() {
+        viewModelScope.launch {
+            _cells.value = loadBoardUseCase()
             _marks.value = BoardUtils.getMarks(_cells.value)
         }
     }
@@ -44,7 +56,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         if (!cell.isShowing) {
             viewModelScope.launch {
                 showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
-                refreshCellsData()
+                updateCellsData()
             }
         }
     }
@@ -52,12 +64,13 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun cellGridLongClicked(cell: Cell) {
         viewModelScope.launch {
             changeMarkInCellUseCase(cell)
-            refreshCellsData()
+            updateCellsData()
         }
     }
 
     fun onNewBoardClicked() {
         _cells.value = null
+        _chronoRunning.value = false
         _newBoardButtonState.value = true
     }
     fun onNewBoardButtonStateConsumed() {

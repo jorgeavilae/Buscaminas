@@ -20,17 +20,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_time"
-            app:layout_constraintTop_toTopOf="@id/time_left_text"
-            app:layout_constraintBottom_toBottomOf="@id/time_left_text"
-            app:layout_constraintEnd_toStartOf="@id/time_left_text"
+            app:layout_constraintTop_toTopOf="@id/time_text"
+            app:layout_constraintBottom_toBottomOf="@id/time_text"
+            app:layout_constraintEnd_toStartOf="@id/time_text"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:id="@+id/time_left_text"
+        <Chronometer
+            android:id="@+id/time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/NewBoardTextNumbers"
-            android:text="00:37"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/time_image"
             app:layout_constraintEnd_toStartOf="@id/bombs_image"
@@ -43,7 +42,7 @@
             android:src="@drawable/ic_bomb"
             app:layout_constraintTop_toTopOf="@id/bombs_text"
             app:layout_constraintBottom_toBottomOf="@id/bombs_text"
-            app:layout_constraintStart_toEndOf="@id/time_left_text"
+            app:layout_constraintStart_toEndOf="@id/time_text"
             app:layout_constraintEnd_toStartOf="@id/bombs_text"/>
 
         <TextView
