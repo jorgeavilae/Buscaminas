@@ -14,7 +14,10 @@ class Repository(private val dataSource: IPersistentDataSource) {
     suspend fun readAll() : Map<Pair<Int, Int>, Cell> =
         dataSource.readAll().map { Pair(it.x, it.y) to it }.toMap()
 
-    suspend fun showCell(cell : Cell) = dataSource.showCell(cell.x, cell.y)
+    suspend fun showCell(cell : Cell) {
+        dataSource.unmarkCell(cell.x, cell.y)
+        dataSource.showCell(cell.x, cell.y)
+    }
 
     suspend fun changeMarkCell(cell : Cell) =
         if (!cell.isMarked) dataSource.markCell(cell.x, cell.y)
