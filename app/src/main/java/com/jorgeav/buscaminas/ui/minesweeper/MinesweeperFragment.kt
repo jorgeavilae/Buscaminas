@@ -95,10 +95,24 @@ class MinesweeperFragment : Fragment() {
     private fun shouldShowProgressView(showProgress : Boolean) {
         if (showProgress) {
             binding.progressCircularView.visibility = View.VISIBLE
+
             binding.cellsBoardView.visibility = View.INVISIBLE
+            binding.timeImage.visibility = View.INVISIBLE
+            binding.timeText.visibility = View.INVISIBLE
+//            binding.marksImage.visibility = View.INVISIBLE
+//            binding.marksText.visibility = View.INVISIBLE
+            binding.bombsImage.visibility = View.INVISIBLE
+            binding.bombsText.visibility = View.INVISIBLE
         } else {
             binding.progressCircularView.visibility = View.INVISIBLE
+
             binding.cellsBoardView.visibility = View.VISIBLE
+            binding.timeImage.visibility = View.VISIBLE
+            binding.timeText.visibility = View.VISIBLE
+//            binding.marksImage.visibility = View.VISIBLE
+//            binding.marksText.visibility = View.VISIBLE
+            binding.bombsImage.visibility = View.VISIBLE
+            binding.bombsText.visibility = View.VISIBLE
         }
     }
 

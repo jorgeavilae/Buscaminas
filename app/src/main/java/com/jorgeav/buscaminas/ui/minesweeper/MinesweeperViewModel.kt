@@ -23,13 +23,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val chronoRunning : LiveData<Boolean>
         get() = _chronoRunning
 
-    private val _bombs = MutableLiveData<Int>()
-    val bombs : LiveData<Int>
-        get() = _bombs
-
-    private val _marks = MutableLiveData<Int>()
-    val marks : LiveData<Int>
-        get() = _marks
+    private val _bombsLeft = MutableLiveData<Int>()
+    val bombsLeft : LiveData<Int>
+        get() = _bombsLeft
 
     init {
         loadCellsData()
@@ -39,8 +35,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun loadCellsData() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
-            _bombs.value = BoardUtils.getBombs(_cells.value)
-            _marks.value = BoardUtils.getMarks(_cells.value)
+            val bombs = BoardUtils.getBombs(_cells.value)
+            val marks = BoardUtils.getMarks(_cells.value)
+            _bombsLeft.value = (bombs?:0) - (marks?:0)
             _chronoRunning.value = true
         }
     }
@@ -48,7 +45,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun updateCellsData() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
-            _marks.value = BoardUtils.getMarks(_cells.value)
+            val bombs = BoardUtils.getBombs(_cells.value)
+            val marks = BoardUtils.getMarks(_cells.value)
+            _bombsLeft.value = (bombs?:0) - (marks?:0)
         }
     }
 

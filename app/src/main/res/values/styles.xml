@@ -35,8 +35,17 @@
         <item name="android:padding">@dimen/grid_item_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textSize">@dimen/grid_text_size</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="BoardIndicatorText" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/indicators_text_size</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
