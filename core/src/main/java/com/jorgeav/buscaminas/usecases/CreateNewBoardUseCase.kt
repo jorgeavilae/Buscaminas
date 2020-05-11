@@ -8,14 +8,16 @@ import kotlinx.coroutines.withContext
  * Created by Jorge Avila on 07/05/2020.
  */
 class CreateNewBoardUseCase(private val deleteBoardUseCase: DeleteBoardUseCase,
+                            private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
                             private val generateBoardUseCase: GenerateBoardUseCase,
-                            private val cellsRepository: Repository) {
+                            private val repository: Repository) {
     suspend operator fun invoke(cellsBySide : Int, bombs : Int) {
         deleteBoardUseCase()
+        setElapsedMillisInBoardUseCase(0L)
         val cells = generateBoardUseCase(cellsBySide, bombs)
 
         withContext(Dispatchers.IO) {
-            cellsRepository.addAll(cells)
+            repository.addAll(cells)
         }
     }
 }

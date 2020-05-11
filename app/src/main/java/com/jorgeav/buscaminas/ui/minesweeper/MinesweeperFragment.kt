@@ -29,9 +29,11 @@ class MinesweeperFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.minesweeper_fragment, container, false)
 
         val viewModelFactory = MinesweeperViewModel.Factory(
-                (activity as MainActivity).loadBoardUseCase,
-                (activity as MainActivity).changeMarkInCellUseCase,
-                (activity as MainActivity).showCellUseCase)
+            (activity as MainActivity).loadBoardUseCase,
+            (activity as MainActivity).changeMarkInCellUseCase,
+            (activity as MainActivity).showCellUseCase,
+            (activity as MainActivity).getElapsedMillisInBoardUseCase,
+            (activity as MainActivity).setElapsedMillisInBoardUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -49,15 +51,12 @@ class MinesweeperFragment : Fragment() {
             }
         })
 
-        viewModel.chronoRunning.observe(viewLifecycleOwner, Observer { isRunning ->
-            if (isRunning) {
-                // todo load time store in preference or SYstemelapsedtime if new board
-                binding.timeText.start()
-            } else {
-                // todo calculate time elpased from start (elapsed now - start time) and store in preference
-                binding.timeText.stop()
-            }
+        viewModel.chronoShouldStartState.observe(viewLifecycleOwner, Observer { shouldStart ->
+            if (shouldStart && isResumed) startChronometer()
+        })
 
+        viewModel.chronoShouldStopState.observe(viewLifecycleOwner, Observer { shouldStop ->
+            if (shouldStop) stopChronometer()
         })
 
         return binding.root
@@ -66,6 +65,16 @@ class MinesweeperFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.loadCellsData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.chronoShouldStartState.value == true) startChronometer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopChronometer()
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
@@ -99,8 +108,6 @@ class MinesweeperFragment : Fragment() {
             binding.cellsBoardView.visibility = View.INVISIBLE
             binding.timeImage.visibility = View.INVISIBLE
             binding.timeText.visibility = View.INVISIBLE
-//            binding.marksImage.visibility = View.INVISIBLE
-//            binding.marksText.visibility = View.INVISIBLE
             binding.bombsImage.visibility = View.INVISIBLE
             binding.bombsText.visibility = View.INVISIBLE
         } else {
@@ -109,11 +116,21 @@ class MinesweeperFragment : Fragment() {
             binding.cellsBoardView.visibility = View.VISIBLE
             binding.timeImage.visibility = View.VISIBLE
             binding.timeText.visibility = View.VISIBLE
-//            binding.marksImage.visibility = View.VISIBLE
-//            binding.marksText.visibility = View.VISIBLE
             binding.bombsImage.visibility = View.VISIBLE
             binding.bombsText.visibility = View.VISIBLE
         }
+    }
+
+    private fun startChronometer() {
+        binding.timeText.base = viewModel.getBaseForChronometer()
+        binding.timeText.start()
+        viewModel.chronoShouldStartStateConsumed()
+    }
+
+    private fun stopChronometer() {
+        binding.timeText.stop()
+        viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
+        viewModel.chronoShouldStopStateConsumed()
     }
 
 }

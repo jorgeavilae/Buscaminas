@@ -12,4 +12,6 @@
 
     <string name="less_bombs_button">Less Bombs Button</string>
     <string name="more_bombs_button">More Bombs Button</string>
+
+    <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
 </resources>

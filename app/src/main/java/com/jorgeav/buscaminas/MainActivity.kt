@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jorgeav.buscaminas.data.Repository
 import com.jorgeav.buscaminas.db.CellDBDatabase
 import com.jorgeav.buscaminas.db.DATABASE_NAME
-import com.jorgeav.buscaminas.db.PersistenceDataSource
+import com.jorgeav.buscaminas.db.StructuredDataSource
 import com.jorgeav.buscaminas.usecases.*
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 
@@ -17,15 +17,20 @@ class MainActivity : AppCompatActivity() {
     lateinit var loadBoardUseCase: LoadBoardUseCase
     lateinit var changeMarkInCellUseCase: ChangeMarkInCellUseCase
     lateinit var showCellUseCase: ShowCellUseCase
+    lateinit var getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase
+    lateinit var setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase
     fun init() {
         // TODO This would be done by a dependency injector in a complex App
-        val persistence = PersistenceDataSource(this)
-        val repository = Repository(persistence)
+        val structuredDataSource = StructuredDataSource(this)
+        val repository = Repository(structuredDataSource, structuredDataSource)
 
         val deleteBoardUseCase = DeleteBoardUseCase(repository)
         val generateBoardUseCase = GenerateBoardUseCase()
+        getElapsedMillisInBoardUseCase = GetElapsedMillisInBoardUseCase(repository)
+        setElapsedMillisInBoardUseCase = SetElapsedMillisInBoardUseCase(repository)
         createNewBoardUseCase = CreateNewBoardUseCase(
             deleteBoardUseCase,
+            setElapsedMillisInBoardUseCase,
             generateBoardUseCase,
             repository)
         loadBoardUseCase = LoadBoardUseCase(repository)
