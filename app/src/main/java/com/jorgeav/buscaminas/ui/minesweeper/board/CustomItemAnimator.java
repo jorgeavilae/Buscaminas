@@ -15,7 +15,6 @@
  */
 package com.jorgeav.buscaminas.ui.minesweeper.board;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.core.view.ViewCompat;
@@ -28,6 +27,11 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import java.util.ArrayList;
 import java.util.List;
 /**
+ * Jorge Avila:
+ * Code copied from https://android.googlesource.com/platform/frameworks/support/+/c110be5/v7/recyclerview/src/android/support/v7/widget/DefaultItemAnimator.java
+ * And then, edit {@link CustomItemAnimator#animateChangeImpl(ChangeInfo)}
+ * to perform a flip animation.
+ *
  * This implementation of {@link RecyclerView.ItemAnimator} provides basic
  * animations on remove, add, and move events that happen to the items in
  * a RecyclerView. RecyclerView uses a DefaultItemAnimator by default.
@@ -323,13 +327,15 @@ public class CustomItemAnimator extends SimpleItemAnimator {
         if (view != null) {
             mChangeAnimations.add(changeInfo.oldHolder);
             final ViewPropertyAnimatorCompat oldViewAnim = ViewCompat.animate(view).setDuration(
-                getChangeDuration());
+                getRemoveDuration());
             oldViewAnim.translationX(changeInfo.toX - changeInfo.fromX);
             oldViewAnim.translationY(changeInfo.toY - changeInfo.fromY);
 
-            Log.d("ASD", "animateChange - remove");
-
-            oldViewAnim.alpha(0).setListener(new VpaListenerAdapter() {
+            // EDIT: animateChangeImpl - remove:
+            // First, animate to scaleX = 0
+            // Second, set cell view to scaleX = 1 in listener, when animation ends
+            // Lastly, Set duration with getRemoveDuration() (value in RecyclerView class)
+            oldViewAnim.scaleX(0).setListener(new VpaListenerAdapter() {
                 @Override
                 public void onAnimationStart(View view) {
                     dispatchChangeStarting(changeInfo.oldHolder, true);
@@ -338,6 +344,7 @@ public class CustomItemAnimator extends SimpleItemAnimator {
                 public void onAnimationEnd(View view) {
                     oldViewAnim.setListener(null);
                     ViewCompat.setAlpha(view, 1);
+                    ViewCompat.setScaleX(view, 1);
                     ViewCompat.setTranslationX(view, 0);
                     ViewCompat.setTranslationY(view, 0);
                     dispatchChangeFinished(changeInfo.oldHolder, true);
@@ -350,9 +357,13 @@ public class CustomItemAnimator extends SimpleItemAnimator {
             mChangeAnimations.add(changeInfo.newHolder);
             final ViewPropertyAnimatorCompat newViewAnimation = ViewCompat.animate(newView);
 
-            Log.d("ASD", "animateChange - add");
-            newViewAnimation.translationX(0).translationY(0).setDuration(getChangeDuration()).
-            alpha(1).setListener(new VpaListenerAdapter() {
+            // EDIT: animateChangeImpl - add:
+            // First, set new cell view to scaleX = 0
+            // Second, animate to scaleX = 1
+            // Lastly, Set duration with getAddDuration() (value in RecyclerView class)
+            ViewCompat.setScaleX(newView, 0);
+            newViewAnimation.translationX(0).translationY(0).setDuration(getAddDuration()).
+                    scaleX(1).setListener(new VpaListenerAdapter() {
                 @Override
                 public void onAnimationStart(View view) {
                     dispatchChangeStarting(changeInfo.newHolder, false);
