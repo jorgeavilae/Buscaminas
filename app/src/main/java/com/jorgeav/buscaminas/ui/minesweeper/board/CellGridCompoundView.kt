@@ -1,4 +1,4 @@
-package com.jorgeav.buscaminas.ui.minesweeper
+package com.jorgeav.buscaminas.ui.minesweeper.board
 
 import android.content.Context
 import android.util.AttributeSet

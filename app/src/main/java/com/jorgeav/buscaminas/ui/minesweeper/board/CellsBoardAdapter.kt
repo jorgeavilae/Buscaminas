@@ -1,4 +1,4 @@
-package com.jorgeav.buscaminas.ui.minesweeper
+package com.jorgeav.buscaminas.ui.minesweeper.board
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,7 +15,9 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
     ListAdapter<Cell, RecyclerView.ViewHolder>(CellDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        CellViewHolder.from(parent)
+        CellViewHolder.from(
+            parent
+        )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CellViewHolder)
@@ -30,7 +32,9 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = GridItemCellBinding.inflate(layoutInflater, parent, false)
 
-                return CellViewHolder(binding)
+                return CellViewHolder(
+                    binding
+                )
             }
         }
 

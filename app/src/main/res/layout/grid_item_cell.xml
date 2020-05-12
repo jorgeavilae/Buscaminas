@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.minesweeper.CellsBoardAdapter">
+    tools:context=".ui.minesweeper.board.CellsBoardAdapter">
 
     <data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.jorgeav.buscaminas.ui.minesweeper.CellGridCompoundView
+        <com.jorgeav.buscaminas.ui.minesweeper.board.CellGridCompoundView
             android:id="@+id/cell_grid_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

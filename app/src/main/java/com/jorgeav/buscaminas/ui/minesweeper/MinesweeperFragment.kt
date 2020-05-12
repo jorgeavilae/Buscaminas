@@ -15,6 +15,8 @@ import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MinesweeperFragmentBinding
 import com.jorgeav.buscaminas.domain.Cell
+import com.jorgeav.buscaminas.ui.minesweeper.board.CellItemClickListener
+import com.jorgeav.buscaminas.ui.minesweeper.board.CellsBoardAdapter
 
 class MinesweeperFragment : Fragment() {
 
@@ -46,10 +48,12 @@ class MinesweeperFragment : Fragment() {
         binding.cellsBoardView.layoutManager = manager
 
         // Init RecyclerView Adapter
-        adapter = CellsBoardAdapter( object : CellItemClickListener {
-            override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
-            override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
-        })
+        adapter =
+            CellsBoardAdapter(object :
+                CellItemClickListener {
+                override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
+                override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
+            })
         binding.cellsBoardView.adapter = adapter
 
         // Observe viewModel
