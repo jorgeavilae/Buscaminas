@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var showCellUseCase: ShowCellUseCase
     lateinit var getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase
     lateinit var setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase
+    lateinit var getCellsBySideUseCase: GetCellsBySideUseCase
     fun init() {
         // TODO This would be done by a dependency injector in a complex App
         val structuredDataSource = StructuredDataSource(this)
@@ -26,16 +27,19 @@ class MainActivity : AppCompatActivity() {
 
         val deleteBoardUseCase = DeleteBoardUseCase(repository)
         val generateBoardUseCase = GenerateBoardUseCase()
+        val setCellsBySideUseCase = SetCellsBySideUseCase(repository)
         getElapsedMillisInBoardUseCase = GetElapsedMillisInBoardUseCase(repository)
         setElapsedMillisInBoardUseCase = SetElapsedMillisInBoardUseCase(repository)
         createNewBoardUseCase = CreateNewBoardUseCase(
             deleteBoardUseCase,
             setElapsedMillisInBoardUseCase,
+            setCellsBySideUseCase,
             generateBoardUseCase,
             repository)
         loadBoardUseCase = LoadBoardUseCase(repository)
         changeMarkInCellUseCase = ChangeMarkInCellUseCase(repository)
         showCellUseCase = ShowCellUseCase(repository)
+        getCellsBySideUseCase = GetCellsBySideUseCase(repository)
     }
 
 

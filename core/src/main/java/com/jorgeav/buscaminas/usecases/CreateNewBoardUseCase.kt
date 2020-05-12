@@ -9,11 +9,13 @@ import kotlinx.coroutines.withContext
  */
 class CreateNewBoardUseCase(private val deleteBoardUseCase: DeleteBoardUseCase,
                             private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
+                            private val setCellsBySideUseCase: SetCellsBySideUseCase,
                             private val generateBoardUseCase: GenerateBoardUseCase,
                             private val repository: Repository) {
     suspend operator fun invoke(cellsBySide : Int, bombs : Int) {
         deleteBoardUseCase()
         setElapsedMillisInBoardUseCase(0L)
+        setCellsBySideUseCase(cellsBySide)
         val cells = generateBoardUseCase(cellsBySide, bombs)
 
         withContext(Dispatchers.IO) {
