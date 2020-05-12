@@ -15,7 +15,6 @@ import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MinesweeperFragmentBinding
 import com.jorgeav.buscaminas.domain.Cell
-import kotlin.math.sqrt
 
 class MinesweeperFragment : Fragment() {
 
@@ -27,39 +26,50 @@ class MinesweeperFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Init binding
         binding = DataBindingUtil.inflate(inflater, R.layout.minesweeper_fragment, container, false)
 
+        // Init viewModel
         val viewModelFactory = MinesweeperViewModel.Factory(
             (activity as MainActivity).loadBoardUseCase,
             (activity as MainActivity).changeMarkInCellUseCase,
             (activity as MainActivity).showCellUseCase,
             (activity as MainActivity).getElapsedMillisInBoardUseCase,
-            (activity as MainActivity).setElapsedMillisInBoardUseCase)
+            (activity as MainActivity).setElapsedMillisInBoardUseCase,
+            (activity as MainActivity).getCellsBySideUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // Init RecyclerView Layout Manager
+        val manager = GridLayoutManager(this.activity, viewModel.getCellsBySide())
+        binding.cellsBoardView.layoutManager = manager
+
+        // Init RecyclerView Adapter
+        adapter = CellsBoardAdapter( object : CellItemClickListener {
+            override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
+            override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
+        })
+        binding.cellsBoardView.adapter = adapter
+
+        // Observe viewModel
         viewModel.cells.observe(viewLifecycleOwner, Observer { cellsMap ->
             cellsMap?.let {
                 showCellsInGrid(it)
             }
         })
-
         viewModel.newBoardButtonState.observe(viewLifecycleOwner, Observer {
             if (it) {
                 navigateToNewBoardFragment()
                 viewModel.onNewBoardButtonStateConsumed()
             }
         })
-
         viewModel.chronoShouldStartState.observe(viewLifecycleOwner, Observer { shouldStart ->
             if (shouldStart && isResumed) startChronometer()
         })
-
         viewModel.chronoShouldStopState.observe(viewLifecycleOwner, Observer { shouldStop ->
             if (shouldStop) stopChronometer()
         })
-
         viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
             isGameWin?.let {
                 if (it)
@@ -90,21 +100,7 @@ class MinesweeperFragment : Fragment() {
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
-        // RecyclerView Layout Manager
-        val manager = GridLayoutManager(this.activity, sqrt(cellsMap.size.toFloat()).toInt())
-        binding.cellsBoardView.layoutManager = manager
-
-
-        // RecyclerView Adapter
-        adapter = CellsBoardAdapter( object : CellItemClickListener {
-            override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
-            override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
-        })
-        binding.cellsBoardView.adapter = adapter
         adapter.submitList(cellsMap.values.toList())
-
-
-        // Show grid / hide progressBar
         shouldShowProgressView(false)
     }
 

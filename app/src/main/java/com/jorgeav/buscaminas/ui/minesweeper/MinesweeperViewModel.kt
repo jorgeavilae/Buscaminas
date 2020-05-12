@@ -11,7 +11,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
                            private val showCellUseCase: ShowCellUseCase,
                            private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
-                           private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase) : ViewModel() {
+                           private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
+                           private val getCellsBySideUseCase: GetCellsBySideUseCase) : ViewModel() {
     private val _cells = MutableLiveData<Map<Pair<Int, Int>, Cell>>()
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
@@ -83,6 +84,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         }
     }
 
+    fun getCellsBySide() : Int = getCellsBySideUseCase()
+
     fun getBaseForChronometer() : Long =
         SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
 
@@ -111,7 +114,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                    private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
                    private val showCellUseCase: ShowCellUseCase,
                    private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
-                   private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase) : ViewModelProvider.Factory {
+                   private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
+                   private val getCellsBySideUseCase: GetCellsBySideUseCase) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MinesweeperViewModel::class.java)) {
@@ -120,7 +124,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                     changeMarkInCellUseCase,
                     showCellUseCase,
                     getElapsedMillisInBoardUseCase,
-                    setElapsedMillisInBoardUseCase) as T
+                    setElapsedMillisInBoardUseCase,
+                    getCellsBySideUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
