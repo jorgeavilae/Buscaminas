@@ -25,4 +25,7 @@ class Repository(private val persistentDataSource: IPersistentDataSource, privat
 
     fun getElapsedMillis() : Long = keyValueDataSource.getElapsedMillis()
     fun setElapsedMillis(millis : Long) = keyValueDataSource.setElapsedMillis(millis)
+
+    fun getCellsBySide() : Int = keyValueDataSource.getCellsBySide()
+    fun setCellsBySide(cellsBySide : Int) = keyValueDataSource.setCellsBySide(cellsBySide)
 }
