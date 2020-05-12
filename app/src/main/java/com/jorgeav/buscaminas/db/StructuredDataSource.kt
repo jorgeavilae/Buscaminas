@@ -44,4 +44,17 @@ class StructuredDataSource(private val context: Context) : IPersistentDataSource
         }
     }
 
+    override fun getCellsBySide(): Int {
+        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 1
+        return sharedPref.getInt(context.getString(R.string.cells_side_preference_key), 1)
+    }
+
+    override fun setCellsBySide(cellsBySide: Int) {
+        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putInt(context.getString(R.string.cells_side_preference_key), cellsBySide)
+            commit()
+        }
+    }
+
 }

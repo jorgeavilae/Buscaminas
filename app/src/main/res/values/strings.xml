@@ -14,4 +14,5 @@
     <string name="more_bombs_button">More Bombs Button</string>
 
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
+    <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
 </resources>

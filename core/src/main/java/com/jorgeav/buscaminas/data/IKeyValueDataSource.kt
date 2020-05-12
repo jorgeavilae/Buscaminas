@@ -6,4 +6,7 @@ package com.jorgeav.buscaminas.data
 interface IKeyValueDataSource {
     fun getElapsedMillis() : Long
     fun setElapsedMillis(millis : Long)
+
+    fun getCellsBySide() : Int
+    fun setCellsBySide(cellsBySide : Int)
 }
