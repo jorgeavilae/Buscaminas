@@ -362,7 +362,7 @@ public class CustomItemAnimator extends SimpleItemAnimator {
             // Second, animate to scaleX = 1
             // Lastly, Set duration with getAddDuration() (value in RecyclerView class)
             ViewCompat.setScaleX(newView, 0);
-            newViewAnimation.translationX(0).translationY(0).setDuration(getAddDuration()).
+            newViewAnimation.translationX(0).translationY(0).setDuration(getChangeDuration()).
                     scaleX(1).setListener(new VpaListenerAdapter() {
                 @Override
                 public void onAnimationStart(View view) {
