@@ -11,8 +11,14 @@ import kotlinx.coroutines.withContext
 class ShowCellUseCase(private val cellsRepository: Repository) {
     suspend operator fun invoke(listOfCells: List<Cell>) {
         withContext(Dispatchers.IO) {
-            for (cell in listOfCells)
-                cellsRepository.showCell(cell)
+            cellsRepository.addAll(
+                listOfCells.map {
+                    Cell(it.x, it.y,
+                        isShowing = true,
+                        isMarked = false,
+                        isBomb = it.isBomb,
+                        numberOfBombsInBounds = it.numberOfBombsInBounds
+                    ) })
         }
     }
 }

@@ -7,12 +7,18 @@ import com.jorgeav.buscaminas.domain.Cell
  */
 class Repository(private val persistentDataSource: IPersistentDataSource, private val keyValueDataSource: IKeyValueDataSource) {
 
-    suspend fun addAll(cells : Map<Pair<Int, Int>, Cell>) = persistentDataSource.addAll(cells.values.toList())
+    suspend fun addAll(cellsList : List<Cell>) =
+        persistentDataSource.addAll(cellsList)
+    suspend fun addAll(cellsMap : Map<Pair<Int, Int>, Cell>) =
+        persistentDataSource.addAll(cellsMap.values.toList())
 
     suspend fun deleteAllCells() = persistentDataSource.deleteAllCells()
 
     suspend fun readAll() : Map<Pair<Int, Int>, Cell> =
-        persistentDataSource.readAll().map { Pair(it.x, it.y) to it }.toMap()
+        persistentDataSource.readAll()
+            .map { Pair(it.x, it.y) to it }
+            .sortedBy { it.first.first*1000 + it.first.second }
+            .toMap()
 
     suspend fun showCell(cell : Cell) {
         persistentDataSource.unmarkCell(cell.x, cell.y)
