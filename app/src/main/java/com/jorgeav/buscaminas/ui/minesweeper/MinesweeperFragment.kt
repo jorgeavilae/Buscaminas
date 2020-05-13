@@ -1,7 +1,6 @@
 package com.jorgeav.buscaminas.ui.minesweeper
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,9 +53,7 @@ class MinesweeperFragment : Fragment() {
         adapter =
             CellsBoardAdapter(object :
                 CellItemClickListener {
-                override fun onClick(cell: Cell) {
-                    Log.d("ASD", "clickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
-                    viewModel.cellGridClicked(cell)}
+                override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
                 override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
             })
         binding.cellsBoardView.adapter = adapter
