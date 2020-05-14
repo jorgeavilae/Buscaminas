@@ -62,20 +62,22 @@ class MinesweeperFragment : Fragment() {
                 showCellsInGrid(it)
             }
         })
-        viewModel.newBoardButtonState.observe(viewLifecycleOwner, Observer {
+        viewModel.newBoardButtonEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
                 navigateToNewBoardFragment()
-                viewModel.onNewBoardButtonStateConsumed()
+                viewModel.onNewBoardButtonEventConsumed()
             }
         })
-        viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
-            isGameWin?.let {
-                if (it)
-                    navigateToGameWinFragment()
-                else
-                    navigateToGameLoseFragment()
-
-                viewModel.isGameWinOrLoseConsumed()
+        viewModel.gameWonEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                navigateToGameWinFragment()
+                viewModel.gameWonEventConsumed()
+            }
+        })
+        viewModel.gameLoseEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                navigateToGameLoseFragment()
+                viewModel.gameLoseEventConsumed()
             }
         })
 
@@ -84,7 +86,7 @@ class MinesweeperFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.loadCellsData()
+        viewModel.refreshBoard()
     }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {

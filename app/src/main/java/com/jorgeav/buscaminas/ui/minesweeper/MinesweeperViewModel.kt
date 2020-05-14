@@ -20,53 +20,75 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val bombsLeft : LiveData<Int>
         get() = _bombsLeft
 
-    private val _isGameWinOrLose = MutableLiveData<Boolean?>()
-    val isGameWinOrLose : LiveData<Boolean?>
-        get() = _isGameWinOrLose
+    private val _newBoardButtonEvent = MutableLiveData<Boolean>()
+    val newBoardButtonEvent : LiveData<Boolean>
+        get() = _newBoardButtonEvent
 
-    private val _newBoardButtonState = MutableLiveData<Boolean>()
-    val newBoardButtonState : LiveData<Boolean>
-        get() = _newBoardButtonState
+    private val _gameFinishedState = MutableLiveData<Boolean>()
+    val gameFinishedState : LiveData<Boolean>
+        get() = _gameFinishedState
+
+    private val _gameWonEvent = MutableLiveData<Boolean>()
+    val gameWonEvent : LiveData<Boolean>
+        get() = _gameWonEvent
+
+    private val _gameLoseEvent = MutableLiveData<Boolean>()
+    val gameLoseEvent : LiveData<Boolean>
+        get() = _gameLoseEvent
 
     init {
-        updateCellsData()
-        _newBoardButtonState.value = false
+        updateBoardDataAndCheckFinish()
+        _newBoardButtonEvent.value = false
+        _gameFinishedState.value = false
+        _gameWonEvent.value = false
+        _gameLoseEvent.value = false
     }
 
-    fun loadCellsData() {
-        viewModelScope.launch {
-            _cells.value = loadBoardUseCase()
-            val bombs = BoardUtils.getBombs(_cells.value)
-            val marks = BoardUtils.getMarks(_cells.value)
-            _bombsLeft.value = (bombs?:0) - (marks?:0)
-        }
-    }
-
-    private fun updateCellsData() {
+    fun refreshBoard() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
 
-            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
+            val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
+            _gameFinishedState.value = isBoardWinOrLose != null
         }
+    }
+
+    private fun updateBoardDataAndCheckFinish() {
+        viewModelScope.launch {
+            _cells.value = loadBoardUseCase()
+            val bombs = BoardUtils.getBombs(_cells.value)
+            val marks = BoardUtils.getMarks(_cells.value)
+            _bombsLeft.value = (bombs?:0) - (marks?:0)
+
+            val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
+            if (isBoardWinOrLose != null) gameFinished(isBoardWinOrLose)
+        }
+    }
+
+    private fun gameFinished(isWon: Boolean) {
+        _gameFinishedState.value = true
+
+        if (isWon) _gameWonEvent.value = true
+        else _gameLoseEvent.value = true
     }
 
     fun cellGridClicked(cell: Cell) {
-        if (isGameWinOrLose.value == null && !cell.isShowing) {
+        if (gameFinishedState.value!!.not() && !cell.isShowing) {
                 viewModelScope.launch {
                     showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
-                    updateCellsData()
+                    updateBoardDataAndCheckFinish()
                 }
             }
     }
 
     fun cellGridLongClicked(cell: Cell) : Boolean {
-        if (isGameWinOrLose.value == null && !cell.isShowing) {
+        if (gameFinishedState.value!!.not() && !cell.isShowing) {
             viewModelScope.launch {
                 changeMarkInCellUseCase(cell)
-                updateCellsData()
+                updateBoardDataAndCheckFinish()
             }
             return true
         }
@@ -77,13 +99,16 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun onNewBoardClicked() {
         _cells.value = null
-        _newBoardButtonState.value = true
+        _newBoardButtonEvent.value = true
     }
-    fun onNewBoardButtonStateConsumed() {
-        _newBoardButtonState.value = false
+    fun onNewBoardButtonEventConsumed() {
+        _newBoardButtonEvent.value = false
     }
-    fun isGameWinOrLoseConsumed() {
-        _isGameWinOrLose.value = null
+    fun gameWonEventConsumed() {
+        _gameWonEvent.value = false
+    }
+    fun gameLoseEventConsumed() {
+        _gameLoseEvent.value = false
     }
 
     class Factory (private val loadBoardUseCase: LoadBoardUseCase,
