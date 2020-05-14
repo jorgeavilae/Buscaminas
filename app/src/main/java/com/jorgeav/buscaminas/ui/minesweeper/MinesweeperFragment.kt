@@ -68,11 +68,6 @@ class MinesweeperFragment : Fragment() {
                 viewModel.onNewBoardButtonStateConsumed()
             }
         })
-//        viewModel.chronoShouldStartState.observe(viewLifecycleOwner, Observer { shouldStart ->
-//            // When chrono should start is true, app must be resumed, then start chrono.
-//            // When app is resumed, chrono should start must be true, then start chrono.
-//            if (shouldStart && isResumed) startChronometer()
-//        })
         viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
             isGameWin?.let {
                 if (it)
@@ -91,23 +86,6 @@ class MinesweeperFragment : Fragment() {
         super.onStart()
         viewModel.loadCellsData()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        // When chrono should start is true, app must be resumed, then start chrono.
-//        // When app is resumed, chrono should start must be true, then start chrono.
-//        if (viewModel.chronoShouldStartState.value == true) startChronometer()
-//
-//        // Set time in chronometer to show time, but don't start it
-//        binding.timeText.base = viewModel.getBaseForChronometer()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        // Save elapsed time when game is finished (is win or lose)
-//        Log.d("ASD", "isGameFinish "+ viewModel.isGameFinishedState.value)
-//        stopChronometer(shouldSetElapsedTime = !viewModel.isGameFinishedState.value!!)
-//    }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
         adapter.submitList(cellsMap.values.toList())
@@ -148,17 +126,4 @@ class MinesweeperFragment : Fragment() {
             binding.bombsText.visibility = View.VISIBLE
         }
     }
-
-//    private fun startChronometer() {
-//        binding.timeText.base = viewModel.getBaseForChronometer()
-//        binding.timeText.start()
-//        viewModel.chronoShouldStartStateConsumed()
-//    }
-//
-//    private fun stopChronometer(shouldSetElapsedTime: Boolean) {
-//        binding.timeText.stop()
-//        if (shouldSetElapsedTime)
-//            viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
-//    }
-
 }

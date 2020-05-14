@@ -28,18 +28,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val newBoardButtonState : LiveData<Boolean>
         get() = _newBoardButtonState
 
-//    private val _chronoShouldStartState = MutableLiveData<Boolean>()
-//    val chronoShouldStartState : LiveData<Boolean>
-//        get() = _chronoShouldStartState
-//
-//    private val _isGameFinishedState = MutableLiveData<Boolean>()
-//    val isGameFinishedState : LiveData<Boolean>
-//        get() = _isGameFinishedState
-
     init {
         updateCellsData()
         _newBoardButtonState.value = false
-//        _chronoShouldStartState.value = false
     }
 
     fun loadCellsData() {
@@ -48,9 +39,6 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
-//            _isGameFinishedState.value = (BoardUtils.isBoardWinOrLose(_cells.value) != null)
-//
-//            if (isGameFinishedState.value!!.not()) _chronoShouldStartState.value = true
         }
     }
 
@@ -61,9 +49,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
 
-            val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
-//            _isGameFinishedState.value = (isBoardWinOrLose != null)
-            _isGameWinOrLose.value = isBoardWinOrLose
+            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
         }
     }
 
@@ -89,19 +75,6 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun getCellsBySide() : Int = getCellsBySideUseCase()
 
-//    fun getBaseForChronometer() : Long {
-//        Log.d("ASD", "get sys "+SystemClock.elapsedRealtime())
-//        Log.d("ASD", "get prf "+getElapsedMillisInBoardUseCase())
-//        return SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
-//    }
-//
-//
-//    fun setElapsedMillisInBoardSinceStarted(startedTime: Long) {
-//        Log.d("ASD", "set sys "+SystemClock.elapsedRealtime())
-//        Log.d("ASD", "set prf "+(SystemClock.elapsedRealtime() - startedTime))
-//        setElapsedMillisInBoardUseCase(SystemClock.elapsedRealtime() - startedTime)
-//    }
-
     fun onNewBoardClicked() {
         _cells.value = null
         _newBoardButtonState.value = true
@@ -109,9 +82,6 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun onNewBoardButtonStateConsumed() {
         _newBoardButtonState.value = false
     }
-//    fun chronoShouldStartStateConsumed() {
-//        _chronoShouldStartState.value = false
-//    }
     fun isGameWinOrLoseConsumed() {
         _isGameWinOrLose.value = null
     }
