@@ -1,6 +1,5 @@
 package com.jorgeav.buscaminas.ui.minesweeper
 
-import android.os.SystemClock
 import androidx.lifecycle.*
 import com.jorgeav.buscaminas.domain.BoardUtils
 import com.jorgeav.buscaminas.domain.Cell
@@ -24,25 +23,23 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     private val _isGameWinOrLose = MutableLiveData<Boolean?>()
     val isGameWinOrLose : LiveData<Boolean?>
         get() = _isGameWinOrLose
-    private var isGameFinished = false
 
     private val _newBoardButtonState = MutableLiveData<Boolean>()
     val newBoardButtonState : LiveData<Boolean>
         get() = _newBoardButtonState
 
-    private val _chronoShouldStartState = MutableLiveData<Boolean>()
-    val chronoShouldStartState : LiveData<Boolean>
-        get() = _chronoShouldStartState
-
-    private val _chronoShouldStopState = MutableLiveData<Boolean>()
-    val chronoShouldStopState : LiveData<Boolean>
-        get() = _chronoShouldStopState
+//    private val _chronoShouldStartState = MutableLiveData<Boolean>()
+//    val chronoShouldStartState : LiveData<Boolean>
+//        get() = _chronoShouldStartState
+//
+//    private val _isGameFinishedState = MutableLiveData<Boolean>()
+//    val isGameFinishedState : LiveData<Boolean>
+//        get() = _isGameFinishedState
 
     init {
-        loadCellsData()
+        updateCellsData()
         _newBoardButtonState.value = false
-        _chronoShouldStartState.value = false
-        _chronoShouldStopState.value = false
+//        _chronoShouldStartState.value = false
     }
 
     fun loadCellsData() {
@@ -51,9 +48,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
-            isGameFinished = (BoardUtils.isBoardWinOrLose(_cells.value) != null)
-
-            if (!isGameFinished) _chronoShouldStartState.value = true
+//            _isGameFinishedState.value = (BoardUtils.isBoardWinOrLose(_cells.value) != null)
+//
+//            if (isGameFinishedState.value!!.not()) _chronoShouldStartState.value = true
         }
     }
 
@@ -63,13 +60,15 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
-            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
-            isGameFinished = (_isGameWinOrLose.value != null)
+
+            val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
+//            _isGameFinishedState.value = (isBoardWinOrLose != null)
+            _isGameWinOrLose.value = isBoardWinOrLose
         }
     }
 
     fun cellGridClicked(cell: Cell) {
-        if (!isGameFinished && !cell.isShowing) {
+        if (isGameWinOrLose.value == null && !cell.isShowing) {
                 viewModelScope.launch {
                     showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
                     updateCellsData()
@@ -78,7 +77,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     }
 
     fun cellGridLongClicked(cell: Cell) : Boolean {
-        if (!isGameFinished && !cell.isShowing) {
+        if (isGameWinOrLose.value == null && !cell.isShowing) {
             viewModelScope.launch {
                 changeMarkInCellUseCase(cell)
                 updateCellsData()
@@ -90,28 +89,29 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun getCellsBySide() : Int = getCellsBySideUseCase()
 
-    fun getBaseForChronometer() : Long =
-        SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
-
-    fun setElapsedMillisInBoardSinceStarted(startedTime: Long) =
-        setElapsedMillisInBoardUseCase(SystemClock.elapsedRealtime() - startedTime)
+//    fun getBaseForChronometer() : Long {
+//        Log.d("ASD", "get sys "+SystemClock.elapsedRealtime())
+//        Log.d("ASD", "get prf "+getElapsedMillisInBoardUseCase())
+//        return SystemClock.elapsedRealtime() - getElapsedMillisInBoardUseCase()
+//    }
+//
+//
+//    fun setElapsedMillisInBoardSinceStarted(startedTime: Long) {
+//        Log.d("ASD", "set sys "+SystemClock.elapsedRealtime())
+//        Log.d("ASD", "set prf "+(SystemClock.elapsedRealtime() - startedTime))
+//        setElapsedMillisInBoardUseCase(SystemClock.elapsedRealtime() - startedTime)
+//    }
 
     fun onNewBoardClicked() {
         _cells.value = null
-        _bombsLeft.value = null
-        isGameFinished = false
-        _chronoShouldStopState.value = true
         _newBoardButtonState.value = true
     }
     fun onNewBoardButtonStateConsumed() {
         _newBoardButtonState.value = false
     }
-    fun chronoShouldStartStateConsumed() {
-        _chronoShouldStartState.value = false
-    }
-    fun chronoShouldStopStateConsumed() {
-        _chronoShouldStopState.value = false
-    }
+//    fun chronoShouldStartStateConsumed() {
+//        _chronoShouldStartState.value = false
+//    }
     fun isGameWinOrLoseConsumed() {
         _isGameWinOrLose.value = null
     }

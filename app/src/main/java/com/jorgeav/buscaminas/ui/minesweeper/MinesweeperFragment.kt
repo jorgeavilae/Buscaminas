@@ -43,16 +43,13 @@ class MinesweeperFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // todo: Set time in chronometer but don't start it
-
         // Init RecyclerView Layout Manager
         val manager = GridLayoutManager(this.activity, viewModel.getCellsBySide())
         binding.cellsBoardView.layoutManager = manager
         binding.cellsBoardView.itemAnimator = CustomItemAnimator()
 
         // Init RecyclerView Adapter
-        adapter =
-            CellsBoardAdapter(object :
+        adapter = CellsBoardAdapter(object :
                 CellItemClickListener {
                 override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
                 override fun onLongClick(cell: Cell) : Boolean = viewModel.cellGridLongClicked(cell)
@@ -71,12 +68,11 @@ class MinesweeperFragment : Fragment() {
                 viewModel.onNewBoardButtonStateConsumed()
             }
         })
-        viewModel.chronoShouldStartState.observe(viewLifecycleOwner, Observer { shouldStart ->
-            if (shouldStart && isResumed) startChronometer()
-        })
-        viewModel.chronoShouldStopState.observe(viewLifecycleOwner, Observer { shouldStop ->
-            if (shouldStop) stopChronometer()
-        })
+//        viewModel.chronoShouldStartState.observe(viewLifecycleOwner, Observer { shouldStart ->
+//            // When chrono should start is true, app must be resumed, then start chrono.
+//            // When app is resumed, chrono should start must be true, then start chrono.
+//            if (shouldStart && isResumed) startChronometer()
+//        })
         viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
             isGameWin?.let {
                 if (it)
@@ -96,16 +92,22 @@ class MinesweeperFragment : Fragment() {
         viewModel.loadCellsData()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.chronoShouldStartState.value == true) startChronometer()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // todo: not save elapsed time if chrono not running
-        stopChronometer()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        // When chrono should start is true, app must be resumed, then start chrono.
+//        // When app is resumed, chrono should start must be true, then start chrono.
+//        if (viewModel.chronoShouldStartState.value == true) startChronometer()
+//
+//        // Set time in chronometer to show time, but don't start it
+//        binding.timeText.base = viewModel.getBaseForChronometer()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        // Save elapsed time when game is finished (is win or lose)
+//        Log.d("ASD", "isGameFinish "+ viewModel.isGameFinishedState.value)
+//        stopChronometer(shouldSetElapsedTime = !viewModel.isGameFinishedState.value!!)
+//    }
 
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
         adapter.submitList(cellsMap.values.toList())
@@ -147,16 +149,16 @@ class MinesweeperFragment : Fragment() {
         }
     }
 
-    private fun startChronometer() {
-        binding.timeText.base = viewModel.getBaseForChronometer()
-        binding.timeText.start()
-        viewModel.chronoShouldStartStateConsumed()
-    }
-
-    private fun stopChronometer() {
-        binding.timeText.stop()
-        viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
-        viewModel.chronoShouldStopStateConsumed()
-    }
+//    private fun startChronometer() {
+//        binding.timeText.base = viewModel.getBaseForChronometer()
+//        binding.timeText.start()
+//        viewModel.chronoShouldStartStateConsumed()
+//    }
+//
+//    private fun stopChronometer(shouldSetElapsedTime: Boolean) {
+//        binding.timeText.stop()
+//        if (shouldSetElapsedTime)
+//            viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
+//    }
 
 }
