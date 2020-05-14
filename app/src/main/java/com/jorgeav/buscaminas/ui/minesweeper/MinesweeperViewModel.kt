@@ -77,13 +77,15 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             }
     }
 
-    fun cellGridLongClicked(cell: Cell) {
+    fun cellGridLongClicked(cell: Cell) : Boolean {
         if (!isGameFinished && !cell.isShowing) {
             viewModelScope.launch {
                 changeMarkInCellUseCase(cell)
                 updateCellsData()
             }
+            return true
         }
+        return false
     }
 
     fun getCellsBySide() : Int = getCellsBySideUseCase()

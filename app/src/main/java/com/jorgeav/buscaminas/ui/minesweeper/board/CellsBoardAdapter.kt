@@ -46,8 +46,7 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
             }
 
             binding.cellGridView.setOnLongClickListener {
-                clickListener.onLongClick(item)
-                return@setOnLongClickListener true
+                return@setOnLongClickListener clickListener.onLongClick(item)
             }
 
             binding.executePendingBindings()
@@ -57,7 +56,7 @@ class CellsBoardAdapter(private val clickListener: CellItemClickListener) :
 
 interface CellItemClickListener {
     fun onClick(cell: Cell)
-    fun onLongClick(cell: Cell)
+    fun onLongClick(cell: Cell) : Boolean
 }
 
 object CellDiffCallback : DiffUtil.ItemCallback<Cell>() {

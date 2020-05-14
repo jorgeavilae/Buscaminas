@@ -55,7 +55,7 @@ class MinesweeperFragment : Fragment() {
             CellsBoardAdapter(object :
                 CellItemClickListener {
                 override fun onClick(cell: Cell) = viewModel.cellGridClicked(cell)
-                override fun onLongClick(cell: Cell) = viewModel.cellGridLongClicked(cell)
+                override fun onLongClick(cell: Cell) : Boolean = viewModel.cellGridLongClicked(cell)
             })
         binding.cellsBoardView.adapter = adapter
 
