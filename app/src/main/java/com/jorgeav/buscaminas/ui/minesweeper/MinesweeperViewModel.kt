@@ -24,6 +24,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     private val _isGameWinOrLose = MutableLiveData<Boolean?>()
     val isGameWinOrLose : LiveData<Boolean?>
         get() = _isGameWinOrLose
+    private var isGameFinished = false
 
     private val _newBoardButtonState = MutableLiveData<Boolean>()
     val newBoardButtonState : LiveData<Boolean>
@@ -50,8 +51,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
-            _chronoShouldStartState.value = true
-            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
+            isGameFinished = (BoardUtils.isBoardWinOrLose(_cells.value) != null)
+
+            if (!isGameFinished) _chronoShouldStartState.value = true
         }
     }
 
@@ -62,24 +64,25 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
             _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
+            isGameFinished = (_isGameWinOrLose.value != null)
         }
     }
 
     fun cellGridClicked(cell: Cell) {
-        if (!cell.isShowing) {
-            viewModelScope.launch {
-                showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
-                updateCellsData()
-
-                if (cell.isBomb) _isGameWinOrLose.value = false
+        if (!isGameFinished && !cell.isShowing) {
+                viewModelScope.launch {
+                    showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
+                    updateCellsData()
+                }
             }
-        }
     }
 
     fun cellGridLongClicked(cell: Cell) {
-        viewModelScope.launch {
-            changeMarkInCellUseCase(cell)
-            updateCellsData()
+        if (!isGameFinished && !cell.isShowing) {
+            viewModelScope.launch {
+                changeMarkInCellUseCase(cell)
+                updateCellsData()
+            }
         }
     }
 
@@ -93,6 +96,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun onNewBoardClicked() {
         _cells.value = null
+        _bombsLeft.value = null
+        isGameFinished = false
         _chronoShouldStopState.value = true
         _newBoardButtonState.value = true
     }

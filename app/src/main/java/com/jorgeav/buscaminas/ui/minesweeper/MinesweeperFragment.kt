@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,6 +43,8 @@ class MinesweeperFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // todo: Set time in chronometer but don't start it
+
         // Init RecyclerView Layout Manager
         val manager = GridLayoutManager(this.activity, viewModel.getCellsBySide())
         binding.cellsBoardView.layoutManager = manager
@@ -79,9 +80,9 @@ class MinesweeperFragment : Fragment() {
         viewModel.isGameWinOrLose.observe(viewLifecycleOwner, Observer { isGameWin ->
             isGameWin?.let {
                 if (it)
-                    Toast.makeText(this.context, "YOU WIN", Toast.LENGTH_SHORT).show()
+                    navigateToGameWinFragment()
                 else
-                    Toast.makeText(this.context, "YOU LOSE", Toast.LENGTH_SHORT).show()
+                    navigateToGameLoseFragment()
 
                 viewModel.isGameWinOrLoseConsumed()
             }
@@ -102,6 +103,7 @@ class MinesweeperFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        // todo: not save elapsed time if chrono not running
         stopChronometer()
     }
 
@@ -113,6 +115,16 @@ class MinesweeperFragment : Fragment() {
     private fun navigateToNewBoardFragment() {
         shouldShowProgressView(true)
         findNavController().navigate(R.id.action_minesweeperFragment_to_newBoardFragment)
+    }
+
+    private fun navigateToGameWinFragment() {
+        shouldShowProgressView(true)
+        findNavController().navigate(R.id.action_minesweeperFragment_to_gameWinFragment)
+    }
+
+    private fun navigateToGameLoseFragment() {
+        shouldShowProgressView(true)
+        findNavController().navigate(R.id.action_minesweeperFragment_to_gameLoseFragment)
     }
 
     private fun shouldShowProgressView(showProgress : Boolean) {

@@ -10,7 +10,6 @@ import kotlinx.coroutines.withContext
  */
 class ChangeMarkInCellUseCase(private val cellsRepository: Repository) {
     suspend operator fun invoke(cell : Cell) {
-        if (!cell.isShowing)
             withContext(Dispatchers.IO) {
                 cellsRepository.changeMarkCell(cell)
             }

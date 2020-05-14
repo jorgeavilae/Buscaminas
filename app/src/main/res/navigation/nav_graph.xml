@@ -12,9 +12,13 @@
         tools:layout="@layout/minesweeper_fragment">
         <action
             android:id="@+id/action_minesweeperFragment_to_newBoardFragment"
-            app:destination="@id/newBoardFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
+            app:destination="@id/newBoardFragment" />
+        <action
+            android:id="@+id/action_minesweeperFragment_to_gameWinFragment"
+            app:destination="@id/gameWinFragment" />
+        <action
+            android:id="@+id/action_minesweeperFragment_to_gameLoseFragment"
+            app:destination="@id/gameLoseFragment" />
     </fragment>
 
     <fragment
@@ -22,5 +26,15 @@
         android:name="com.jorgeav.buscaminas.ui.newboard.NewBoardFragment"
         android:label="new_board_fragment"
         tools:layout="@layout/new_board_fragment"/>
+    <fragment
+        android:id="@+id/gameLoseFragment"
+        android:name="com.jorgeav.buscaminas.ui.finishgame.GameLoseFragment"
+        android:label="fragment_game_lose"
+        tools:layout="@layout/fragment_game_lose" />
+    <fragment
+        android:id="@+id/gameWinFragment"
+        android:name="com.jorgeav.buscaminas.ui.finishgame.GameWinFragment"
+        android:label="fragment_game_win"
+        tools:layout="@layout/fragment_game_win" />
 
 </navigation>
