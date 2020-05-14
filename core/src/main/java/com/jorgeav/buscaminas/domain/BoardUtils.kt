@@ -86,14 +86,17 @@ object BoardUtils {
         return null
     }
 
-    fun isBoardFinished(board: Map<Pair<Int, Int>, Cell>?) : Boolean {
-        var result = false
+    fun isBoardWinOrLose(board: Map<Pair<Int, Int>, Cell>?) : Boolean? {
+        var aBombIsShowing = false
+        var aCellIsNotFlipped = false
         board?.let {
-            result = true
-            for (cell in it.values)
-                if (!cell.isBomb && !cell.isShowing) return false
+            for (cell in it.values) {
+                if (cell.isBomb && cell.isShowing) aBombIsShowing = true
+                if (!cell.isBomb && !cell.isShowing) aCellIsNotFlipped = true
+            }
         }
-        return result
+
+        return if (aBombIsShowing) false else if (aCellIsNotFlipped) null else true
     }
 
 

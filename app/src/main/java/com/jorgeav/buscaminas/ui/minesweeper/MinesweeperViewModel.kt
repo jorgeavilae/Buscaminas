@@ -17,6 +17,14 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
 
+    private val _bombsLeft = MutableLiveData<Int>()
+    val bombsLeft : LiveData<Int>
+        get() = _bombsLeft
+
+    private val _isGameWinOrLose = MutableLiveData<Boolean?>()
+    val isGameWinOrLose : LiveData<Boolean?>
+        get() = _isGameWinOrLose
+
     private val _newBoardButtonState = MutableLiveData<Boolean>()
     val newBoardButtonState : LiveData<Boolean>
         get() = _newBoardButtonState
@@ -29,17 +37,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     val chronoShouldStopState : LiveData<Boolean>
         get() = _chronoShouldStopState
 
-    private val _bombsLeft = MutableLiveData<Int>()
-    val bombsLeft : LiveData<Int>
-        get() = _bombsLeft
-
-    private val _isGameWinOrLose = MutableLiveData<Boolean?>()
-    val isGameWinOrLose : LiveData<Boolean?>
-        get() = _isGameWinOrLose
-
     init {
         loadCellsData()
-        _isGameWinOrLose.value = null
         _newBoardButtonState.value = false
         _chronoShouldStartState.value = false
         _chronoShouldStopState.value = false
@@ -52,6 +51,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
             _chronoShouldStartState.value = true
+            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
         }
     }
 
@@ -61,8 +61,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
             val bombs = BoardUtils.getBombs(_cells.value)
             val marks = BoardUtils.getMarks(_cells.value)
             _bombsLeft.value = (bombs?:0) - (marks?:0)
-
-            if (BoardUtils.isBoardFinished(_cells.value)) _isGameWinOrLose.value = true
+            _isGameWinOrLose.value = BoardUtils.isBoardWinOrLose(_cells.value)
         }
     }
 
