@@ -37,7 +37,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         get() = _gameLoseEvent
 
     init {
-        updateBoardDataAndCheckFinish()
+        updateBoardDataAndLaunchFinishEvents()
         _newBoardButtonEvent.value = false
         _gameFinishedState.value = false
         _gameWonEvent.value = false
@@ -56,7 +56,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         }
     }
 
-    private fun updateBoardDataAndCheckFinish() {
+    private fun updateBoardDataAndLaunchFinishEvents() {
         viewModelScope.launch {
             _cells.value = loadBoardUseCase()
             val bombs = BoardUtils.getBombs(_cells.value)
@@ -79,7 +79,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         if (gameFinishedState.value!!.not() && !cell.isShowing) {
                 viewModelScope.launch {
                     showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
-                    updateBoardDataAndCheckFinish()
+                    updateBoardDataAndLaunchFinishEvents()
                 }
             }
     }
@@ -88,7 +88,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         if (gameFinishedState.value!!.not() && !cell.isShowing) {
             viewModelScope.launch {
                 changeMarkInCellUseCase(cell)
-                updateBoardDataAndCheckFinish()
+                updateBoardDataAndLaunchFinishEvents()
             }
             return true
         }
