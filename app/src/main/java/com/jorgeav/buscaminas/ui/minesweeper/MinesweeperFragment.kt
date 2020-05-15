@@ -138,12 +138,10 @@ class MinesweeperFragment : Fragment() {
     }
 
     private fun navigateToGameWinFragment() {
-        shouldShowProgressView(true)
         findNavController().navigate(R.id.action_minesweeperFragment_to_gameWinFragment)
     }
 
     private fun navigateToGameLoseFragment() {
-        shouldShowProgressView(true)
         findNavController().navigate(R.id.action_minesweeperFragment_to_gameLoseFragment)
     }
 
