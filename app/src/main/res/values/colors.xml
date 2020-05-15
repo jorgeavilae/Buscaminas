@@ -10,4 +10,7 @@
 
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
+
+    <color name="dialog_background_green">#81C784</color>
+    <color name="dialog_background_red">#E57373</color>
 </resources>

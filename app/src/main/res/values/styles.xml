@@ -67,4 +67,29 @@
         <item name="android:paddingBottom">@dimen/button_vertical_padding</item>
     </style>
 
+    <style name="TitleDialog" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dialog_title_height</item>
+        <item name="android:layout_marginStart">@dimen/dialog_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/dialog_margin_horizontal</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextDialog" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dialog_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/dialog_margin_horizontal</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="ButtonDialog" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/dialog_margin_button</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
 </resources>

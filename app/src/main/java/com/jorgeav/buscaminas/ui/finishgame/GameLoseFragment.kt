@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import com.jorgeav.buscaminas.R
 
-class GameLoseFragment : Fragment() {
+class GameLoseFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +17,10 @@ class GameLoseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        dialog?.window?.setBackgroundDrawable(
+            resources.getDrawable(R.drawable.dialog_background_lose, null))
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game_lose, container, false)
     }

@@ -13,6 +13,13 @@
     <string name="less_bombs_button">Less Bombs Button</string>
     <string name="more_bombs_button">More Bombs Button</string>
 
+    <string name="sorry_you_lose">Sorry! You Lose</string>
+    <string name="share_lose">Share?</string>
+    <string name="congrats_you_win">Congrats! You Win</string>
+    <string name="share">Share</string>
+    <string name="text_dialog_win">Complete board of 10 x 10 cells, with 20 bombs, in 02:34</string>
+    <string name="text_dialog_lose">Found a bomb in a board of 10 x 10 cells, with 20 bombs, in 02:34</string>
+
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
     <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
 </resources>
