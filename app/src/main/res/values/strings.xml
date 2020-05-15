@@ -17,8 +17,20 @@
     <string name="share_lose">Share?</string>
     <string name="congrats_you_win">Congrats! You Win</string>
     <string name="share">Share</string>
-    <string name="text_dialog_win">Complete board of 10 x 10 cells, with 20 bombs, in 02:34</string>
-    <string name="text_dialog_lose">Found a bomb in a board of 10 x 10 cells, with 20 bombs, in 02:34</string>
+
+    <string name="text_dialog">
+        a board of &lt;big>%1$d x %1$d&lt;/big> cells,
+        with &lt;big>%2$d&lt;/big> bombs, in &lt;big>%3$s&lt;/big> seconds.
+    </string>
+    <string name="text_dialog_win">You complete %1$s</string>
+    <string name="text_dialog_lose">You found a bomb in %1$s</string>
+    <!-- TODO: add link to app in store -->
+    <string name="share_message_dialog_win">
+        I complete %1$s &lt;br>&lt;br>Do you think you can beat me?
+    </string>
+    <string name="share_message_dialog_lose">
+        I found a bomb in %1$s &lt;br>&lt;br>Do you think you can do better?
+    </string>
 
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
     <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
