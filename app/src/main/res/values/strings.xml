@@ -19,7 +19,7 @@
     <string name="share">Share</string>
 
     <string name="text_dialog">
-        a board of &lt;big>%1$d x %1$d&lt;/big> cells,
+        a board of &lt;big>%1$dx%1$d&lt;/big> cells,
         with &lt;big>%2$d&lt;/big> bombs, in &lt;big>%3$s&lt;/big> seconds.
     </string>
     <string name="text_dialog_win">You complete %1$s</string>
@@ -34,4 +34,5 @@
 
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
     <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
+    <string name="bombs_preference_key" translatable="false">bombs_preference_key</string>
 </resources>

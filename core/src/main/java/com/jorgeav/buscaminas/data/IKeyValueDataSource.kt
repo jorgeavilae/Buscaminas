@@ -9,4 +9,7 @@ interface IKeyValueDataSource {
 
     fun getCellsBySide() : Int
     fun setCellsBySide(cellsBySide : Int)
+
+    fun getBombs() : Int
+    fun setBombs(bombs : Int)
 }

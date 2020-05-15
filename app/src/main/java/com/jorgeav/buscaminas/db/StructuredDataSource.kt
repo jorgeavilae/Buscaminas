@@ -10,7 +10,8 @@ import com.jorgeav.buscaminas.domain.Cell
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
-class StructuredDataSource(private val context: Context) : IPersistentDataSource, IKeyValueDataSource {
+class StructuredDataSource(private val context: Context)
+    : IPersistentDataSource, IKeyValueDataSource {
 
     private val cellDBDao = CellDBDatabase.getInstance(context).cellDBDao
 
@@ -53,6 +54,19 @@ class StructuredDataSource(private val context: Context) : IPersistentDataSource
         val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putInt(context.getString(R.string.cells_side_preference_key), cellsBySide)
+            commit()
+        }
+    }
+
+    override fun getBombs(): Int {
+        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 0
+        return sharedPref.getInt(context.getString(R.string.bombs_preference_key), 0)
+    }
+
+    override fun setBombs(bombs: Int) {
+        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putInt(context.getString(R.string.bombs_preference_key), bombs)
             commit()
         }
     }

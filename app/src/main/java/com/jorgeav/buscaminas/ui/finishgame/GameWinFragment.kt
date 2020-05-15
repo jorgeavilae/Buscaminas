@@ -46,7 +46,7 @@ class GameWinFragment : DialogFragment() {
 
     private fun constructMessageForDialog() {
         val columns : Int = (activity as MainActivity).getCellsBySideUseCase()
-        val bombs : Int = 0 //todo add use case
+        val bombs : Int = (activity as MainActivity).getBombsInBoardUseCase()
         val timeMillis : Long = (activity as MainActivity).getElapsedMillisInBoardUseCase()
         val timeStr : String = DateUtils.formatElapsedTime(timeMillis / 1000)
 
