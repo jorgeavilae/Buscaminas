@@ -68,6 +68,17 @@ class MinesweeperFragment : Fragment() {
                 viewModel.onNewBoardButtonEventConsumed()
             }
         })
+        viewModel.startChronoEvent.observe(viewLifecycleOwner, Observer { shouldStart ->
+            // When chronoShouldStart is true, app must be in resume, then start chrono.
+            // When app is in resume, chronoShouldStart must be true, then start chrono.
+            if (shouldStart && isResumed) startChronometer()
+        })
+        viewModel.setChronoTimeEvent.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
+                viewModel.setChronoTimeEventConsumed()
+            }
+        })
         viewModel.gameWonEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
                 navigateToGameWinFragment()
@@ -89,9 +100,36 @@ class MinesweeperFragment : Fragment() {
         viewModel.refreshBoard()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // When chronoShouldStart is true, app must be in resume, then start chrono.
+        // When app is in resume, chronoShouldStart must be true, then start chrono.
+        if (viewModel.startChronoEvent.value == true) startChronometer()
+
+        // Set time in chronometer to show time, but don't start it
+        binding.timeText.base = viewModel.getBaseForChronometer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (viewModel.gameFinishedState.value != null && viewModel.gameFinishedState.value == false)
+            viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
+        stopChronometer()
+    }
+
     private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
         adapter.submitList(cellsMap.values.toList())
         shouldShowProgressView(false)
+    }
+
+    private fun startChronometer() {
+        binding.timeText.base = viewModel.getBaseForChronometer()
+        binding.timeText.start()
+        viewModel.startChronoEventConsumed()
+    }
+
+    private fun stopChronometer() {
+        binding.timeText.stop()
     }
 
     private fun navigateToNewBoardFragment() {
