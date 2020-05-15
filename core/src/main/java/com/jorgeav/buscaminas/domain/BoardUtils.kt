@@ -4,6 +4,13 @@ package com.jorgeav.buscaminas.domain
  * Created by Jorge Avila on 10/05/2020.
  */
 object BoardUtils {
+
+    const val MIN_CELLS_BY_SIDE = 8
+    const val MAX_CELLS_BY_SIDE = 12
+
+    fun getMinBombsInBoard(cellsBySide: Int) : Int = (cellsBySide*cellsBySide * 0.1).toInt()
+    fun getMaxBombsInBoard(cellsBySide: Int) : Int = (cellsBySide*cellsBySide * 0.5).toInt()
+
     /**
      * Generates a minesweeper square board with cells and bombs.
      *

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.NewBoardFragmentBinding
+import com.jorgeav.buscaminas.domain.BoardUtils
 
 class NewBoardFragment : Fragment() {
 
@@ -41,7 +42,7 @@ class NewBoardFragment : Fragment() {
                 enabledBombsButtons(bombs)
             }
         })
-        viewModel.finishGenerateBoardState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.finishGenerateBoardEvent.observe(viewLifecycleOwner, Observer { state ->
             if (state) {
                 viewModel.finishGenerateBoardStateConsumed()
                 findNavController().popBackStack()
@@ -53,11 +54,11 @@ class NewBoardFragment : Fragment() {
 
     private fun enabledCellsButtons(cells: Int) {
         when {
-            cells <= MIN_CELLS -> {
+            cells <= BoardUtils.MIN_CELLS_BY_SIDE -> {
                 binding.lessRowsButton.isEnabled = false
                 binding.moreRowsButton.isEnabled = true
             }
-            cells >= MAX_CELLS -> {
+            cells >= BoardUtils.MAX_CELLS_BY_SIDE -> {
                 binding.lessRowsButton.isEnabled = true
                 binding.moreRowsButton.isEnabled = false
             }
@@ -70,11 +71,11 @@ class NewBoardFragment : Fragment() {
 
     private fun enabledBombsButtons(bombs: Int) {
         when {
-            bombs <= viewModel.minBombs ?: MIN_CELLS -> {
+            bombs <= viewModel.minBombs -> {
                 binding.lessColumnsButton.isEnabled = false
                 binding.moreColumnsButton.isEnabled = true
             }
-            bombs >= viewModel.maxBombs ?: MIN_CELLS -> {
+            bombs >= viewModel.maxBombs -> {
                 binding.lessColumnsButton.isEnabled = true
                 binding.moreColumnsButton.isEnabled = false
             }
