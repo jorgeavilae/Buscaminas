@@ -2,12 +2,16 @@ package com.jorgeav.buscaminas.ui.newboard
 
 import androidx.lifecycle.*
 import com.jorgeav.buscaminas.usecases.CreateNewBoardUseCase
+import com.jorgeav.buscaminas.usecases.GetBombsInBoardUseCase
+import com.jorgeav.buscaminas.usecases.GetCellsBySideUseCase
 import kotlinx.coroutines.launch
 
 const val MIN_CELLS = 8
 const val MAX_CELLS = 12
 
-class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModel() {
+class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase,
+                        private val getCellsBySideUseCase: GetCellsBySideUseCase,
+                        private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModel() {
     private val _cellsBySide = MutableLiveData<Int>()
     val cellsBySide : LiveData<Int>
         get() = _cellsBySide
@@ -24,20 +28,25 @@ class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase
         get() = _finishGenerateBoardState
 
     init {
-        updateCellsSelected(MIN_CELLS)
-        _bombs.value = minBombs
+        updateCellsSelected(getBombsInBoardUseCase())
+        _bombs.value = getBombsInBoardUseCase()
         _finishGenerateBoardState.value = false
     }
 
     private fun updateCellsSelected(value : Int) {
-        _cellsBySide.value = value
-        minBombs = (value*value * 0.1).toInt()
-        maxBombs = (value*value * 0.5).toInt()
+        if (value in MIN_CELLS..MAX_CELLS)
+            _cellsBySide.value = value
+        else
+            _cellsBySide.value = MIN_CELLS
 
-        updateBombsNumber()
+        val c = _cellsBySide.value?: MIN_CELLS
+        updateBombsRange(c)
     }
 
-    private fun updateBombsNumber() {
+    private fun updateBombsRange(cellsBySide : Int) {
+        minBombs = (cellsBySide*cellsBySide * 0.1).toInt()
+        maxBombs = (cellsBySide*cellsBySide * 0.5).toInt()
+
         val bombsNow = _bombs.value
         if (bombsNow == null) _bombs.value = minBombs
         else {
@@ -82,11 +91,14 @@ class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase
         _finishGenerateBoardState.value = false
     }
 
-    class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase) : ViewModelProvider.Factory {
+    class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase,
+                   private val getCellsBySideUseCase: GetCellsBySideUseCase,
+                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(NewBoardViewModel::class.java)) {
-                return NewBoardViewModel(createNewBoardUseCase) as T
+                return NewBoardViewModel(createNewBoardUseCase,
+                getCellsBySideUseCase, getBombsInBoardUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

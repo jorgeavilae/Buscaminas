@@ -38,7 +38,8 @@ class MinesweeperFragment : Fragment() {
             (activity as MainActivity).showCellUseCase,
             (activity as MainActivity).getElapsedMillisInBoardUseCase,
             (activity as MainActivity).setElapsedMillisInBoardUseCase,
-            (activity as MainActivity).getCellsBySideUseCase)
+            (activity as MainActivity).getCellsBySideUseCase,
+            (activity as MainActivity).getBombsInBoardUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this

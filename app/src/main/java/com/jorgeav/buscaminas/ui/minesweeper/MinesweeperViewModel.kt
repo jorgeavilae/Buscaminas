@@ -12,7 +12,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val showCellUseCase: ShowCellUseCase,
                            private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
                            private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
-                           private val getCellsBySideUseCase: GetCellsBySideUseCase) : ViewModel() {
+                           private val getCellsBySideUseCase: GetCellsBySideUseCase,
+                           private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModel() {
     private val _cells = MutableLiveData<Map<Pair<Int, Int>, Cell>>()
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
@@ -80,7 +81,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     private suspend fun loadBoardAndBombsLeft() {
         _cells.value = loadBoardUseCase()
-        val bombs = BoardUtils.getBombs(_cells.value)
+        val bombs = getBombsInBoardUseCase()
         val marks = BoardUtils.getMarks(_cells.value)
         _bombsLeft.value = (bombs?:0) - (marks?:0)
     }
@@ -141,7 +142,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                    private val showCellUseCase: ShowCellUseCase,
                    private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
                    private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
-                   private val getCellsBySideUseCase: GetCellsBySideUseCase) : ViewModelProvider.Factory {
+                   private val getCellsBySideUseCase: GetCellsBySideUseCase,
+                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -152,7 +154,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                     showCellUseCase,
                     getElapsedMillisInBoardUseCase,
                     setElapsedMillisInBoardUseCase,
-                    getCellsBySideUseCase) as T
+                    getCellsBySideUseCase,
+                    getBombsInBoardUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

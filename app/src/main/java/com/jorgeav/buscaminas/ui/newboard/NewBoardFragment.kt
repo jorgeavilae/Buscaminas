@@ -23,7 +23,9 @@ class NewBoardFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.new_board_fragment, container, false)
 
         val viewModelFactory = NewBoardViewModel
-            .Factory((activity as MainActivity).createNewBoardUseCase)
+            .Factory((activity as MainActivity).createNewBoardUseCase,
+                (activity as MainActivity).getCellsBySideUseCase,
+                (activity as MainActivity).getBombsInBoardUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewBoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
