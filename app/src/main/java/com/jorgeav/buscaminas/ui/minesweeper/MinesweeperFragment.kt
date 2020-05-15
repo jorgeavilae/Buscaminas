@@ -76,6 +76,7 @@ class MinesweeperFragment : Fragment() {
         viewModel.setChronoTimeEvent.observe(viewLifecycleOwner, Observer {
             if (it) {
                 viewModel.setElapsedMillisInBoardSinceStarted(binding.timeText.base)
+                stopChronometer()
                 viewModel.setChronoTimeEventConsumed()
             }
         })
