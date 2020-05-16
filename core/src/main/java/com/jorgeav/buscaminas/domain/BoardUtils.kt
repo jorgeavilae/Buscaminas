@@ -71,7 +71,7 @@ object BoardUtils {
         return cells
     }
 
-    fun getBombs(board: Map<Pair<Int, Int>, Cell>?) : Int? {
+    fun countBombs(board: Map<Pair<Int, Int>, Cell>?) : Int? {
         board?.let {
             var bombs = 0
             for (cell in it.values)
@@ -82,7 +82,7 @@ object BoardUtils {
         return null
     }
 
-    fun getMarks(board: Map<Pair<Int, Int>, Cell>?) : Int? {
+    fun countMarks(board: Map<Pair<Int, Int>, Cell>?) : Int? {
         board?.let {
             var marks = 0
             for (cell in it.values)

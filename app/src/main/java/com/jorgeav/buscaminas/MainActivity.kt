@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase
     lateinit var getCellsBySideUseCase: GetCellsBySideUseCase
     lateinit var getBombsInBoardUseCase: GetBombsInBoardUseCase
+
+    lateinit var countMarksUseCase: CountMarksUseCase
+    lateinit var checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase
     fun init() {
         // TODO This would be done by a dependency injector in a complex App
         val structuredDataSource = StructuredDataSource(this)
@@ -44,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         showCellUseCase = ShowCellUseCase(repository)
         getCellsBySideUseCase = GetCellsBySideUseCase(repository)
         getBombsInBoardUseCase = GetBombsInBoardUseCase(repository)
+
+        countMarksUseCase = CountMarksUseCase()
+        checkBoardWinOrLoseUseCase = CheckBoardWinOrLoseUseCase()
     }
 
 

@@ -2,7 +2,6 @@ package com.jorgeav.buscaminas.ui.minesweeper
 
 import android.os.SystemClock
 import androidx.lifecycle.*
-import com.jorgeav.buscaminas.domain.BoardUtils
 import com.jorgeav.buscaminas.domain.Cell
 import com.jorgeav.buscaminas.usecases.*
 import kotlinx.coroutines.launch
@@ -13,7 +12,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
                            private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
                            private val getCellsBySideUseCase: GetCellsBySideUseCase,
-                           private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModel() {
+                           private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
+                           private val countMarksUseCase: CountMarksUseCase,
+                           private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase) : ViewModel() {
     private val _cells = MutableLiveData<Map<Pair<Int, Int>, Cell>>()
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
@@ -51,8 +52,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     init {
         viewModelScope.launch {
-            loadBoardAndBombsLeft()
-            gameFinishedEvent()
+            gameFinishedEvent(loadBoardDataAndCheckWinOrLose())
         }
         _newBoardButtonEvent.value = false
         _gameFinishedState.value = false
@@ -64,30 +64,26 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun refreshBoard() {
         viewModelScope.launch {
-            loadBoardAndBombsLeft()
-
-            val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
-            _gameFinishedState.value = isBoardWinOrLose != null
-
+            _gameFinishedState.value = loadBoardDataAndCheckWinOrLose() != null
             if (_gameFinishedState.value!!.not()) _startChronoEvent.value = true
         }
     }
 
     private suspend fun updateBoardDataAndLaunchFinishEvents() {
-        loadBoardAndBombsLeft()
-        if (gameFinishedEvent())
+        if (gameFinishedEvent(loadBoardDataAndCheckWinOrLose()))
             _setChronoTimeEvent.value = true
     }
 
-    private suspend fun loadBoardAndBombsLeft() {
+    private suspend fun loadBoardDataAndCheckWinOrLose() : Boolean?  {
         _cells.value = loadBoardUseCase()
         val bombs = getBombsInBoardUseCase()
-        val marks = BoardUtils.getMarks(_cells.value)
+        val marks = countMarksUseCase(_cells.value)
         _bombsLeft.value = (bombs?:0) - (marks?:0)
+
+        return checkBoardWinOrLoseUseCase(_cells.value)
     }
 
-    private fun gameFinishedEvent() : Boolean {
-        val isBoardWinOrLose = BoardUtils.isBoardWinOrLose(_cells.value)
+    private fun gameFinishedEvent(isBoardWinOrLose: Boolean?) : Boolean {
         if (isBoardWinOrLose != null) {
             _gameFinishedState.value = true
 
@@ -143,7 +139,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                    private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
                    private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
                    private val getCellsBySideUseCase: GetCellsBySideUseCase,
-                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase) : ViewModelProvider.Factory {
+                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
+                   private val countMarksUseCase: CountMarksUseCase,
+                   private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -155,7 +153,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                     getElapsedMillisInBoardUseCase,
                     setElapsedMillisInBoardUseCase,
                     getCellsBySideUseCase,
-                    getBombsInBoardUseCase) as T
+                    getBombsInBoardUseCase,
+                    countMarksUseCase,
+                    checkBoardWinOrLoseUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
