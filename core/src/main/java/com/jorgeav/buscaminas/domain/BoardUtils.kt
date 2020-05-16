@@ -3,13 +3,15 @@ package com.jorgeav.buscaminas.domain
 /**
  * Created by Jorge Avila on 10/05/2020.
  */
-object BoardUtils {
+internal object BoardUtils {
 
-    const val MIN_CELLS_BY_SIDE = 8
-    const val MAX_CELLS_BY_SIDE = 12
+    private const val MIN_CELLS_BY_SIDE = 8
+    private const val MAX_CELLS_BY_SIDE = 12
 
-    fun getMinBombsInBoard(cellsBySide: Int) : Int = (cellsBySide*cellsBySide * 0.1).toInt()
-    fun getMaxBombsInBoard(cellsBySide: Int) : Int = (cellsBySide*cellsBySide * 0.5).toInt()
+    fun getCellsBySideRange() : Pair<Int, Int> =
+        Pair(MIN_CELLS_BY_SIDE, MAX_CELLS_BY_SIDE)
+    fun getBombsRangeInBoard(cellsBySide: Int) : Pair<Int, Int> =
+        Pair((cellsBySide*cellsBySide * 0.1).toInt(), (cellsBySide*cellsBySide * 0.5).toInt())
 
     /**
      * Generates a minesweeper square board with cells and bombs.

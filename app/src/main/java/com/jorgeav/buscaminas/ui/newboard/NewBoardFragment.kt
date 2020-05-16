@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.jorgeav.buscaminas.MainActivity
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.NewBoardFragmentBinding
-import com.jorgeav.buscaminas.domain.BoardUtils
 
 class NewBoardFragment : Fragment() {
 
@@ -23,10 +22,12 @@ class NewBoardFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.new_board_fragment, container, false)
 
-        val viewModelFactory = NewBoardViewModel
-            .Factory((activity as MainActivity).createNewBoardUseCase,
-                (activity as MainActivity).getCellsBySideUseCase,
-                (activity as MainActivity).getBombsInBoardUseCase)
+        val viewModelFactory = NewBoardViewModel.Factory(
+            (activity as MainActivity).createNewBoardUseCase,
+            (activity as MainActivity).getCellsBySideUseCase,
+            (activity as MainActivity).getBombsInBoardUseCase,
+            (activity as MainActivity).getCellsBySideRangeUseCase,
+            (activity as MainActivity).getBombsRangeInBoardUseCase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewBoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -54,11 +55,11 @@ class NewBoardFragment : Fragment() {
 
     private fun enabledCellsButtons(cells: Int) {
         when {
-            cells <= BoardUtils.MIN_CELLS_BY_SIDE -> {
+            cells <= viewModel.minCellsBySide -> {
                 binding.lessRowsButton.isEnabled = false
                 binding.moreRowsButton.isEnabled = true
             }
-            cells >= BoardUtils.MAX_CELLS_BY_SIDE -> {
+            cells >= viewModel.maxCellsBySide -> {
                 binding.lessRowsButton.isEnabled = true
                 binding.moreRowsButton.isEnabled = false
             }
