@@ -100,7 +100,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun cellGridClicked(cell: Cell) {
         if (_gameFinishedState.value!!.not() && !cell.isShowing) {
                 viewModelScope.launch {
-                    showCellUseCase(BoardUtils.cellsToFlipInBoard(cell, _cells.value))
+                    showCellUseCase.invoke(cell, _cells.value)
                     updateBoardDataAndLaunchFinishEvents()
                 }
             }
