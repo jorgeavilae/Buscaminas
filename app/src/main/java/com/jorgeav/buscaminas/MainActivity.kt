@@ -31,19 +31,9 @@ class MainActivity : AppCompatActivity() {
         val structuredDataSource = StructuredDataSource(this)
         val repository = Repository(structuredDataSource, structuredDataSource)
 
-        val deleteBoardUseCase = DeleteBoardUseCase(repository)
-        val generateBoardUseCase = GenerateBoardUseCase()
-        val setCellsBySideUseCase = SetCellsBySideUseCase(repository)
-        val setBombsInBoardUseCase = SetBombsInBoardUseCase(repository)
         getElapsedMillisInBoardUseCase = GetElapsedMillisInBoardUseCase(repository)
         setElapsedMillisInBoardUseCase = SetElapsedMillisInBoardUseCase(repository)
-        createNewBoardUseCase = CreateNewBoardUseCase(
-            deleteBoardUseCase,
-            setElapsedMillisInBoardUseCase,
-            setCellsBySideUseCase,
-            setBombsInBoardUseCase,
-            generateBoardUseCase,
-            repository)
+        createNewBoardUseCase = CreateNewBoardUseCase(repository)
         loadBoardUseCase = LoadBoardUseCase(repository)
         changeMarkInCellUseCase = ChangeMarkInCellUseCase(repository)
         showCellUseCase = ShowCellUseCase(repository)
