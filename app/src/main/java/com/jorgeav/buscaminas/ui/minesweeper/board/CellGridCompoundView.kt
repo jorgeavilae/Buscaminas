@@ -45,7 +45,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridImageView.visibility = View.VISIBLE
         binding.cellGridTextView.visibility = View.INVISIBLE
 
-        binding.cellGridImageView.setImageResource(R.drawable.ic_bomb)
+        binding.cellGridImageView.setImageResource(R.drawable.ic_bomb_light)
     }
 
     fun showAsNumber(number : Int) {
@@ -55,6 +55,18 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridTextView.visibility = View.VISIBLE
 
         binding.cellGridTextView.text = if (number != 0) number.toString() else ""
+        binding.cellGridTextView.setTextColor(resources.getColor(
+            when(number) {
+                1 -> R.color.cell_number_1
+                2 -> R.color.cell_number_2
+                3 -> R.color.cell_number_3
+                4 -> R.color.cell_number_4
+                5 -> R.color.cell_number_5
+                6 -> R.color.cell_number_6
+                7 -> R.color.cell_number_7
+                8 -> R.color.cell_number_8
+                else -> R.color.primaryTextColor
+        }, null))
     }
 }
 

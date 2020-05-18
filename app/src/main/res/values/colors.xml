@@ -13,4 +13,13 @@
 
     <color name="dialog_background_green">#81C784</color>
     <color name="dialog_background_red">#E57373</color>
+
+    <color name="cell_number_1">#202A95</color>
+    <color name="cell_number_2">#197507</color>
+    <color name="cell_number_3">#D60606</color>
+    <color name="cell_number_4">#000051</color>
+    <color name="cell_number_5">#8F2E10</color>
+    <color name="cell_number_6">#174019</color>
+    <color name="cell_number_7">#0B0E22</color>
+    <color name="cell_number_8">#474747</color>
 </resources>
