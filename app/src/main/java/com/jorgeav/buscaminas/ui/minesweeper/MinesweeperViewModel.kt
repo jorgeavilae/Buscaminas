@@ -14,7 +14,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val getCellsBySideUseCase: GetCellsBySideUseCase,
                            private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
                            private val countMarksUseCase: CountMarksUseCase,
-                           private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase) : ViewModel() {
+                           private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase,
+                           private val markCellsWithBombUseCase: MarkCellsWithBombUseCase,
+                           private val revealBombsUseCase: RevealBombsUseCase) : ViewModel() {
     private val _cells = MutableLiveData<Map<Pair<Int, Int>, Cell>>()
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
@@ -52,7 +54,8 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     init {
         viewModelScope.launch {
-            gameFinishedEvent(loadBoardDataAndCheckWinOrLose())
+            loadBoardData()
+            gameFinishedEvent(checkBoardWinOrLoseUseCase(_cells.value))
         }
         _newBoardButtonEvent.value = false
         _gameFinishedState.value = false
@@ -64,34 +67,36 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun refreshBoard() {
         viewModelScope.launch {
-            _gameFinishedState.value = loadBoardDataAndCheckWinOrLose() != null
+            loadBoardData()
+            _gameFinishedState.value = checkBoardWinOrLoseUseCase(_cells.value) != null
             if (_gameFinishedState.value!!.not()) _startChronoEvent.value = true
         }
     }
 
     private suspend fun updateBoardDataAndLaunchFinishEvents() {
-        if (gameFinishedEvent(loadBoardDataAndCheckWinOrLose()))
+        loadBoardData()
+        if (gameFinishedEvent(checkBoardWinOrLoseUseCase(_cells.value)))
             _setChronoTimeEvent.value = true
     }
 
-    private suspend fun loadBoardDataAndCheckWinOrLose() : Boolean?  {
+    private suspend fun loadBoardData()  {
         _cells.value = loadBoardUseCase()
         val bombs = getBombsInBoardUseCase()
         val marks = countMarksUseCase(_cells.value)
         _bombsLeft.value = (bombs?:0) - (marks?:0)
-
-        return checkBoardWinOrLoseUseCase(_cells.value)
     }
 
-    private fun gameFinishedEvent(isBoardWinOrLose: Boolean?) : Boolean {
+    private suspend fun gameFinishedEvent(isBoardWinOrLose: Boolean?) : Boolean {
         if (isBoardWinOrLose != null) {
             _gameFinishedState.value = true
 
             if (isBoardWinOrLose) {
-                // todo mark bombs
+                markCellsWithBombUseCase()
+                loadBoardData()
                 _gameWonEvent.value = true
             } else {
-                // todo reveal bombs
+                revealBombsUseCase()
+                loadBoardData()
                 _gameLoseEvent.value = true
             }
         }
@@ -146,7 +151,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                    private val getCellsBySideUseCase: GetCellsBySideUseCase,
                    private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
                    private val countMarksUseCase: CountMarksUseCase,
-                   private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase) : ViewModelProvider.Factory {
+                   private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase,
+                   private val markCellsWithBombUseCase: MarkCellsWithBombUseCase,
+                   private val revealBombsUseCase: RevealBombsUseCase) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -160,7 +167,9 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                     getCellsBySideUseCase,
                     getBombsInBoardUseCase,
                     countMarksUseCase,
-                    checkBoardWinOrLoseUseCase) as T
+                    checkBoardWinOrLoseUseCase,
+                    markCellsWithBombUseCase,
+                    revealBombsUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

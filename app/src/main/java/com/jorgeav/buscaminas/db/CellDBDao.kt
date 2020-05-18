@@ -27,4 +27,10 @@ interface CellDBDao {
 
     @Query("UPDATE cell_table SET isMarked = 0 WHERE x = :x AND y = :y")
     suspend fun updateUnmarkCellInDatabase(x: Int, y: Int)
+
+    @Query("UPDATE cell_table SET isMarked = 1 WHERE isBomb = 1")
+    suspend fun updateMarkAllBombsInDatabase()
+
+    @Query("UPDATE cell_table SET isRevealed = 1 WHERE isBomb = 1")
+    suspend fun updateRevealAllBombsInDatabase()
 }
