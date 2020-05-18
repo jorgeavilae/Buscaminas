@@ -30,6 +30,9 @@ class Repository(private val persistentDataSource: IPersistentDataSource,
         if (!cell.isMarked) persistentDataSource.markCell(cell.x, cell.y)
         else persistentDataSource.unmarkCell(cell.x, cell.y)
 
+    suspend fun markCellsWithBomb() = persistentDataSource.markCellsWithBomb()
+    suspend fun revealBombs() = persistentDataSource.revealBombs()
+
     fun getElapsedMillis() : Long = keyValueDataSource.getElapsedMillis()
     fun setElapsedMillis(millis : Long) = keyValueDataSource.setElapsedMillis(millis)
 

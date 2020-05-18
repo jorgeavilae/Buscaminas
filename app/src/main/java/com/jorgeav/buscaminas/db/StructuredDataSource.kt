@@ -32,6 +32,14 @@ class StructuredDataSource(private val context: Context)
     override suspend fun markCell(x: Int, y: Int) = cellDBDao.updateMarkCellInDatabase(x,y)
     override suspend fun unmarkCell(x: Int, y: Int) = cellDBDao.updateUnmarkCellInDatabase(x,y)
 
+    override suspend fun markCellsWithBomb() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun revealBombs() {
+        TODO("Not yet implemented")
+    }
+
     override fun getElapsedMillis(): Long {
         val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 0L
         return sharedPref.getLong(context.getString(R.string.elapsed_time_preference_key), 0L)
