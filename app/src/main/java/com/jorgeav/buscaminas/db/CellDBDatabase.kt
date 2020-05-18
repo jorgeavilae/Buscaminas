@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
 
 const val DATABASE_NAME = "cell_database"
 
-@Database(entities = [CellDB::class], version = 2, exportSchema = false)
+@Database(entities = [CellDB::class], version = 3, exportSchema = false)
 abstract class CellDBDatabase : RoomDatabase() {
     abstract val cellDBDao: CellDBDao
 

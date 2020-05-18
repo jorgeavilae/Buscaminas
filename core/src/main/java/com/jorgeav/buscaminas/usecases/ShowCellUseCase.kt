@@ -19,6 +19,7 @@ class ShowCellUseCase(private val cellsRepository: Repository) {
                         isShowing = true,
                         isMarked = false,
                         isBomb = it.isBomb,
+                        isRevealed = it.isRevealed,
                         numberOfBombsInBounds = it.numberOfBombsInBounds
                     ) })
         }

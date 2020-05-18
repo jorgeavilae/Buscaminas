@@ -87,8 +87,13 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         if (isBoardWinOrLose != null) {
             _gameFinishedState.value = true
 
-            if (isBoardWinOrLose) _gameWonEvent.value = true
-            else _gameLoseEvent.value = true
+            if (isBoardWinOrLose) {
+                // todo mark bombs
+                _gameWonEvent.value = true
+            } else {
+                // todo reveal bombs
+                _gameLoseEvent.value = true
+            }
         }
         return (isBoardWinOrLose != null)
     }

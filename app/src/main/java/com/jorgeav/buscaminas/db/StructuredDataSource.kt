@@ -17,7 +17,7 @@ class StructuredDataSource(private val context: Context)
 
     override suspend fun addAll(cells: List<Cell>) {
         val cellsDB : List<CellDB> = cells.map {
-            CellDB(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }
+            CellDB(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.isRevealed, it.numberOfBombsInBounds) }
         cellDBDao.addAllToDatabase(cellsDB)
     }
 
@@ -25,7 +25,7 @@ class StructuredDataSource(private val context: Context)
 
     override suspend fun readAll(): List<Cell> =
         cellDBDao.readAllFromDatabase().map {
-            Cell(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.numberOfBombsInBounds) }
+            Cell(it.x, it.y, it.isShowing, it.isMarked, it.isBomb, it.isRevealed, it.numberOfBombsInBounds) }
 
     override suspend fun showCell(x: Int, y: Int) = cellDBDao.updateShowCellInDatabase(x,y)
 

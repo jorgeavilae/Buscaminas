@@ -30,7 +30,7 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
         binding.cellGridImageView.setImageResource(R.drawable.ic_mark)
     }
 
-    fun showAsUnMarked() {
+    fun showAsIdle() {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_hide, null)
 
         binding.cellGridImageView.visibility = View.INVISIBLE
@@ -40,6 +40,15 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
     }
 
     fun showAsBomb() {
+        binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_show, null)
+
+        binding.cellGridImageView.visibility = View.VISIBLE
+        binding.cellGridTextView.visibility = View.INVISIBLE
+
+        binding.cellGridImageView.setImageResource(R.drawable.ic_bomb_dark)
+    }
+
+    fun showAsBombHit() {
         binding.cellGridContainer.background = resources.getDrawable(R.drawable.cell_grid_background_bomb, null)
 
         binding.cellGridImageView.visibility = View.VISIBLE
@@ -73,11 +82,12 @@ class CellGridCompoundView(context: Context?, attrs: AttributeSet?) : Constraint
 @BindingAdapter("cellState")
 fun CellGridCompoundView.setCellState(item: Cell?) {
     item?.let {
-        when(val state = Cell.getStateOfCell(it)) {
+        when(it.getStateOfCell()) {
             is CellShowingState.StateMark -> showAsMarked()
-            is CellShowingState.StateUnMark -> showAsUnMarked()
-            is CellShowingState.StateBomb -> showAsBomb()
-            is CellShowingState.StateNumber -> showAsNumber(state.numberOfBombsInBounds)
+            is CellShowingState.StateIdle -> showAsIdle()
+            is CellShowingState.StateBombHit -> showAsBombHit()
+            is CellShowingState.StateNumber -> showAsNumber(it.numberOfBombsInBounds)
+            is CellShowingState.StateBombRevealed -> showAsBomb()
         }
     }
 }

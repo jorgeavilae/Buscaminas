@@ -24,6 +24,9 @@ data class CellDB (
     @ColumnInfo(name = "isBomb")
     var isBomb: Boolean = false,
 
+    @ColumnInfo(name = "isRevealed")
+    var isRevealed: Boolean = false,
+
     @ColumnInfo(name = "numberOfBombsInBounds")
     var numberOfBombsInBounds: Int = 0
 )
