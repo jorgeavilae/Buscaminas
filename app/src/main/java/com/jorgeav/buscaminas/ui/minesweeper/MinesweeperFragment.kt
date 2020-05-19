@@ -1,5 +1,6 @@
 package com.jorgeav.buscaminas.ui.minesweeper
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +11,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jorgeav.buscaminas.MainActivity
+import com.jorgeav.buscaminas.MyApplication
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.MinesweeperFragmentBinding
 import com.jorgeav.buscaminas.domain.Cell
 import com.jorgeav.buscaminas.ui.minesweeper.board.CellItemClickListener
 import com.jorgeav.buscaminas.ui.minesweeper.board.CellsBoardAdapter
 import com.jorgeav.buscaminas.ui.minesweeper.board.CustomItemAnimator
+import javax.inject.Inject
 
 class MinesweeperFragment : Fragment() {
+
+    @Inject
+    lateinit var mViewModelFactory: MinesweeperViewModel.Factory
 
     private lateinit var binding: MinesweeperFragmentBinding
     private lateinit var viewModel: MinesweeperViewModel
@@ -32,19 +37,19 @@ class MinesweeperFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.minesweeper_fragment, container, false)
 
         // Init viewModel
-        val viewModelFactory = MinesweeperViewModel.Factory(
-            (activity as MainActivity).loadBoardUseCase,
-            (activity as MainActivity).changeMarkInCellUseCase,
-            (activity as MainActivity).showCellUseCase,
-            (activity as MainActivity).getElapsedMillisInBoardUseCase,
-            (activity as MainActivity).setElapsedMillisInBoardUseCase,
-            (activity as MainActivity).getCellsBySideUseCase,
-            (activity as MainActivity).getBombsInBoardUseCase,
-            (activity as MainActivity).countMarksUseCase,
-            (activity as MainActivity).checkBoardWinOrLoseUseCase,
-            (activity as MainActivity).markCellsWithBombUseCase,
-            (activity as MainActivity).revealBombsUseCase)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MinesweeperViewModel::class.java)
+//        val viewModelFactory = MinesweeperViewModel.Factory(
+//            (activity as MainActivity).loadBoardUseCase,
+//            (activity as MainActivity).changeMarkInCellUseCase,
+//            (activity as MainActivity).showCellUseCase,
+//            (activity as MainActivity).getElapsedMillisInBoardUseCase,
+//            (activity as MainActivity).setElapsedMillisInBoardUseCase,
+//            (activity as MainActivity).getCellsBySideUseCase,
+//            (activity as MainActivity).getBombsInBoardUseCase,
+//            (activity as MainActivity).countMarksUseCase,
+//            (activity as MainActivity).checkBoardWinOrLoseUseCase,
+//            (activity as MainActivity).markCellsWithBombUseCase,
+//            (activity as MainActivity).revealBombsUseCase)
+        viewModel = ViewModelProvider(this, mViewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -99,6 +104,11 @@ class MinesweeperFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.application as MyApplication).appComponent.inject(this)
     }
 
     override fun onStart() {

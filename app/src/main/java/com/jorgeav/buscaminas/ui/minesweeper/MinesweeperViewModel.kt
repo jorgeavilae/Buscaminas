@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.jorgeav.buscaminas.domain.Cell
 import com.jorgeav.buscaminas.usecases.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
@@ -143,17 +144,19 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
     fun startChronoEventConsumed() { _startChronoEvent.value = false }
     fun setChronoTimeEventConsumed() { _setChronoTimeEvent.value = false }
 
-    class Factory (private val loadBoardUseCase: LoadBoardUseCase,
-                   private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
-                   private val showCellUseCase: ShowCellUseCase,
-                   private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
-                   private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
-                   private val getCellsBySideUseCase: GetCellsBySideUseCase,
-                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
-                   private val countMarksUseCase: CountMarksUseCase,
-                   private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase,
-                   private val markCellsWithBombUseCase: MarkCellsWithBombUseCase,
-                   private val revealBombsUseCase: RevealBombsUseCase) : ViewModelProvider.Factory {
+    class Factory @Inject constructor(
+        private val loadBoardUseCase: LoadBoardUseCase,
+        private val changeMarkInCellUseCase: ChangeMarkInCellUseCase,
+        private val showCellUseCase: ShowCellUseCase,
+        private val getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase,
+        private val setElapsedMillisInBoardUseCase: SetElapsedMillisInBoardUseCase,
+        private val getCellsBySideUseCase: GetCellsBySideUseCase,
+        private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
+        private val countMarksUseCase: CountMarksUseCase,
+        private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase,
+        private val markCellsWithBombUseCase: MarkCellsWithBombUseCase,
+        private val revealBombsUseCase: RevealBombsUseCase
+    ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

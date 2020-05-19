@@ -3,6 +3,7 @@ package com.jorgeav.buscaminas.ui.newboard
 import androidx.lifecycle.*
 import com.jorgeav.buscaminas.usecases.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase,
                         private val getCellsBySideUseCase: GetCellsBySideUseCase,
@@ -92,11 +93,13 @@ class NewBoardViewModel(private val createNewBoardUseCase: CreateNewBoardUseCase
         _finishGenerateBoardEvent.value = false
     }
 
-    class Factory (private val createNewBoardUseCase: CreateNewBoardUseCase,
-                   private val getCellsBySideUseCase: GetCellsBySideUseCase,
-                   private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
-                   private val getCellsBySideRangeUseCase: GetCellsBySideRangeUseCase,
-                   private val getBombsRangeInBoardUseCase: GetBombsRangeInBoardUseCase) : ViewModelProvider.Factory {
+    class Factory @Inject constructor(
+        private val createNewBoardUseCase: CreateNewBoardUseCase,
+        private val getCellsBySideUseCase: GetCellsBySideUseCase,
+        private val getBombsInBoardUseCase: GetBombsInBoardUseCase,
+        private val getCellsBySideRangeUseCase: GetCellsBySideRangeUseCase,
+        private val getBombsRangeInBoardUseCase: GetBombsRangeInBoardUseCase
+    ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

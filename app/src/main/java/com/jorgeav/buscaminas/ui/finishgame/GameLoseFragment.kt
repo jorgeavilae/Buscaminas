@@ -1,5 +1,6 @@
 package com.jorgeav.buscaminas.ui.finishgame
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -10,10 +11,18 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.DialogFragment
-import com.jorgeav.buscaminas.MainActivity
+import com.jorgeav.buscaminas.MyApplication
 import com.jorgeav.buscaminas.R
+import com.jorgeav.buscaminas.usecases.GetBombsInBoardUseCase
+import com.jorgeav.buscaminas.usecases.GetCellsBySideUseCase
+import com.jorgeav.buscaminas.usecases.GetElapsedMillisInBoardUseCase
+import javax.inject.Inject
 
 class GameLoseFragment : DialogFragment() {
+
+    @Inject lateinit var getCellsBySideUseCase: GetCellsBySideUseCase
+    @Inject lateinit var getBombsInBoardUseCase: GetBombsInBoardUseCase
+    @Inject lateinit var getElapsedMillisInBoardUseCase: GetElapsedMillisInBoardUseCase
 
     private lateinit var message : CharSequence
 
@@ -44,10 +53,15 @@ class GameLoseFragment : DialogFragment() {
         return view
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.application as MyApplication).appComponent.inject(this)
+    }
+
     private fun constructMessageForDialog() {
-        val columns : Int = (activity as MainActivity).getCellsBySideUseCase()
-        val bombs : Int = (activity as MainActivity).getBombsInBoardUseCase()
-        val timeMillis : Long = (activity as MainActivity).getElapsedMillisInBoardUseCase()
+        val columns : Int = getCellsBySideUseCase()
+        val bombs : Int = getBombsInBoardUseCase()
+        val timeMillis : Long = getElapsedMillisInBoardUseCase()
         val timeStr : String = DateUtils.formatElapsedTime(timeMillis / 1000)
 
         message = resources.getString(R.string.text_dialog, columns, bombs, timeStr)
