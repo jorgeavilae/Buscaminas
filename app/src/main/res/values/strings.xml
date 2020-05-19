@@ -32,6 +32,7 @@
         I found a bomb in %1$s &lt;br>&lt;br>Do you think you can do better?
     </string>
 
+    <string name="file_preference_name" translatable="false">file_preference_name</string>
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
     <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
     <string name="bombs_preference_key" translatable="false">bombs_preference_key</string>
