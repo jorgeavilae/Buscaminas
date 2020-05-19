@@ -4,11 +4,12 @@ import com.jorgeav.buscaminas.data.Repository
 import com.jorgeav.buscaminas.domain.BoardUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
-class CreateNewBoardUseCase(private val repository: Repository) {
+class CreateNewBoardUseCase @Inject constructor(private val repository: Repository) {
     suspend operator fun invoke(cellsBySide : Int, bombs : Int) {
         withContext(Dispatchers.IO) {
             repository.deleteAllCells()
