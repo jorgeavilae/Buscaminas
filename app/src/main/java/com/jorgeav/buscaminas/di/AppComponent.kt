@@ -7,10 +7,12 @@ import com.jorgeav.buscaminas.ui.minesweeper.MinesweeperFragment
 import com.jorgeav.buscaminas.ui.newboard.NewBoardFragment
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 /**
  * Created by Jorge Avila on 18/05/2020.
  */
+@Singleton
 @Component(modules = [DataSourceModule::class])
 interface AppComponent {
 

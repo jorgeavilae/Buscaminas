@@ -2,10 +2,12 @@ package com.jorgeav.buscaminas.data
 
 import com.jorgeav.buscaminas.domain.Cell
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
+@Singleton
 class Repository @Inject constructor(private val persistentDataSource: IPersistentDataSource,
                                      private val keyValueDataSource: IKeyValueDataSource) {
 
