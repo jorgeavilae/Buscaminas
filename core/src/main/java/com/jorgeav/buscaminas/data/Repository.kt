@@ -1,12 +1,13 @@
 package com.jorgeav.buscaminas.data
 
 import com.jorgeav.buscaminas.domain.Cell
+import javax.inject.Inject
 
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
-class Repository(private val persistentDataSource: IPersistentDataSource,
-                 private val keyValueDataSource: IKeyValueDataSource) {
+class Repository @Inject constructor(private val persistentDataSource: IPersistentDataSource,
+                                     private val keyValueDataSource: IKeyValueDataSource) {
 
     suspend fun addAll(cellsList : List<Cell>) =
         persistentDataSource.addAll(cellsList)
