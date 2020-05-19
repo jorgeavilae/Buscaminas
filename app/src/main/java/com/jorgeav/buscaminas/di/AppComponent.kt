@@ -7,7 +7,7 @@ import dagger.Component
 /**
  * Created by Jorge Avila on 18/05/2020.
  */
-@Component()
+@Component(modules = [DataSourceModule::class])
 interface AppComponent {
 
     @Component.Factory
