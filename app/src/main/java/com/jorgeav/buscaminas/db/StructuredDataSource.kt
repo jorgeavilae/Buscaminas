@@ -1,6 +1,5 @@
 package com.jorgeav.buscaminas.db
 
-import android.app.Activity
 import android.content.Context
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.data.IKeyValueDataSource
@@ -36,12 +35,14 @@ class StructuredDataSource(private val context: Context)
     override suspend fun revealBombs() = cellDBDao.updateRevealAllBombsInDatabase()
 
     override fun getElapsedMillis(): Long {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 0L
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return 0L
         return sharedPref.getLong(context.getString(R.string.elapsed_time_preference_key), 0L)
     }
 
     override fun setElapsedMillis(millis: Long) {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putLong(context.getString(R.string.elapsed_time_preference_key), millis)
             commit()
@@ -49,12 +50,14 @@ class StructuredDataSource(private val context: Context)
     }
 
     override fun getCellsBySide(): Int {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 1
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return 1
         return sharedPref.getInt(context.getString(R.string.cells_side_preference_key), 1)
     }
 
     override fun setCellsBySide(cellsBySide: Int) {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putInt(context.getString(R.string.cells_side_preference_key), cellsBySide)
             commit()
@@ -62,12 +65,14 @@ class StructuredDataSource(private val context: Context)
     }
 
     override fun getBombs(): Int {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return 0
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return 0
         return sharedPref.getInt(context.getString(R.string.bombs_preference_key), 0)
     }
 
     override fun setBombs(bombs: Int) {
-        val sharedPref = (context as Activity).getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.file_preference_name), Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putInt(context.getString(R.string.bombs_preference_key), bombs)
             commit()
