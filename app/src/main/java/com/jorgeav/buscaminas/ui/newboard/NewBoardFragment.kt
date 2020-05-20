@@ -56,16 +56,16 @@ class NewBoardFragment : Fragment() {
     private fun enabledCellsButtons(cells: Int) {
         when {
             cells <= viewModel.minCellsBySide -> {
-                binding.lessRowsButton.isEnabled = false
-                binding.moreRowsButton.isEnabled = true
+                binding.lessCellsButton.isEnabled = false
+                binding.moreCellsButton.isEnabled = true
             }
             cells >= viewModel.maxCellsBySide -> {
-                binding.lessRowsButton.isEnabled = true
-                binding.moreRowsButton.isEnabled = false
+                binding.lessCellsButton.isEnabled = true
+                binding.moreCellsButton.isEnabled = false
             }
             else -> {
-                binding.lessRowsButton.isEnabled = true
-                binding.moreRowsButton.isEnabled = true
+                binding.lessCellsButton.isEnabled = true
+                binding.moreCellsButton.isEnabled = true
             }
         }
     }
@@ -73,16 +73,16 @@ class NewBoardFragment : Fragment() {
     private fun enabledBombsButtons(bombs: Int) {
         when {
             bombs <= viewModel.minBombs -> {
-                binding.lessColumnsButton.isEnabled = false
-                binding.moreColumnsButton.isEnabled = true
+                binding.lessBombsButton.isEnabled = false
+                binding.moreBombsButton.isEnabled = true
             }
             bombs >= viewModel.maxBombs -> {
-                binding.lessColumnsButton.isEnabled = true
-                binding.moreColumnsButton.isEnabled = false
+                binding.lessBombsButton.isEnabled = true
+                binding.moreBombsButton.isEnabled = false
             }
             else -> {
-                binding.lessColumnsButton.isEnabled = true
-                binding.moreColumnsButton.isEnabled = true
+                binding.lessBombsButton.isEnabled = true
+                binding.moreBombsButton.isEnabled = true
             }
         }
 
