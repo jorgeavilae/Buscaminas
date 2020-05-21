@@ -18,6 +18,7 @@ package com.jorgeav.buscaminas.ui.newboard
 
 import android.annotation.SuppressLint
 import android.graphics.Rect
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -29,15 +30,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.jorgeav.buscaminas.MainActivity
+import com.jorgeav.buscaminas.MyApplication
 import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.databinding.NewBoardFragmentBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @SuppressLint("ClickableViewAccessibility")
 class NewBoardFragment : Fragment(), View.OnTouchListener {
+
+    @Inject lateinit var mViewModelFactory: NewBoardViewModel.Factory
 
     private lateinit var binding : NewBoardFragmentBinding
     private lateinit var viewModel: NewBoardViewModel
@@ -49,13 +53,13 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.new_board_fragment, container, false)
 
-        val viewModelFactory = NewBoardViewModel.Factory(
-            (activity as MainActivity).createNewBoardUseCase,
-            (activity as MainActivity).getCellsBySideUseCase,
-            (activity as MainActivity).getBombsInBoardUseCase,
-            (activity as MainActivity).getCellsBySideRangeUseCase,
-            (activity as MainActivity).getBombsRangeInBoardUseCase)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(NewBoardViewModel::class.java)
+//        val viewModelFactory = NewBoardViewModel.Factory(
+//            (activity as MainActivity).createNewBoardUseCase,
+//            (activity as MainActivity).getCellsBySideUseCase,
+//            (activity as MainActivity).getBombsInBoardUseCase,
+//            (activity as MainActivity).getCellsBySideRangeUseCase,
+//            (activity as MainActivity).getBombsRangeInBoardUseCase)
+        viewModel = ViewModelProvider(this, mViewModelFactory).get(NewBoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -81,6 +85,11 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
         binding.lessBombsButton.setOnTouchListener(this)
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity?.application as MyApplication).appComponent.inject(this)
     }
 
     private fun enabledCellsButtons(cells: Int) {

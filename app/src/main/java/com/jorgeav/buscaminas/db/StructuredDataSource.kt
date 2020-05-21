@@ -21,11 +21,12 @@ import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.data.IKeyValueDataSource
 import com.jorgeav.buscaminas.data.IPersistentDataSource
 import com.jorgeav.buscaminas.domain.Cell
+import javax.inject.Inject
 
 /**
  * Created by Jorge Avila on 07/05/2020.
  */
-class StructuredDataSource(private val context: Context)
+class StructuredDataSource @Inject constructor(private val context: Context)
     : IPersistentDataSource, IKeyValueDataSource {
 
     private val cellDBDao = CellDBDatabase.getInstance(context).cellDBDao
