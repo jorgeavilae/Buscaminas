@@ -53,18 +53,6 @@ class MinesweeperFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.minesweeper_fragment, container, false)
 
         // Init viewModel
-//        val viewModelFactory = MinesweeperViewModel.Factory(
-//            (activity as MainActivity).loadBoardUseCase,
-//            (activity as MainActivity).changeMarkInCellUseCase,
-//            (activity as MainActivity).showCellUseCase,
-//            (activity as MainActivity).getElapsedMillisInBoardUseCase,
-//            (activity as MainActivity).setElapsedMillisInBoardUseCase,
-//            (activity as MainActivity).getCellsBySideUseCase,
-//            (activity as MainActivity).getBombsInBoardUseCase,
-//            (activity as MainActivity).countMarksUseCase,
-//            (activity as MainActivity).checkBoardWinOrLoseUseCase,
-//            (activity as MainActivity).markCellsWithBombUseCase,
-//            (activity as MainActivity).revealBombsUseCase)
         viewModel = ViewModelProvider(this, mViewModelFactory).get(MinesweeperViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this

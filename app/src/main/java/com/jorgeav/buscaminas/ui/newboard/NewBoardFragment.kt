@@ -17,8 +17,8 @@
 package com.jorgeav.buscaminas.ui.newboard
 
 import android.annotation.SuppressLint
-import android.graphics.Rect
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -53,12 +53,6 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.new_board_fragment, container, false)
 
-//        val viewModelFactory = NewBoardViewModel.Factory(
-//            (activity as MainActivity).createNewBoardUseCase,
-//            (activity as MainActivity).getCellsBySideUseCase,
-//            (activity as MainActivity).getBombsInBoardUseCase,
-//            (activity as MainActivity).getCellsBySideRangeUseCase,
-//            (activity as MainActivity).getBombsRangeInBoardUseCase)
         viewModel = ViewModelProvider(this, mViewModelFactory).get(NewBoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
