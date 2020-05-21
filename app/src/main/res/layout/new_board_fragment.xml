@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="@+id/more_cells_button"
             app:layout_constraintStart_toStartOf="@+id/less_cells_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7"
+            app:layout_constraintVertical_bias="0.55"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <ImageButton
@@ -128,10 +128,17 @@
             app:layout_constraintStart_toEndOf="@+id/bombs_quantity_text"
             app:layout_constraintTop_toTopOf="@+id/bombs_quantity_text" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
         <Button
             android:id="@+id/generate_button"
             style="@style/ButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.onGenerateBoardClicked()}"
             android:text="@string/generate"
@@ -139,14 +146,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="0.33" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintVertical_bias="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
