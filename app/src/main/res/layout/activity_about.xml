@@ -15,18 +15,112 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:scrollIndicators="none"
     tools:context="com.jorgeav.buscaminas.ui.about.AboutActivity">
 
-    <TextView
-        android:id="@+id/about_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About this app"
-        style="@style/AboutTitle"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/about_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About this app"
+            style="@style/AboutTitle"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/about_dagger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dagger"
+            style="@style/AboutSubtitle"/>
+
+        <TextView
+            android:id="@+id/about_dagger_text"
+            style="@style/AboutBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dagger is a fully static, compile-time dependency injection framework for both Java and Android. It is an adaptation of an earlier version created by Square and now maintained by Google." />
+
+        <TextView
+            android:id="@+id/about_dagger_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="https://dagger.dev/dev-guide/android.html"
+            style="@style/AboutLink"/>
+
+        <TextView
+            android:id="@+id/about_room_explorer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RoomExplorer"
+            style="@style/AboutSubtitle"/>
+
+        <TextView
+            android:id="@+id/about_room_explorer_text"
+            style="@style/AboutBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A quick and easy database viewer and manager library for your Room databases. Built by Wajahat Karim and contributors" />
+
+        <TextView
+            android:id="@+id/about_room_explorer_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="https://github.com/wajahatkarim3/RoomExplorer"
+            style="@style/AboutLink"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/about_icons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Icons"
+                style="@style/AboutSubtitle"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time"
+                android:layout_margin="@dimen/vertical_margin_related"
+                android:layout_gravity="bottom"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bomb_dark"
+                android:layout_marginBottom="@dimen/vertical_margin_related"
+                android:layout_gravity="bottom"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mark"
+                android:layout_margin="@dimen/vertical_margin_related"
+                android:layout_gravity="bottom"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/about_icons_text"
+            style="@style/AboutBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vectors by Vecteezy" />
+
+        <TextView
+            android:id="@+id/about_icons_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="https://www.vecteezy.com"
+            style="@style/AboutLink"/>
+    </LinearLayout>
+</ScrollView>

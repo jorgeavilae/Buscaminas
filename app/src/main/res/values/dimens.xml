@@ -23,6 +23,7 @@
     <dimen name="horizontal_margin_non_related">24dp</dimen>
     <dimen name="vertical_margin_section">32dp</dimen>
     <dimen name="horizontal_margin_borders_wide">32dp</dimen>
+    <dimen name="horizontal_padding">8dp</dimen>
 
     <dimen name="text_width">48dp</dimen>
     <dimen name="text_size">24sp</dimen>
