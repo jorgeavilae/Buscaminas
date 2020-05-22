@@ -124,8 +124,8 @@ internal object BoardUtils {
         return when {
             board == null -> null /*incomplete*/
             board.isEmpty() -> null /*incomplete*/
-            aCellIsNotFlipped -> null /*incomplete*/
             aBombIsShowing -> false /*lose*/
+            aCellIsNotFlipped -> null /*incomplete*/
             else -> true /*win*/
         }
     }
