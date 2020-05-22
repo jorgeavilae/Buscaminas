@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.debug_ddbb_content, menu)
+        if (BuildConfig.DEBUG)
+            menuInflater.inflate(R.menu.debug_ddbb_content, menu)
         return true
     }
 
