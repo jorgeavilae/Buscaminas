@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package com.jorgeav.buscaminas
+package com.jorgeav.buscaminas.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import com.jorgeav.buscaminas.BuildConfig
+import com.jorgeav.buscaminas.R
 import com.jorgeav.buscaminas.db.CellDBDatabase
 import com.jorgeav.buscaminas.db.DATABASE_NAME
+import com.jorgeav.buscaminas.ui.about.AboutActivity
 import com.wajahatkarim3.roomexplorer.RoomExplorer
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.about -> {
-                Snackbar.make(findViewById(R.id.container), "About", Snackbar.LENGTH_SHORT).show()
+                startActivity(Intent(this, AboutActivity::class.java))
                 true
             }
             R.id.ddbb_content -> {

@@ -92,6 +92,7 @@
         <item name="android:layout_marginEnd">@dimen/dialog_margin_horizontal</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 
     <style name="TextDialog" parent="TextAppearance.MaterialComponents.Body1">
@@ -100,6 +101,7 @@
         <item name="android:layout_marginStart">@dimen/dialog_margin_horizontal</item>
         <item name="android:layout_marginEnd">@dimen/dialog_margin_horizontal</item>
         <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 
     <style name="ButtonDialog" parent="Widget.MaterialComponents.Button.TextButton">
@@ -108,6 +110,18 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/dialog_margin_button</item>
         <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="AboutTitle">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_section</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_section</item>
     </style>
 
 </resources>
