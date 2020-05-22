@@ -16,7 +16,6 @@
   -->
 
 <resources>
-    <string name="app_name">Buscaminas</string>
     <string name="generate">Generar</string>
     <string name="new_board">Juego Nuevo</string>
 

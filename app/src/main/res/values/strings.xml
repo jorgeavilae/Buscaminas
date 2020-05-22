@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">MinesWeeper</string>
+    <string name="app_name" translatable="false">Buscaminas</string>
     <string name="generate">Generate</string>
     <string name="new_board">New Board</string>
 
