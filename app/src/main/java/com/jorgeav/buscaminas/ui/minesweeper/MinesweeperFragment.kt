@@ -73,7 +73,8 @@ class MinesweeperFragment : Fragment() {
         // Observe viewModel
         viewModel.cells.observe(viewLifecycleOwner, Observer { cellsMap ->
             cellsMap?.let {
-                showCellsInGrid(it)
+                if (cellsMap.isEmpty()) showEmptyView()
+                else submitCellsInGrid(it)
             }
         })
         viewModel.newBoardButtonEvent.observe(viewLifecycleOwner, Observer {
@@ -137,9 +138,9 @@ class MinesweeperFragment : Fragment() {
         stopChronometer()
     }
 
-    private fun showCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
+    private fun submitCellsInGrid(cellsMap: Map<Pair<Int, Int>, Cell>) {
         adapter.submitList(cellsMap.values.toList())
-        shouldShowProgressView(false)
+        showGridView()
     }
 
     private fun startChronometer() {
@@ -153,7 +154,7 @@ class MinesweeperFragment : Fragment() {
     }
 
     private fun navigateToNewBoardFragment() {
-        shouldShowProgressView(true)
+        showProgressView()
         findNavController().navigate(R.id.action_minesweeperFragment_to_newBoardFragment)
     }
 
@@ -165,23 +166,39 @@ class MinesweeperFragment : Fragment() {
         findNavController().navigate(R.id.action_minesweeperFragment_to_gameLoseFragment)
     }
 
-    private fun shouldShowProgressView(showProgress : Boolean) {
-        if (showProgress) {
-            binding.progressCircularView.visibility = View.VISIBLE
+    private fun showProgressView() {
+        binding.progressCircularView.visibility = View.VISIBLE
 
-            binding.cellsBoardView.visibility = View.INVISIBLE
-            binding.timeImage.visibility = View.INVISIBLE
-            binding.timeText.visibility = View.INVISIBLE
-            binding.bombsImage.visibility = View.INVISIBLE
-            binding.bombsText.visibility = View.INVISIBLE
-        } else {
-            binding.progressCircularView.visibility = View.INVISIBLE
+        binding.cellsBoardView.visibility = View.INVISIBLE
+        binding.timeImage.visibility = View.INVISIBLE
+        binding.timeText.visibility = View.INVISIBLE
+        binding.bombsImage.visibility = View.INVISIBLE
+        binding.bombsText.visibility = View.INVISIBLE
 
-            binding.cellsBoardView.visibility = View.VISIBLE
-            binding.timeImage.visibility = View.VISIBLE
-            binding.timeText.visibility = View.VISIBLE
-            binding.bombsImage.visibility = View.VISIBLE
-            binding.bombsText.visibility = View.VISIBLE
-        }
+        binding.noBoardText.visibility = View.INVISIBLE
+    }
+
+    private fun showGridView() {
+        binding.progressCircularView.visibility = View.INVISIBLE
+
+        binding.cellsBoardView.visibility = View.VISIBLE
+        binding.timeImage.visibility = View.VISIBLE
+        binding.timeText.visibility = View.VISIBLE
+        binding.bombsImage.visibility = View.VISIBLE
+        binding.bombsText.visibility = View.VISIBLE
+
+        binding.noBoardText.visibility = View.INVISIBLE
+    }
+
+    private fun showEmptyView() {
+        binding.progressCircularView.visibility = View.INVISIBLE
+
+        binding.cellsBoardView.visibility = View.INVISIBLE
+        binding.timeImage.visibility = View.INVISIBLE
+        binding.timeText.visibility = View.INVISIBLE
+        binding.bombsImage.visibility = View.INVISIBLE
+        binding.bombsText.visibility = View.INVISIBLE
+
+        binding.noBoardText.visibility = View.VISIBLE
     }
 }

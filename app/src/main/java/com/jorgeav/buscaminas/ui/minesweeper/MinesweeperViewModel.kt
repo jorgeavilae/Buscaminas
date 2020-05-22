@@ -100,7 +100,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         _cells.value = loadBoardUseCase()
         val bombs = getBombsInBoardUseCase()
         val marks = countMarksUseCase(_cells.value)
-        _bombsLeft.value = (bombs?:0) - (marks?:0)
+        _bombsLeft.value = bombs - (marks?:0)
     }
 
     private suspend fun gameFinishedEvent(isBoardWinOrLose: Boolean?) : Boolean {
