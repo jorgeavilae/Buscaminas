@@ -20,6 +20,7 @@ import android.os.SystemClock
 import androidx.lifecycle.*
 import com.jorgeav.buscaminas.domain.Cell
 import com.jorgeav.buscaminas.usecases.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +34,11 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
                            private val countMarksUseCase: CountMarksUseCase,
                            private val checkBoardWinOrLoseUseCase: CheckBoardWinOrLoseUseCase,
                            private val markCellsWithBombUseCase: MarkCellsWithBombUseCase,
-                           private val revealBombsUseCase: RevealBombsUseCase) : ViewModel() {
+                           private val revealBombsUseCase: RevealBombsUseCase)
+    : ViewModel() {
+
+    private var initViewModelJob : Job? = null
+
     private val _cells = MutableLiveData<Map<Pair<Int, Int>, Cell>>()
     val cells : LiveData<Map<Pair<Int, Int>, Cell>>
         get() = _cells
@@ -70,7 +75,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         get() = _setChronoTimeEvent
 
     init {
-        viewModelScope.launch {
+        initViewModelJob = viewModelScope.launch {
             loadBoardData()
             gameFinishedEvent(checkBoardWinOrLoseUseCase(_cells.value))
         }
@@ -82,12 +87,10 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
         _setChronoTimeEvent.value = false
     }
 
-    fun refreshBoard() {
-        viewModelScope.launch {
-            loadBoardData()
-            _gameFinishedState.value = checkBoardWinOrLoseUseCase(_cells.value) != null
-            if (_gameFinishedState.value!!.not()) _startChronoEvent.value = true
-        }
+    suspend fun refreshBoard() {
+        loadBoardData()
+        _gameFinishedState.value = checkBoardWinOrLoseUseCase(_cells.value) != null
+        if (_gameFinishedState.value!!.not()) _startChronoEvent.value = true
     }
 
     private suspend fun updateBoardDataAndLaunchFinishEvents() {
@@ -122,11 +125,11 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun cellGridClicked(cell: Cell) {
         if (_gameFinishedState.value!!.not() && !cell.isShowing) {
-                viewModelScope.launch {
-                    showCellUseCase.invoke(cell, _cells.value)
-                    updateBoardDataAndLaunchFinishEvents()
-                }
+            viewModelScope.launch {
+                showCellUseCase.invoke(cell, _cells.value)
+                updateBoardDataAndLaunchFinishEvents()
             }
+        }
     }
 
     fun cellGridLongClicked(cell: Cell) : Boolean {
@@ -151,6 +154,7 @@ class MinesweeperViewModel(private val loadBoardUseCase: LoadBoardUseCase,
 
     fun onNewBoardClicked() {
         _cells.value = null
+        initViewModelJob?.cancel()
         _newBoardButtonEvent.value = true
     }
 
