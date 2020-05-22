@@ -18,6 +18,7 @@
     <string name="app_name" translatable="false">Buscaminas</string>
     <string name="generate">Generate</string>
     <string name="new_board">New Board</string>
+    <string name="about">About</string>
 
     <string name="number_of_cells">Number of cells by side (N x N)</string>
     <string name="number_of_bombs">Number of bombs</string>
@@ -51,4 +52,6 @@
     <string name="elapsed_time_preference_key" translatable="false">elapsed_time_preference_key</string>
     <string name="cells_side_preference_key" translatable="false">cells_side_preference_key</string>
     <string name="bombs_preference_key" translatable="false">bombs_preference_key</string>
+
+    <string name="ddbb_content" translatable="false">DDBB content</string>
 </resources>

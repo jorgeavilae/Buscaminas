@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.jorgeav.buscaminas.db.CellDBDatabase
 import com.jorgeav.buscaminas.db.DATABASE_NAME
 import com.wajahatkarim3.roomexplorer.RoomExplorer
@@ -32,13 +33,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.about, menu)
         if (BuildConfig.DEBUG)
-            menuInflater.inflate(R.menu.debug_ddbb_content, menu)
+            menu?.add(Menu.NONE, R.id.ddbb_content, Menu.NONE, R.string.ddbb_content)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.about -> {
+                Snackbar.make(findViewById(R.id.container), "About", Snackbar.LENGTH_SHORT).show()
+                true
+            }
             R.id.ddbb_content -> {
                 RoomExplorer.show(
                     this,
