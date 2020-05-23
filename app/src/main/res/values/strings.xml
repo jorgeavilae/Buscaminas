@@ -56,4 +56,33 @@
     <string name="bombs_preference_key" translatable="false">bombs_preference_key</string>
 
     <string name="ddbb_content" translatable="false">DDBB content</string>
+
+
+    <string name="dagger_title_link" translatable="false"><a
+        href="https://dagger.dev/dev-guide/android.html">Dagger</a></string>
+    <string name="roomexplorer_title_link" translatable="false"><a
+        href="https://github.com/wajahatkarim3/RoomExplorer">RoomExplorer</a></string>
+    <string name="icons_title_link" translatable="false"><a
+        href="https://www.vecteezy.com">Icons from Vecteezy</a></string>
+    <string name="eula_link" translatable="false"><a
+        href="https://github.com/jorgeavilae/Buscaminas/blob/master/EULA.md">End-User License Agreement (EULA)</a></string>
+    <string name="license_link" translatable="false"><a
+        href="https://github.com/jorgeavilae/Buscaminas/blob/master/LICENSE">Code License</a></string>
+    <string name="develop_text" translatable="false">Developed by
+        <a href="https://www.linkedin.com/in/jorgeavilae/">Jorge Ávila</a> during Spain\'s
+        lockdown <a href="https://twitter.com/hashtag/Quedatenecasa">#QuedateEnCasa</a></string>
+    <string name="develop_github" translatable="false">You can read the full code on
+        <a href="https://github.com/jorgeavilae/Buscaminas">Github</a>
+    </string>
+    <string name="develop_date" translatable="false">May 2020</string>
+
+    <string name="about_this_app" translatable="false">About this app</string>
+    <string name="about_external_resources" translatable="false">External resources</string>
+    <string name="about_dagger_text" translatable="false">Dagger is a fully static, compile-time
+        dependency injection framework for both Java and Android. It is an adaptation of an earlier
+        version created by Square and now maintained by Google.</string>
+    <string name="about_roomexplorer_text" translatable="false">A quick and easy database viewer and
+        manager library for your Room databases. Built by Wajahat Karim and contributors</string>
+    <string name="about_contracts" translatable="false">Contracts</string>
+
 </resources>

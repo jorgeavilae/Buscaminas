@@ -121,18 +121,32 @@
         <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_borders_wide</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_section</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_related</item>
     </style>
 
-    <style name="AboutSubtitle" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="AboutSection" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColorLink">@color/primaryLightColor</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_borders_wide</item>
-        <item name="android:layout_marginTop">@dimen/vertical_margin_section</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_related</item>
+    </style>
+
+    <style name="AboutSubtitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorLink">@color/primaryLightColor</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
         <item name="android:layout_marginBottom">@dimen/vertical_margin_related</item>
     </style>
 
     <style name="AboutBody" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColorLink">@color/primaryLightColor</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
@@ -142,6 +156,7 @@
     </style>
 
     <style name="AboutLink" parent="AboutBody">
+        <item name="android:textColorLink">@color/primaryLightColor</item>
         <item name="android:textColor">@color/primaryLightColor</item>
         <item name="android:paddingTop">@dimen/horizontal_padding</item>
         <item name="android:paddingEnd">@dimen/horizontal_padding</item>
