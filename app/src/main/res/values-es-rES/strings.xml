@@ -42,11 +42,15 @@
     </string>
     <string name="text_dialog_win">Completaste %1$s</string>
     <string name="text_dialog_lose">Encontraste una mina en %1$s</string>
-    <!-- TODO: add link to app in store -->
+
     <string name="share_message_dialog_win">
-        He completado %1$s &lt;br>&lt;br>Crees que puedes superarme?
+        He completado %1$s
+        &lt;br>&lt;br>Crees que puedes superarme?
+        &lt;br>bit.ly/playbuscaminas
     </string>
     <string name="share_message_dialog_lose">
-        He encontrado una mina en %1$s &lt;br>&lt;br>Crees que puedes hacerlo mejor que yo?
+        He encontrado una mina en %1$s
+        &lt;br>&lt;br>Crees que puedes hacerlo mejor que yo?
+        &lt;br>bit.ly/playbuscaminas
     </string>
 </resources>

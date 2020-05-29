@@ -42,12 +42,16 @@
     </string>
     <string name="text_dialog_win">You complete %1$s</string>
     <string name="text_dialog_lose">You found a bomb in %1$s</string>
-    <!-- TODO: add link to app in store -->
+
     <string name="share_message_dialog_win">
-        I complete %1$s &lt;br>&lt;br>Do you think you can beat me?
+        I complete %1$s
+        &lt;br>&lt;br>Do you think you can beat me?
+        &lt;br>bit.ly/playbuscaminas
     </string>
     <string name="share_message_dialog_lose">
-        I found a bomb in %1$s &lt;br>&lt;br>Do you think you can do better?
+        I found a bomb in %1$s
+        &lt;br>&lt;br>Do you think you can do better?
+        &lt;br>bit.ly/playbuscaminas
     </string>
 
     <string name="file_preference_name" translatable="false">file_preference_name</string>
