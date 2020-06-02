@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2020 Jorge Ávila Estévez
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +37,8 @@
             android:layout_height="wrap_content"
             android:text="@string/number_of_cells"
             app:layout_constraintBottom_toTopOf="@id/cells_quantity_text"
-            app:layout_constraintEnd_toEndOf="@id/more_cells_button"
-            app:layout_constraintStart_toStartOf="@id/less_cells_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.55"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -89,8 +88,8 @@
             android:layout_marginTop="@dimen/vertical_margin_section"
             android:text="@string/number_of_bombs"
             app:layout_constraintBottom_toTopOf="@id/bombs_quantity_text"
-            app:layout_constraintEnd_toEndOf="@id/more_bombs_button"
-            app:layout_constraintStart_toStartOf="@id/less_bombs_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cells_quantity_text" />
 
         <ImageButton
