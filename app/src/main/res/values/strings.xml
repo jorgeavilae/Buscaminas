@@ -88,5 +88,6 @@
     <string name="about_roomexplorer_text" translatable="false">A quick and easy database viewer and
         manager library for your Room databases. Built by Wajahat Karim and contributors</string>
     <string name="about_contracts" translatable="false">Contracts</string>
+    <string name="no_board">No board</string>
 
 </resources>
