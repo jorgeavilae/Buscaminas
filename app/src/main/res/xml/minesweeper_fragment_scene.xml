@@ -20,23 +20,16 @@
 
     <ConstraintSet android:id="@+id/constraint_set_start">
         <Constraint
-            android:id="@+id/progress_circular_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
-        <Constraint
             android:id="@+id/time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="@id/cells_board_view"
+            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintEnd_toStartOf="@id/time_image"
             motion:layout_constraintHorizontal_chainStyle="packed"
-            motion:layout_constraintStart_toStartOf="@id/cells_board_view" />
+            motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
             android:id="@+id/time_image"
             android:layout_width="wrap_content"
@@ -44,7 +37,6 @@
             android:layout_marginStart="@dimen/horizontal_margin_related"
             android:visibility="invisible"
             motion:layout_constraintBottom_toBottomOf="@id/time_text"
-            motion:layout_constraintEnd_toStartOf="@id/guideline_board_vertical"
             motion:layout_constraintStart_toEndOf="@id/time_text"
             motion:layout_constraintTop_toTopOf="@id/time_text"
             motion:layout_constraintVertical_bias="1" />
@@ -54,10 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_non_related"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="@id/cells_board_view"
             motion:layout_constraintEnd_toStartOf="@id/bombs_image"
             motion:layout_constraintHorizontal_chainStyle="packed"
-            motion:layout_constraintStart_toEndOf="@id/guideline_board_vertical" />
+            motion:layout_constraintTop_toTopOf="parent"/>
         <Constraint
             android:id="@+id/bombs_image"
             android:layout_width="wrap_content"
@@ -65,10 +56,18 @@
             android:layout_marginStart="@dimen/horizontal_margin_related"
             android:visibility="invisible"
             motion:layout_constraintBottom_toBottomOf="@id/bombs_text"
-            motion:layout_constraintEnd_toEndOf="@id/cells_board_view"
-            motion:layout_constraintStart_toEndOf="@id/bombs_text"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintTop_toTopOf="@id/bombs_text"
             motion:layout_constraintVertical_bias="1" />
+        <Constraint
+            android:id="@+id/progress_circular_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/no_board_text"
             android:layout_width="wrap_content"
@@ -82,14 +81,18 @@
             android:id="@+id/cells_board_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginStart="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginLeft="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginTop="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginEnd="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginRight="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginBottom="@dimen/horizontal_margin_borders_wide"
             android:overScrollMode="never"
             android:visibility="invisible"
             motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintVertical_bias="0.6"/>
+            motion:layout_constraintVertical_bias="0.6" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/constraint_set_end">
