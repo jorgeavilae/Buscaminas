@@ -172,38 +172,14 @@ class MinesweeperFragment : Fragment() {
     }
 
     private fun showProgressView() {
-        binding.progressCircularView.visibility = View.VISIBLE
-
-        binding.cellsBoardView.visibility = View.INVISIBLE
-        binding.timeImage.visibility = View.INVISIBLE
-        binding.timeText.visibility = View.INVISIBLE
-        binding.bombsImage.visibility = View.INVISIBLE
-        binding.bombsText.visibility = View.INVISIBLE
-
-        binding.noBoardText.visibility = View.INVISIBLE
+        binding.minesweeperMotionContainer.transitionToState(R.id.constraint_set_start)
     }
 
     private fun showGridView() {
-        binding.progressCircularView.visibility = View.INVISIBLE
-
-        binding.cellsBoardView.visibility = View.VISIBLE
-        binding.timeImage.visibility = View.VISIBLE
-        binding.timeText.visibility = View.VISIBLE
-        binding.bombsImage.visibility = View.VISIBLE
-        binding.bombsText.visibility = View.VISIBLE
-
-        binding.noBoardText.visibility = View.INVISIBLE
+        binding.minesweeperMotionContainer.transitionToState(R.id.constraint_set_end)
     }
 
     private fun showEmptyView() {
-        binding.progressCircularView.visibility = View.INVISIBLE
-
-        binding.cellsBoardView.visibility = View.INVISIBLE
-        binding.timeImage.visibility = View.INVISIBLE
-        binding.timeText.visibility = View.INVISIBLE
-        binding.bombsImage.visibility = View.INVISIBLE
-        binding.bombsText.visibility = View.INVISIBLE
-
-        binding.noBoardText.visibility = View.VISIBLE
+        binding.minesweeperMotionContainer.transitionToState(R.id.constraint_set_no_board)
     }
 }

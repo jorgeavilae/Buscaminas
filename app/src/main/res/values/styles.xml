@@ -47,6 +47,16 @@
         <item name="android:layout_marginBottom">@dimen/vertical_margin_related</item>
     </style>
 
+    <style name="Grid">
+        <item name="android:layout_margin">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginLeft">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginTop">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginRight">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_borders_wide</item>
+        <item name="android:layout_marginBottom">@dimen/horizontal_margin_borders_wide</item>
+    </style>
+
     <style name="GridText" parent="TextAppearance.AppCompat.Caption">
         <item name="android:padding">@dimen/grid_item_padding</item>
         <item name="android:gravity">center</item>
