@@ -257,7 +257,31 @@
         android:id="@+id/show_board_transition"
         motion:constraintSetEnd="@+id/constraint_set_end"
         motion:constraintSetStart="@id/constraint_set_start"
-        motion:duration="1000" />
+        motion:duration="1000"
+        motion:motionInterpolator="@android:interpolator/fast_out_slow_in">
+        <KeyFrameSet >
+            <KeyAttribute
+                motion:motionTarget="@+id/time_text"
+                motion:framePosition="90"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/time_image"
+                motion:framePosition="90"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/bombs_text"
+                motion:framePosition="90"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/bombs_image"
+                motion:framePosition="90"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/cells_board_view"
+                motion:framePosition="90"
+                android:alpha="1" />
+        </KeyFrameSet>
+    </Transition>
 
     <Transition
         android:id="@+id/no_board_transition"
