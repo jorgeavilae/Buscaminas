@@ -27,9 +27,11 @@
             type="com.jorgeav.buscaminas.ui.minesweeper.MinesweeperViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/minesweeper_motion_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/minesweeper_fragment_scene">
 
         <Chronometer
             android:id="@+id/time_text"
@@ -109,7 +111,7 @@
             android:id="@+id/cells_board_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin_borders_wide"
+            style="@style/Grid"
             android:overScrollMode="never"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
@@ -145,5 +147,5 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
