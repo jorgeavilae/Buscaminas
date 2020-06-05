@@ -28,7 +28,9 @@
         tools:layout="@layout/minesweeper_fragment">
         <action
             android:id="@+id/action_minesweeperFragment_to_newBoardFragment"
-            app:destination="@id/newBoardFragment" />
+            app:destination="@id/newBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_minesweeperFragment_to_gameWinFragment"
             app:destination="@id/gameWinFragment" />
