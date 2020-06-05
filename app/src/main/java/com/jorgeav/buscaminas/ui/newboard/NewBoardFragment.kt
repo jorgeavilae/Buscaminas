@@ -16,6 +16,8 @@
 
 package com.jorgeav.buscaminas.ui.newboard
 
+import android.animation.Animator
+import android.animation.AnimatorSet
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
@@ -78,12 +80,103 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
         binding.moreBombsButton.setOnTouchListener(this)
         binding.lessBombsButton.setOnTouchListener(this)
 
+        binding.lessCellsButton.setOnClickListener { onLessCellsClicked() }
+        binding.moreCellsButton.setOnClickListener { onMoreCellsClicked() }
+
         return binding.root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity?.application as MyApplication).appComponent.inject(this)
+    }
+
+    private fun onLessCellsClicked() {
+        AnimatorSet().apply {
+            playSequentially(
+                NewBoardAnimations.animationLeftOut(binding.cellsQuantityText,
+                    object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        override fun onAnimationRepeat(animation: Animator) {}
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            viewModel.onLessCellsClicked()
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+                            viewModel.onLessCellsClicked()
+                        }
+                    }),
+                NewBoardAnimations.animationLeftIn(binding.cellsQuantityText)
+            )
+            start()
+        }
+    }
+
+    private fun onMoreCellsClicked() {
+        AnimatorSet().apply {
+            playSequentially(
+                NewBoardAnimations.animationRightOut(binding.cellsQuantityText,
+                    object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        override fun onAnimationRepeat(animation: Animator) {}
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            viewModel.onMoreCellsClicked()
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+                            viewModel.onMoreCellsClicked()
+                        }
+                    }),
+                NewBoardAnimations.animationRightIn(binding.cellsQuantityText)
+            )
+            start()
+        }
+    }
+
+    private fun onLessBombsClicked() {
+        AnimatorSet().apply {
+            playSequentially(
+                NewBoardAnimations.animationLeftOut(binding.bombsQuantityText,
+                    object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        override fun onAnimationRepeat(animation: Animator) {}
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            viewModel.onLessBombsClicked()
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+                            viewModel.onLessBombsClicked()
+                        }
+                    }),
+                NewBoardAnimations.animationLeftIn(binding.bombsQuantityText)
+            )
+            start()
+        }
+    }
+
+    private fun onMoreBombsClicked() {
+        AnimatorSet().apply {
+            playSequentially(
+                NewBoardAnimations.animationRightOut(binding.bombsQuantityText,
+                    object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {}
+                        override fun onAnimationRepeat(animation: Animator) {}
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            viewModel.onMoreBombsClicked()
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+                            viewModel.onMoreBombsClicked()
+                        }
+                    }),
+                NewBoardAnimations.animationRightIn(binding.bombsQuantityText)
+            )
+            start()
+        }
     }
 
     private fun enabledCellsButtons(cells: Int) {
@@ -153,7 +246,7 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
             moreBombsButtonClickedJob = lifecycleScope.launch {
                 var delayMillis = 400L
                 while (true) {
-                    viewModel.onMoreBombsClicked()
+                    onMoreBombsClicked()
                     // This is a suspend function so 'isActive' is evaluated
                     delay(delayMillis)
                     if (delayMillis > 100) delayMillis -= 100
@@ -172,7 +265,7 @@ class NewBoardFragment : Fragment(), View.OnTouchListener {
             lessBombsButtonClickedJob = lifecycleScope.launch {
                 var delayMillis = 400L
                 while (true) {
-                    viewModel.onLessBombsClicked()
+                    onLessBombsClicked()
                     // This is a suspend function so 'isActive' is evaluated
                     delay(delayMillis)
                     if (delayMillis > 100) delayMillis -= 100
