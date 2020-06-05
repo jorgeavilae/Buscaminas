@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_related"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toBottomOf="@id/time_text"
             motion:layout_constraintStart_toEndOf="@id/time_text"
             motion:layout_constraintTop_toTopOf="@id/time_text"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_related"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toBottomOf="@id/bombs_text"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintTop_toTopOf="@id/bombs_text"
@@ -75,8 +75,7 @@
             android:visibility="invisible"
             motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"/>
         <Constraint
             android:id="@+id/cells_board_view"
             android:layout_width="match_parent"
@@ -145,7 +144,7 @@
             android:id="@+id/progress_circular_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -157,8 +156,7 @@
             android:visibility="invisible"
             motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
             android:id="@+id/cells_board_view"
             android:layout_width="match_parent"
@@ -193,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_related"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toBottomOf="@id/time_text"
             motion:layout_constraintEnd_toStartOf="@id/guideline_board_vertical"
             motion:layout_constraintStart_toEndOf="@id/time_text"
@@ -214,7 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin_related"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toBottomOf="@id/bombs_text"
             motion:layout_constraintEnd_toEndOf="@id/cells_board_view"
             motion:layout_constraintStart_toEndOf="@id/bombs_text"
@@ -224,7 +222,7 @@
             android:id="@+id/progress_circular_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="gone"
             motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -287,5 +285,12 @@
         android:id="@+id/no_board_transition"
         motion:constraintSetEnd="@+id/constraint_set_no_board"
         motion:constraintSetStart="@+id/constraint_set_start"
-        motion:duration="1000" />
+        motion:duration="1000" >
+        <KeyFrameSet >
+            <KeyAttribute
+                motion:motionTarget="@+id/no_board_text"
+                motion:framePosition="80"
+                android:alpha="0" />
+        </KeyFrameSet>
+    </Transition>
 </MotionScene>
