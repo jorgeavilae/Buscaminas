@@ -88,10 +88,9 @@
             android:layout_marginBottom="@dimen/horizontal_margin_borders_wide"
             android:overScrollMode="never"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintVertical_bias="0.6" />
+            motion:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/constraint_set_end">
@@ -240,14 +239,17 @@
             android:id="@+id/cells_board_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginStart="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginLeft="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginTop="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginEnd="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginRight="@dimen/horizontal_margin_borders_wide"
+            android:layout_marginBottom="@dimen/horizontal_margin_borders_wide"
             android:overScrollMode="never"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="@id/guideline_board_horizontal"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintVertical_bias="0.6" />
+            motion:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
 
