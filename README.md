@@ -10,7 +10,7 @@ Built with ❤︎ by [Jorge Ávila](https://www.linkedin.com/in/jorgeavilae/)
 ##  Usage
 Create a new board setting the number of cells by side (N x N) and the number of mines on the board. 
 
-Then, you just tap on each cell to reveal it. You can long-click on a cell where you think there is a mine, and the mines indicator will decrease. 
+Then, you just tap on each cell to reveal it. You can mark a cell where you think there is a mine also. Just long-click on it, a flag shows up and the mines indicator will decrease. 
 
 When all cells without mines are revealed, you can share your results with your friends and engage them to beat you. Time is ticking, so tap fast to be the best!.
 
@@ -38,9 +38,12 @@ Implements three types of animations: **AnimatorSet** for changes in numbers in 
 Gradle defines two **builds types**: debug and release. In the debug version, an external library [RoomExplorer](https://github.com/wajahatkarim3/RoomExplorer) is used to view the content in Room Database. 
 
 Uses **[Dagger](https://dagger.dev/) for dependency injection**. Uses only one Singleton module, which provides some classes as interfaces and needs a Context external dependency to build.
+<img alt="Dependency graph classes" src="docs/Buscaminas_dependency_graph_classes.png" />
 
 ## Contact
-Jorge Ávila - [LinkedIn](https://www.linkedin.com/in/jorgeavilae/) - jorgeavilae@gmail.com
+Jorge Ávila 
+-	[LinkedIn](https://www.linkedin.com/in/jorgeavilae/) 
+-	jorgeavilae@gmail.com
 
 ## License
 ```
