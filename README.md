@@ -10,14 +10,14 @@ Built with ❤︎ by [Jorge Ávila](https://www.linkedin.com/in/jorgeavilae/)
 ##  Usage
 Create a new board setting the number of cells by side (N x N) and the number of mines on the board. 
 
-Then, you just tap on each cell to reveal it. You can mark a cell where you think there is a mine also. Just long-click on it, a flag shows up and the mines indicator will decrease. 
+Then, you just tap on each cell to reveal it. Also, you can mark a cell where you think there is a mine. Just long-click on it, a flag shows up and the mines indicator will decrease. 
 
 When all cells without mines are revealed, you can share your results with your friends and engage them to beat you. Time is ticking, so tap fast to be the best!.
 
 <img alt="New board" src="docs/Screenshot_newboard.png" width="30%" hspace="5" /><img alt="Board game" src="docs/Screenshot_board.png" width="30%" hspace="5" /><img alt="Finished game" src="docs/Screenshot_win.png" width="30%" hspace="5" />
 
 ## About The App
-A native Android app, write in **Kotlin**, and publish in **Google Play Store** (https://play.google.com/store/apps/details?id=com.jorgeav.buscaminas)
+A native Android app, written in **Kotlin**, and published in **Google Play Store** (https://play.google.com/store/apps/details?id=com.jorgeav.buscaminas)
 
 This app is built based on **Clean Architecture** and **S.O.L.I.D.** principles. It has two modules:
 * 	**core** for inner layers with business logic and framework independent (use cases, domain model and data abstractions). Without any android-related dependency in gradle file.
